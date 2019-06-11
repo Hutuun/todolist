@@ -87,17 +87,17 @@ $sql = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM
 $order="";
 $orderD="";
 
-$affi =  "<h2 id='menu1' onclick='afficheMenu(this)'><a style='cursor: pointer; cursor: hand'>Liste des taches supprimés</a></h2>";
+$affi =  "<h2 id='menu1' onclick='afficheMenu(this)'><a style='cursor: pointer; cursor: hand'>Liste des tâches supprimées</a></h2>";
 $affi .=  "<table id='sousmenu1' style='display: table' class='ta'><tr>";
 $affi .= "<td style='max-width: 45px'><form method='post' id='sub$cpt'><input type='text' name='order' value='sutache.idTache' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Num</a></form></td>";
 $cpt += 1;
-$affi .= "<td style='text-align: center; width: 1200px''><form method='post' id='sub$cpt'><input type='text' name='order' value='sutache.nomTache' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Tâche</a></form></td>";
+$affi .= "<td style='text-align: center; width: 400px''><form method='post' id='sub$cpt'><input type='text' name='order' value='sutache.nomTache' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Tâche</a></form></td>";
 $cpt += 1;
 $affi .= "<td style='text-align: center; '><form method='post' id='sub$cpt'><input type='text' name='order' value='idDemandeur' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Demandeur</a></form></td>";
 $cpt += 1;
-$affi .= "<td style='text-align: center; '>Qui</td>";
+$affi .= "<td style='text-align: center; size: 120px'>Qui</td>";
 $cpt += 1;
-$affi .= "<td style='text-align: center'>BD</td>";
+$affi .= "<td style='text-align: center; size: 80px'>BD</td>";
 $cpt += 1;
 $affi .= "<td style='text-align: center; '><form method='post' id='sub$cpt'><input type='text' name='order' value='sutache.dateCreation' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Début</a></form></td>";
 $cpt += 1;
@@ -113,24 +113,24 @@ if($_SERVER["REQUEST_METHOD"]==="POST") {
         $order = $_POST["order"];
         $sql = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM sutache,sutuser,suuser where suuser.idUser = sutuser.idUser and sutuser.idTache = sutache.idTache group by sutuser.idTache ORDER by $order, priorite DESC";
 
-        $affi =  "<h2 id='menu1' onclick='afficheMenu(this)'><a style='cursor: pointer; cursor: hand'>Liste des taches</a></h2>";
+        $affi =  "<h2 id='menu1' onclick='afficheMenu(this)'><a style='cursor: pointer; cursor: hand'>Liste des tâches supprimées</a></h2>";
         $affi .=  "<table id='sousmenu1' style='display: table' class='ta'><tr>";
 
-        $affi .= "<td style='max-width: 45px'><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.idTache' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Num</a></form></td>";
+        $affi .= "<td style='max-width: 45px'><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.idTache' hidden><a onclick='valider($cpt)' style='cursor: pointer;'>Num</a></form></td>";
         $cpt += 1;
-        $affi .= "<td style='text-align: center; width: 1200px'><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.nomTache' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Tache</a></form></td>";
+        $affi .= "<td style='text-align: center; width: 400px'><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.nomTache' hidden><a onclick='valider($cpt)' style='cursor: pointer;'>Tâche</a></form></td>";
         $cpt += 1;
-        $affi .= "<td style='text-align: center; '><form method='post' id='sub$cpt'><input type='text' name='orderD' value='idDemandeur' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Demandeur</a></form></td>";
+        $affi .= "<td style='text-align: center; '><form method='post' id='sub$cpt'><input type='text' name='orderD' value='idDemandeur' hidden><a onclick='valider($cpt)' style='cursor: pointer;'>Demandeur</a></form></td>";
         $cpt += 1;
-        $affi .= "<td style='text-align: center; '>Qui</td>";
+        $affi .= "<td style='text-align: center; size: 120px'>Qui</td>";
         $cpt += 1;
-        $affi .= "<td style='text-align: center; '>BD</td>";
+        $affi .= "<td style='text-align: center; size: 120px'>BD</td>";
         $cpt += 1;
-        $affi .= "<td style='text-align: center; '><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.dateCreation' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Début</a></form></td>";
+        $affi .= "<td style='text-align: center; '><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.dateCreation' hidden><a onclick='valider($cpt)' style='cursor: pointer;'>Début</a></form></td>";
         $cpt += 1;
-        $affi .= "<td style='text-align: center; '><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.deadline' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Deadline</a></form></td>";
+        $affi .= "<td style='text-align: center; '><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.deadline' hidden><a onclick='valider($cpt)' style='cursor: pointer;'>Deadline</a></form></td>";
         $cpt += 1;
-        $affi .= "<td style='text-align: center; '><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.dateSuppr' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Fin</a></form></td>";
+        $affi .= "<td style='text-align: center; '><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.dateSuppr' hidden><a onclick='valider($cpt)' style='cursor: pointer; '>Fin</a></form></td>";
         if($_SESSION["admin"]>="1") {
             $affi .= "<td style='text-align: center; '>Supprimer</td>";
         }

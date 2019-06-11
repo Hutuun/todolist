@@ -185,7 +185,7 @@ if($_SERVER["REQUEST_METHOD"]==="POST") {
         $cpt += 1;
         $affi .= "<td style='text-align: center; width: 120px'>Qui</td>";
         $cpt += 1;
-        $affi .= "<td style='text-align: center; width: 120px'>BD</td>";
+        $affi .= "<td style='text-align: center; width: 80px'>BD</td>";
         $cpt += 1;
         $affi .= "<td style='width: 80px; text-align: center'><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.dateCreation' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Début</a></form></td>";
         $cpt += 1;

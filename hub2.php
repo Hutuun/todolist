@@ -67,7 +67,7 @@
         }
     </style>
 </head>
-<body style="font-family: Trebuchet,Trebuchet MS,Arial,Helvetica,Sans-serif; background-color: #ffddff ">
+<body style="font-family: Trebuchet,Trebuchet MS,Arial,Helvetica,Sans-serif; background-color: #ffffff ">
 
 <?php
 /**
@@ -137,7 +137,7 @@ $affi .= "<td style='text-align: center; width: 1200px'><form action='hub.php' m
 $cpt += 1;
 $affi .= "<td style='text-align: center; '><form action='hub.php' method='post' id='sub$cpt'><input type='text' name='order' value='idDemandeur' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Demandeur</a></form></td>";
 $cpt += 1;
-$affi .= "<td style='text-align: center; width: 80px'>Qui</td>";
+$affi .= "<td style='text-align: center; width: 120px'>Qui</td>";
 $cpt += 1;
 $affi .= "<td style='width: 80px; text-align: center'>BD</td>";
 $cpt += 1;
@@ -188,7 +188,7 @@ if($_SERVER["REQUEST_METHOD"]==="POST") {
         $cpt += 1;
         $affi .= "<td style='text-align: center; '><form action='hub.php' method='post' id='sub$cpt'><input type='text' name='orderD' value='idDemandeur' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Demandeur</a></form></td>";
         $cpt += 1;
-        $affi .= "<td style='text-align: center; width: 80px'>Qui</td>";
+        $affi .= "<td style='text-align: center; width: 120px'>Qui</td>";
         $cpt += 1;
         $affi .= "<td style='text-align: center; width: 80px'>BD</td>";
         $cpt += 1;
