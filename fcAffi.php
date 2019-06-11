@@ -327,6 +327,8 @@ function valid($res,$idD,&$cpt,$b){
                         </a>
                         </form>
                         </td>";
+
+                        $cpt +=1;
                     }
                     else{
                         $color = "#" . $row["color"];
@@ -340,11 +342,13 @@ function valid($res,$idD,&$cpt,$b){
                         </a>
                         </form>
                         </td>";
+                        $cpt +=1;
                     }
                 }
             }else{
                 if ($row["checked"] == 1) {
                     $color = "#" . $row["color"];
+
                     $str .= "<td style='color: $color; padding: 3px ; border: none'><div class='check icon' style='color: $color'></td>";
                 }
             }
@@ -389,6 +393,7 @@ function valid($res,$idD,&$cpt,$b){
                     </a>
                     </form>
                     </td>";
+                        $cpt +=1;
                     } else {
                         $color = "#" . $row["color"];
                         $str .= "<td style='color: $color; padding: 3px ; border: none'>
@@ -401,6 +406,7 @@ function valid($res,$idD,&$cpt,$b){
                     </a>
                     </form>
                     </td>";
+                        $cpt +=1;
                     }
                 }
             } else {
