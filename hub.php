@@ -117,10 +117,12 @@ while ($row = mysqli_fetch_assoc($res)){
     if ((strtotime($row["dateFin"]) > time() || strtotime($row["dateFin"])<0 || strtotime($row["dateFin"])===false)) {
         $color = $row["color"];
         $id = $row["idUser"];
-        $affi .= "<span style='color: #$color'><input type='checkbox' name='id' value='$id' onclick='valider($cpt)'>" . $row["prenom"] . " " . $row["nom"] . "</span>";
+        $affi .= "<span style='color: #$color;padding-right: 6px'><input type='checkbox' name='id' value='$id' onclick='valider($cpt)' >" . $row["prenom"] . " " . $row["nom"] . "</span>";
     }
 }
 $affi.= "<span><input type='checkbox' name='id' value='4' onclick='valider($cpt)'>Personne Autre</span></form></tr></table>";
+
+$affi.="<br/>";
 
 $cpt +=1;
 
