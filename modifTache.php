@@ -128,7 +128,11 @@ $r = mysqli_fetch_assoc($resultat);
                 </tr>
                 <tr>
                     <td><label>Deadline(opt) : </label></td>
-                    <td><input type="date"   name="deadline" style="width:60%" ></td>
+                    <td><input type="date"  value="<?php if($r["deadline"]!=="0000-00-00"){
+                        echo date("y-m-d",$r["deadline"]);
+                    }else{
+                        echo "";
+                        }?>" name="deadline" style="width:60%" ></td>
                 </tr>
                 <tr>
                     <td><label>Description : </label></td>
