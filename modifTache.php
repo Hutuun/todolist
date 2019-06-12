@@ -145,19 +145,23 @@ $r = mysqli_fetch_assoc($resultat);
                 </tr>
                 <tr>
                     <td><label>Date de début : </label></td>
-                    <td><input type="date" name="dd" style="width:60%" ></td>
+                    <td><input type="date" value="<?php
+                        echo date("y/m/d",$r["dateCreation"]);
+                        ?>" name="dd" style="width:60%" ></td>
                 </tr>
                 <tr>
                     <td><label>Deadline(opt) : </label></td>
                     <td><input type="date"  value="<?php if($r["deadline"]!=="0000-00-00"){
-                        echo date("y-m-d",$r["deadline"]);
+                        echo date("y/m/d",$r["deadline"]);
                     }else{
                         echo "";
                         }?>" name="deadline" style="width:60%" ></td>
                 </tr>
                 <tr>
                     <td><label>Date de fin : </label></td>
-                    <td><input type="date" name="df" style="width:60%" ></td>
+                    <td><input type="date" value="<?php
+                        echo date("y/m/d",$r["dateSuppr"]);
+                        ?>" name="df" style="width:60%" ></td>
                 </tr>
                 <tr>
                     <td><label>Description : </label></td>

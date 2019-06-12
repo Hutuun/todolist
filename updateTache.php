@@ -22,7 +22,7 @@ while ($row = mysqli_fetch_assoc($res)) {
     }
 }
 
-$id = $_POST["idtache"];
+$idTache = $_POST["idtache"];
 
 $nom = $_POST["nom"];
 $prio = $_POST["prio"];
@@ -31,6 +31,13 @@ if ($_POST["deadline"]!=="") {
     $dead = $_POST["deadline"];
 }
 $desc = $_POST["desc"];
+
+$dd= $_POST["dd"];
+$df = $_POST["df"];
+
+
+$sql = "UPDATE `sutache` SET `nomTache`=\"$nom\",`descriptionTache`=\"$desc\",`idDemandeur`=$demandeur,`priorite`=$prio,`deadline`=\"$dead\",`dateCreation`=\"$dd\",`dateSuppr`=\"$df\"
+          WHERE `idTache`=$idTache";
 
 $sql = "SELECT idBD FROM subd";
 
@@ -41,7 +48,7 @@ while ($row = mysqli_fetch_assoc($res)){
 
 
     if(isset($_POST["$id"])){
-        $sql = "INSERT INTO sutbd(idBD,idTache) VALUES (\"$id\", \"$cpt\")";
+        $sql = "INSERT INTO sutbd(idBD,idTache) VALUES (\"$id\", \"$idTache\")";
         query($sql);
     }
 }
@@ -56,9 +63,11 @@ while ($row = mysqli_fetch_assoc($res)) {
     $id = $row["idUser"];
     if(isset($_POST["$id"])) {
 
-        $sql = "INSERT INTO sutuser(idUser, idTache, checked) VALUES (\"$id\",\"$cpt\",0);";
+        $sql = "INSERT INTO sutuser(idUser, idTache, checked) VALUES (\"$id\",\"$idTache\",0);";
         query($sql);
 
         $mailto.=$row["mail"].",";
     }
 }
+
+header("Refresh:0, URL=hub.php");
