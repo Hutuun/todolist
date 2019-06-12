@@ -67,7 +67,7 @@ while ($row = mysqli_fetch_assoc($res)){
     }
 }
 
-$sql = "SELECT idUser From suuser";
+$sql = "SELECT * From suuser";
 $res = query($sql);
 
 $mailto="";
@@ -79,15 +79,7 @@ while ($row = mysqli_fetch_assoc($res)) {
         $sql = "INSERT INTO sutuser(idUser, idTache, checked) VALUES (\"$id\",\"$cpt\",0);";
         query($sql);
 
-
-        $sql ="SELECT nom,prenom,mail,dateFin FROM suuser where idUser=$id";
-        $res=query($sql);
-
-        while($row=mysqli_fetch_assoc($res)){
-            if($row["mail"]!=NULL && (strtotime($row["dateFin"]) > time() || strtotime($row["dateFin"])<0 || strtotime($row["dateFin"])===false)) {
-                $mailto .= $row["mail"] . ",";
-            }
-        }
+        $mailto.=$row["mail"].",";
     }
 }
 

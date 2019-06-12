@@ -65,6 +65,32 @@
             -webkit-transform: rotate(-45deg);
             transform: rotate(-45deg);
         }
+        .close.icon {
+            color: #000;
+            position: absolute;
+            width: 10px;
+            height: 10px;
+        }
+        .close.icon:before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            width: 21px;
+            height: 1px;
+            background-color: currentColor;
+            -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+        }
+        .close.icon:after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            width: 21px;
+            height: 1px;
+            background-color: currentColor;
+            -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
     </style>
 </head>
 <body style="font-family: Trebuchet,Trebuchet MS,Arial,Helvetica,Sans-serif; background-color: #ffffff ">
