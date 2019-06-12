@@ -107,4 +107,9 @@ $header .= "MIME-Version: 1.0 \n";
 $header .= "Content-Transfer-Encoding: 8bit \r\n";
 mail($mailto,"Nouvelle tâche","Une nouvelle tâche a été ajoutée.",$header);
 
-header("Refresh:0; URL=hub.php");
+if(isset($_POST["tache"])){
+    header("Refresh:0; URL=ajouterTache.php");
+}else{
+
+    header("Refresh:0; URL=hub.php");
+}

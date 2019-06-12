@@ -119,27 +119,29 @@ while ($row = mysqli_fetch_assoc($res)){
     if ((strtotime($row["dateFin"]) > time() || strtotime($row["dateFin"])<0 || strtotime($row["dateFin"])===false)) {
         $color = $row["color"];
         $id = $row["idUser"];
-        $affi .= "<span style='color: #$color ;padding-right: 6px'><input type='checkbox' name='id' value='$id' onclick='valider($cpt)' >" . $row["prenom"] . " " . $row["nom"] . "</span>";
+        $affi .= "<span style='color: #$color ;padding-right: 12px'><input type='checkbox' name='id' value='$id' onclick='valider($cpt)' >" . $row["prenom"] . "</span>";
     }
 }
-$affi.= "<span><input type='checkbox' name='id' value='4' onclick='valider($cpt)'>Personne Autre</span></form></tr></table>";
+$affi.= "<span><input type='checkbox' name='id' value='4' onclick='valider($cpt)'>Autre</span></form></tr></table>";
+
+$affi.="<br/>";
 
 $cpt +=1;
 
 $id = $_POST["id"];
 
-$sql = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM sutache,sutuser,suuser where suuser.idUser = sutuser.idUser and sutuser.idTache = sutache.idTache and suuser.idUser = $id GROUP by sutuser.idTache order by dateSuppr, priorite DESC, dateCreation";
+$sql = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM sutache,sutuser,suuser where suuser.idUser = sutuser.idUser and sutuser.idTache = sutache.idTache and suuser.idUser = $id GROUP by sutuser.idTache order by dateSuppr, priorite DESC, dateCreation, deadline, sutache.idTache";
 
-$sql2 = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM sutache,sutuser,suuser where suuser.idUser = sutuser.idUser and sutuser.idTache = sutache.idTache and suuser.idUser <> $id GROUP by sutuser.idTache order by dateSuppr, priorite DESC, dateCreation";
+$sql2 = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM sutache,sutuser,suuser where suuser.idUser = sutuser.idUser and sutuser.idTache = sutache.idTache and suuser.idUser <> $id GROUP by sutuser.idTache order by dateSuppr, priorite DESC, dateCreation, deadline, sutache.idTache";
 
 $affi .=  "<table id='sousmenu1' style='display: table' class='ta'><tr>";
 $affi .= "<td style='max-width: 45px'><form action='hub.php' method='post' id='sub$cpt'><input type='text' name='order' value='sutache.idTache' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Num</a></form></td>";
 $cpt += 1;
-$affi .= "<td style='text-align: center; width: 1200px'><form action='hub.php' method='post' id='sub$cpt'><input type='text' name='order' value='sutache.nomTache' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Tâches</a></form></td>";
+$affi .= "<td style='text-align: center; width: 400px'><form action='hub.php' method='post' id='sub$cpt'><input type='text' name='order' value='sutache.nomTache' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Tâches</a></form></td>";
 $cpt += 1;
 $affi .= "<td style='text-align: center; '><form action='hub.php' method='post' id='sub$cpt'><input type='text' name='order' value='idDemandeur' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Demandeur</a></form></td>";
 $cpt += 1;
-$affi .= "<td style='text-align: center; width: 120px'>Qui</td>";
+$affi .= "<td style='text-align: center; width: 80px'>Qui</td>";
 $cpt += 1;
 $affi .= "<td style='width: 80px; text-align: center'>BD</td>";
 $cpt += 1;
@@ -149,6 +151,7 @@ $affi .= "<td style='width: 80px; text-align: center'><form action='hub.php' met
 $cpt += 1;
 $affi .= "<td style='width: 80px; text-align: center'><form action='hub.php' method='post' id='sub$cpt'><input type='text' name='order' value='sutache.dateSuppr' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Fin</a></form></td>";
 $affi .= "<td style='text-align: center; '>Validation</td>";
+$affi .= "<td style='text-align: center; '>modif</td>";
 if($_SESSION["admin"]>="1") {
     $affi .= "<td style='text-align: center; '>Supprimer</td>";
 }
@@ -170,10 +173,12 @@ if($_SERVER["REQUEST_METHOD"]==="POST") {
             if ((strtotime($row["dateFin"]) > time() || strtotime($row["dateFin"])<0 || strtotime($row["dateFin"])===false)) {
                 $color = $row["color"];
                 $id = $row["idUser"];
-                $affi .= "<span style='color: #$color'><input type='checkbox' name='id' value='$id' onclick='valider($cpt)'>" . $row["prenom"] . " " . $row["nom"] . "</span>";
+                $affi .= "<span style='color: #$color;padding-right: 12px'><input type='checkbox' name='id' value='$id' onclick='valider($cpt)'>" . $row["prenom"] . " " . $row["nom"] . "</span>";
             }
         }
         $affi.= "<span><input type='checkbox' name='id' value='4' onclick='valider($cpt)'>Personne Autre</span></form></tr></table>";
+
+        $affi.="<br/>";
 
         $cpt +=1;
 
@@ -186,11 +191,11 @@ if($_SERVER["REQUEST_METHOD"]==="POST") {
 
         $affi .= "<td style='max-width: 45px'><form action='hub.php' method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.idTache' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Num</a></form></td>";
         $cpt += 1;
-        $affi .= "<td style='text-align: center; width: 1200px'><form action='hub.php' method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.nomTache' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Tâches</a></form></td>";
+        $affi .= "<td style='text-align: center; width: 400px'><form action='hub.php' method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.nomTache' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Tâches</a></form></td>";
         $cpt += 1;
         $affi .= "<td style='text-align: center; '><form action='hub.php' method='post' id='sub$cpt'><input type='text' name='orderD' value='idDemandeur' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Demandeur</a></form></td>";
         $cpt += 1;
-        $affi .= "<td style='text-align: center; width: 120px'>Qui</td>";
+        $affi .= "<td style='text-align: center; width: 80px'>Qui</td>";
         $cpt += 1;
         $affi .= "<td style='text-align: center; width: 80px'>BD</td>";
         $cpt += 1;
@@ -200,6 +205,7 @@ if($_SERVER["REQUEST_METHOD"]==="POST") {
         $cpt += 1;
         $affi .= "<td style='width: 80px; text-align: center'><form action='hub.php' method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.dateSuppr' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Fin</a></form></td>";
         $affi .= "<td style='text-align: center; '>Validation</td>";
+        $affi .= "<td style='text-align: center; '>modif</td>";
         if($_SESSION["admin"]>="1") {
             $affi .= "<td style='text-align: center; '>Supprimer</td>";
         }

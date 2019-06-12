@@ -9,7 +9,7 @@
 function affiTnf($row,&$cpt){
     $color = "#000000";
     if($row["priorite"]==1){
-        $color = "#990000";
+        $color = "#ffa900";
     }
     if ($row["priorite"]==2){
         $color ="#ff0000";
@@ -73,6 +73,13 @@ function affiTnf($row,&$cpt){
     }else{
         $str .= "<td></td>";
     }
+    if($row["idUser"]===$_SESSION["id"]){
+        $str.="<td><form method='post' action='modifTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer'>test</a></form></td>";
+        $cpt+=1;
+    }else{
+        $str.="<td></td>";
+    }
+
     if(($_SESSION["id"]===$row["idDemandeur"] && $_SESSION["admin"]==1) || $_SESSION["admin"]==2) {
         $str .= "<td style='text-align: center'><form method='post' action='supprTache.php' id='sub$cpt'><input type='text' value='" . $row["idTache"] . "' name='idtache' hidden><a onclick='valider($cpt)' style='cursor: pointer;'><img alt='' src='delete.png'/></a></form></td></tr>";
         $cpt += 1;
@@ -90,7 +97,7 @@ function affiTf($row,&$cpt){
 
     $color = '#000000';
     if($row["priorite"]==1){
-        $color = '#990000';
+        $color = '#ffa900';
     }
     if ($row["priorite"]==2){
         $color ='#ff0000';
@@ -155,6 +162,13 @@ function affiTf($row,&$cpt){
         $str .= "<td></td>";
     }
 
+    if($row["idUser"]===$_SESSION["id"]){
+        $str.="<td><form method='post' action='modifTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer'>test</a></form></td>";
+        $cpt+=1;
+    }else{
+        $str.="<td></td>";
+    }
+
     if(($_SESSION["id"]===$row["idDemandeur"] && $_SESSION["admin"]=="1") || $_SESSION["admin"]=="2") {
         $str .= "<td style='text-align: center;'><form method='post' action='supprTache.php' id='sub$cpt'><input type='text' value='" . $row["idTache"] . "' name='idtache' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand;'><img src='delete.png'></a></form></td></tr>";
         $cpt +=1;
@@ -210,6 +224,7 @@ function affSuppr($row,&$cpt){
     }else{
         $str .= "<td></td>";
     }
+
     if(($_SESSION["id"]===$row["idDemandeur"] && $_SESSION["admin"]==1) || $_SESSION["admin"]==2) {
         $str .= "<td style='text-align: center'><form method='post' action='supprTache.php' id='sub$cpt'><input type='text' value='" . $row["idTache"] . "' name='idtache' hidden><a onclick='valider($cpt)' style='cursor: pointer;'><img alt='' src='delete.png'/></a></form></td></tr>";
         $cpt += 1;

@@ -31,12 +31,17 @@ $res = query($sql);
             <legend>&nbsp;Veuillez sélectionner les informations</legend>
             <table>
                 <tr>
-                    <td><label>Demander par : </label></td>
+                    <td><label>Demandé par : </label></td>
                     <?php
                     echo "<td><table>";
                     while ($row = mysqli_fetch_assoc($res)) {
                         if ((strtotime($row["dateFin"]) > time() || strtotime($row["dateFin"])<0 || strtotime($row["dateFin"])==false) && $row["admin"]>=1) {
-                            echo '<td style="color: #'.$row["color"].'"><input type="checkbox"  value="' . $row['idUser'] . '" name="d' . $row['idUser'] . '">' . substr_replace($row['nom'],strtoupper(substr($row['nom'],0,1)),0,1) . ' ' . substr_replace($row['prenom'],strtoupper(substr($row['prenom'],0,1)),0,1) . '</td>';
+                            if ($row["idUser"] == 2) {
+                                echo '<td style="color: #' . $row["color"] . '"><input type="checkbox" checked value="' . $row['idUser'] . '" name="d' . $row['idUser'] . '">' . substr_replace($row['nom'], strtoupper(substr($row['nom'], 0, 1)), 0, 1) . ' ' . substr_replace($row['prenom'], strtoupper(substr($row['prenom'], 0, 1)), 0, 1) . '</td>';
+                            }else{
+                                echo '<td style="color: #' . $row["color"] . '"><input type="checkbox" value="' . $row['idUser'] . '" name="d' . $row['idUser'] . '">' . substr_replace($row['nom'], strtoupper(substr($row['nom'], 0, 1)), 0, 1) . ' ' . substr_replace($row['prenom'], strtoupper(substr($row['prenom'], 0, 1)), 0, 1) . '</td>';
+
+                            }
                         }
                     }
                     echo "</table></td>";
@@ -90,7 +95,7 @@ $res = query($sql);
                 </tr>
                 <tr>
                     <td><label>Description : </label></td>
-                    <td><textarea style="resize: none; width: 60%" name="desc" maxlength="1500" required></textarea></td>
+                    <td><textarea style="resize: none; width: 60%" name="desc" maxlength="1500"></textarea></td>
                 </tr>
             </table>
         </fieldset>
@@ -102,8 +107,8 @@ $res = query($sql);
             <br/><br/>
             <p>
                 <a href="hub.php"><input type='button' value='Annuler' style="width: 80px"/></a>
-                <label class="right">&nbsp;</label>
-                <input type="submit" value="Valider" style="width: 80px"/>
+                <input type="submit" value="Nouvelle tâche" name="tache" style="width: 120px"/>
+                <input type="submit" value="Valider" name="valider" style="width: 80px"/>
             </p>
         </fieldset>
     </form>
