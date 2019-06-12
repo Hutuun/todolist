@@ -74,7 +74,7 @@ function affiTnf($row,&$cpt){
         $str .= "<td></td>";
     }
     if($row["idUser"]===$_SESSION["id"]){
-        $str.="<td><form method='post' action='modifTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer'>test</a></form></td>";
+        $str.="<td style='text-align: center;'><form method='post' action='modifTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer'><img src=\"write-paper-ink-icon.png\"></a></form></td>";
         $cpt+=1;
     }else{
         $str.="<td></td>";
@@ -163,7 +163,7 @@ function affiTf($row,&$cpt){
     }
 
     if($row["idUser"]===$_SESSION["id"]){
-        $str.="<td><form method='post' action='modifTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer'>test</a></form></td>";
+        $str.="<td style='text-align: center;'><form method='post' action='modifTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer'><img src=\"write-paper-ink-icon.png\"></a></form></td>";
         $cpt+=1;
     }else{
         $str.="<td></td>";
