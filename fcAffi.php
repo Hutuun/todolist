@@ -61,7 +61,7 @@ function affiTnf($row,&$cpt){
             $b = 0;
     }
 
-    $sql = "SELECT * FROM sutuser,suuser,sutache WHERE suuser.idUser=sutuser.idUser and sutache.idtache=sutuser.idTache and sutache.idTache='".$row["idTache"]."'";
+    $sql = "SELECT * FROM suuser WHERE  idUser='".$_SESSION["id"]."'";
 
     $res = query($sql);
 
@@ -137,18 +137,9 @@ function affiTf($row,&$cpt){
     }else{
         $str .= "<td></td>";
     }
-    $sql = "SELECT * FROM sutuser WHERE idTache='".$row["idTache"]."'";
 
-    $res = query($sql);
 
-    $b =1;
-
-    while ($r =mysqli_fetch_assoc($res)){
-        if($r["checked"]!=1)
-            $b = 0;
-    }
-
-    $sql = "SELECT * FROM sutuser,suuser,sutache WHERE suuser.idUser=sutuser.idUser and sutache.idtache=sutuser.idTache and sutache.idTache='".$row["idTache"]."'";
+    $sql = "SELECT * FROM suuser WHERE  idUser='".$_SESSION["id"]."'";
 
     $res = query($sql);
 
@@ -158,7 +149,7 @@ function affiTf($row,&$cpt){
     $str .= "<td>".valid($row["idTache"],$row["idDemandeur"],$cpt,$b)."</td>";
 
 
-    if($row["idUser"]===$_SESSION["id"]||$_SESSION["id"]===$row["idDemandeur"]){
+    if($row["idUser"]===$_SESSION["id"]||$_SESSION["id"]===$row["idDemandeur"] || $r["admin"]==2){
         $str.="<td style='text-align: center;'><form method='post' action='modifTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer'><img src=\"write-paper-ink-icon.png\"></a></form></td>";
         $cpt+=1;
     }else{
@@ -283,7 +274,16 @@ function valid($res,$idD,&$cpt,$b){
         $r = query($sql);
 
         $row = mysqli_fetch_assoc($r);
-    if($_SESSION["id"]===$idD ) {
+
+        $id = $_SESSION["id"];
+
+        $sql = "SELECT * FROM suuser where idUser=$id";
+
+        $resultat = query($sql);
+
+        $r = mysqli_fetch_assoc($resultat);
+
+    if($_SESSION["id"]===$idD || $r["admin"]==2) {
         $color = "#" . $row["color"];
 
         $sql = "SELECT * FROM suuser,sutuser,sutache where idDemandeur=suuser.idUser and sutache.idTache=sutuser.idTache and sutache.idTache=$res";

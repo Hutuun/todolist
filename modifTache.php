@@ -8,9 +8,7 @@
 
 include ("database.php");
 
-$sql = "SELECT * FROM suuser order by nom,prenom";
 
-$res = query($sql);
 
 $id = $_POST["idtache"];
 
@@ -32,24 +30,33 @@ $r = mysqli_fetch_assoc($resultat);
 <br/>
 <br/>
 <div class="contenu_page">
-    <form id="tache" method="post" action="insertTache.php">
+    <form id="tache" method="post" action="updateTache.php">
         <fieldset>
             <legend>&nbsp;Veuillez sélectionner les informations</legend>
             <table>
                 <tr>
                     <td><label>Demandé par : </label></td>
                     <?php
+
+                    $sql = "SELECT * FROM suuser order by nom,prenom";
+
+                    $res = query($sql);
+
+                    $str="";
+
                     echo "<td><table>";
                     while ($row = mysqli_fetch_assoc($res)) {
                         if ((strtotime($row["dateFin"]) > time() || strtotime($row["dateFin"])<0 || strtotime($row["dateFin"])==false) && $row["admin"]>=1) {
+                            $stri = '<td style="color: #'.$row["color"].'"><input type="checkbox"  value="' . $row['idUser'] . '" name="' . $row['idUser'] . '">' . substr_replace($row['nom'],strtoupper(substr($row['nom'],0,1)),0,1) . ' ' . substr_replace($row['prenom'],strtoupper(substr($row['prenom'],0,1)),0,1) . '</td>';
+
                             if ($row["idUser"] == $r["idDemandeur"]) {
-                                echo '<td style="color: #' . $row["color"] . '"><input type="checkbox" checked value="' . $row['idUser'] . '" name="d' . $row['idUser'] . '">' . substr_replace($row['nom'], strtoupper(substr($row['nom'], 0, 1)), 0, 1) . ' ' . substr_replace($row['prenom'], strtoupper(substr($row['prenom'], 0, 1)), 0, 1) . '</td>';
-                            }else{
-                                echo '<td style="color: #' . $row["color"] . '"><input type="checkbox" value="' . $row['idUser'] . '" name="d' . $row['idUser'] . '">' . substr_replace($row['nom'], strtoupper(substr($row['nom'], 0, 1)), 0, 1) . ' ' . substr_replace($row['prenom'], strtoupper(substr($row['prenom'], 0, 1)), 0, 1) . '</td>';
+                                $stri = '<td style="color: #'.$row["color"].'"><input type="checkbox" checked  value="' . $row['idUser'] . '" name="' . $row['idUser'] . '">' . substr_replace($row['nom'],strtoupper(substr($row['nom'],0,1)),0,1) . ' ' . substr_replace($row['prenom'],strtoupper(substr($row['prenom'],0,1)),0,1) . '</td>';
 
                             }
+                            $str.= $stri;
                         }
                     }
+                    echo $str;
                     echo "</table></td>";
                     ?>
                 </tr>
@@ -59,7 +66,7 @@ $r = mysqli_fetch_assoc($resultat);
                     $sql = "SELECT * FROM suuser order by nom,prenom";
 
                     $res = query($sql);
-
+                    $str = "";
 
                     echo "<td><table>";
                     while ($row = mysqli_fetch_assoc($res)) {
@@ -68,14 +75,18 @@ $r = mysqli_fetch_assoc($resultat);
 
                             $resultat = query($sql);
                             while ($f = mysqli_fetch_assoc($resultat)) {
+
+                                $stri = '<td style="color: #'.$row["color"].'"><input type="checkbox"  value="' . $row['idUser'] . '" name="' . $row['idUser'] . '">' . substr_replace($row['nom'],strtoupper(substr($row['nom'],0,1)),0,1) . ' ' . substr_replace($row['prenom'],strtoupper(substr($row['prenom'],0,1)),0,1) . '</td>';
+
                                 if($f["idUser"]===$row["idUser"]) {
-                                    echo '<td style="color: #'.$row["color"].'"><input type="checkbox" checked  value="' . $row['idUser'] . '" name="' . $row['idUser'] . '">' . substr_replace($row['nom'],strtoupper(substr($row['nom'],0,1)),0,1) . ' ' . substr_replace($row['prenom'],strtoupper(substr($row['prenom'],0,1)),0,1) . '</td>';
-                                }else{
-                                    echo '<td style="color: #'.$row["color"].'"><input type="checkbox"  value="' . $row['idUser'] . '" name="' . $row['idUser'] . '">' . substr_replace($row['nom'],strtoupper(substr($row['nom'],0,1)),0,1) . ' ' . substr_replace($row['prenom'],strtoupper(substr($row['prenom'],0,1)),0,1) . '</td>';
+                                    $stri = '<td style="color: #'.$row["color"].'"><input type="checkbox" checked  value="' . $row['idUser'] . '" name="' . $row['idUser'] . '">' . substr_replace($row['nom'],strtoupper(substr($row['nom'],0,1)),0,1) . ' ' . substr_replace($row['prenom'],strtoupper(substr($row['prenom'],0,1)),0,1) . '</td>';
+                                    break;
                                 }
                             }
+                            $str .= $stri;
                         }
                     }
+                    echo $str;
                     echo "</table></td>";
                     ?></tr>
                 <tr>
@@ -86,23 +97,29 @@ $r = mysqli_fetch_assoc($resultat);
                     <?php
                     echo "<td><table>";
 
+
                     $sql = "SELECT * FROM subd";
-
                     $res = query($sql);
-
+                    $str="";
                     while ($row = mysqli_fetch_assoc($res)) {
 
-                        $sql = "SELECT * FROM subd,sutbd,sutache where sutache.idTache=$id and sutache.idTache=sutbd.idTache and sutbd.idBD=subd.idBD";
+                        $sql = "SELECT * FROM subd,sutbd where sutbd.idTache=$id  and sutbd.idBD=subd.idBD;";
 
                         $resultat = query($sql);
                         while ($f = mysqli_fetch_assoc($resultat)) {
+
+                            $stri = '<td style="color: #' . $row["color"] . '"><input type="checkbox"  value="' . $row['idBD'] . '" name="' . $row['idBD'] . '">' . substr_replace($row['nomBD'], strtoupper(substr($row["nomBD"], 0, 1)), 0, 1) . '</td>';
+
+
                             if($f["idBD"]===$row["idBD"]) {
-                                echo '<td style="color: #' . $row["color"] . '"><input type="checkbox" checked  value="' . $row['idBD'] . '" name="' . $row['idBD'] . '">' . substr_replace($row['nomBD'], strtoupper(substr($row["nomBD"], 0, 1)), 0, 1) . '</td>';
-                            }else{
-                                echo '<td style="color: #' . $row["color"] . '"><input type="checkbox"  value="' . $row['idBD'] . '" name="' . $row['idBD'] . '">' . substr_replace($row['nomBD'], strtoupper(substr($row["nomBD"], 0, 1)), 0, 1) . '</td>';
+                                $stri = '<td style="color: #' . $row["color"] . '"><input type="checkbox" checked  value="' . $row['idBD'] . '" name="' . $row['idBD'] . '">' . substr_replace($row['nomBD'], strtoupper(substr($row["nomBD"], 0, 1)), 0, 1) . '</td>';
+                                break;
                             }
+
                         }
+                        $str .= $stri;
                     }
+                    echo $str;
                     echo "</table></td>";
                     ?>
                 </tr>
@@ -147,8 +164,8 @@ $r = mysqli_fetch_assoc($resultat);
             </p>
             <br/><br/>
             <p>
+                <input type="text" value="<?php echo $id;?>" name="id" hidden>
                 <a href="hub.php"><input type='button' value='Annuler' style="width: 80px"/></a>
-                <input type="reset">
                 <input type="submit" value="Valider" name="valider" style="width: 80px"/>
             </p>
         </fieldset>
