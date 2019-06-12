@@ -45,3 +45,20 @@ while ($row = mysqli_fetch_assoc($res)){
         query($sql);
     }
 }
+
+
+$sql = "SELECT * From suuser";
+$res = query($sql);
+
+$mailto="";
+
+while ($row = mysqli_fetch_assoc($res)) {
+    $id = $row["idUser"];
+    if(isset($_POST["$id"])) {
+
+        $sql = "INSERT INTO sutuser(idUser, idTache, checked) VALUES (\"$id\",\"$cpt\",0);";
+        query($sql);
+
+        $mailto.=$row["mail"].",";
+    }
+}
