@@ -8,4 +8,26 @@
 
 include ("database.php");
 
+session_start();
 
+
+$sql = "SELECT idUser From suuser";
+$res = query($sql);
+
+
+while ($row = mysqli_fetch_assoc($res)) {
+    $id = $row["idUser"];
+    if(isset($_POST["d$id"])) {
+        $demandeur = $_POST["d$id"];
+    }
+}
+
+$id = $_POST["idtache"];
+
+$nom = $_POST["nom"];
+$prio = $_POST["prio"];
+$dead = "";
+if ($_POST["deadline"]!=="") {
+    $dead = $_POST["deadline"];
+}
+$desc = $_POST["desc"];

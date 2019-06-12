@@ -164,7 +164,7 @@ $r = mysqli_fetch_assoc($resultat);
             </p>
             <br/><br/>
             <p>
-                <input type="text" value="<?php echo $id;?>" name="id" hidden>
+                <input type="text" value="<?php echo $id;?>" name="idtache" hidden>
                 <a href="hub.php"><input type='button' value='Annuler' style="width: 80px"/></a>
                 <input type="submit" value="Valider" name="valider" style="width: 80px"/>
             </p>
