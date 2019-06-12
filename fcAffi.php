@@ -68,11 +68,9 @@ function affiTnf($row,&$cpt){
     $r =mysqli_fetch_array($res);
 
 
-    if(in_array($_SESSION["id"],$r) || ($_SESSION["id"]===$row["idDemandeur"] && $b)) {
-        $str .= "<td style='text-align: center'>".valid($row["idTache"],$row["idDemandeur"],$cpt,$b)."</td>";
-    }else{
-        $str .= "<td></td>";
-    }
+
+    $str .= "<td style='text-align: center'>".valid($row["idTache"],$row["idDemandeur"],$cpt,$b)."</td>";
+
     if($row["idUser"]===$_SESSION["id"] || $_SESSION["id"]===$row["idDemandeur"] || $r["admin"]==2){
         $str.="<td style='text-align: center;'><form method='post' action='modifTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer'><img src=\"write-paper-ink-icon.png\"></a></form></td>";
         $cpt+=1;
@@ -156,11 +154,9 @@ function affiTf($row,&$cpt){
 
     $r =mysqli_fetch_array($res);
 
-    if(in_array($_SESSION["id"],$r) || ($_SESSION["id"]===$row["idDemandeur"] && $b)) {
-        $str .= "<td>".valid($row["idTache"],$row["idDemandeur"],$cpt,$b)."</td>";
-    }else{
-        $str .= "<td></td>";
-    }
+
+    $str .= "<td>".valid($row["idTache"],$row["idDemandeur"],$cpt,$b)."</td>";
+
 
     if($row["idUser"]===$_SESSION["id"]||$_SESSION["id"]===$row["idDemandeur"]){
         $str.="<td style='text-align: center;'><form method='post' action='modifTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer'><img src=\"write-paper-ink-icon.png\"></a></form></td>";
@@ -313,7 +309,7 @@ function valid($res,$idD,&$cpt,$b){
                 break;
             } else {
                 if ($row["checked"] == 0) {
-                    $str .= "<td style='color: $color;padding: 2px; border: none'>
+                    $stri = "<td style='color: $color;padding: 2px; border: none'>
             <div class='close icon' style='color: $color'>
             </div>
             </td>
@@ -322,7 +318,7 @@ function valid($res,$idD,&$cpt,$b){
 
                     break;
                 }
-                $str .= "<td style='color: $color;padding: 2px; border: none'>
+                $stri = "<td style='color: $color;padding: 2px; border: none'>
             <form method='post' action='checked.php' id='sub$cpt'>
             <a onclick='valider($cpt)' style='cursor: pointer'>
             <input type='submit' id='sub$cpt' hidden>
@@ -339,13 +335,16 @@ function valid($res,$idD,&$cpt,$b){
             }
         }
 
+        $str .= $stri;
+
         $sql = "SELECT suuser.idUser,nom, prenom, color, checked, adminC FROM suuser,sutuser where sutuser.idTache='$res' and suuser.idUser=sutuser.idUser";
 
         $r = query($sql);
 
         while($row = mysqli_fetch_assoc($r)){
-            if($_SESSION["id"]===$row["idUser"] ) {
 
+
+            if($_SESSION["id"]===$row["idUser"] ) {
 
                 if ($row["checked"] == 0 && $row["adminC"] == 0) {
 
