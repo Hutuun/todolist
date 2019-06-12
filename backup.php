@@ -160,10 +160,12 @@ ALTER TABLE `suuser`
   ADD PRIMARY KEY (`idUser`);
 
 ALTER TABLE `sutbd`
+  ADD UNIQUE KEY `id` (`idBD`,`idTache`),
   ADD CONSTRAINT `fk_sutbd_idBD` FOREIGN KEY (`idBD`) REFERENCES `subd` (`idBD`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_sutbd_idTache` FOREIGN KEY (`idTache`) REFERENCES `sutache` (`idTache`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `sutuser`
+ADD UNIQUE KEY `id` (`idUser`,`idTache`),
   ADD CONSTRAINT `fk_sutuser_idTache` FOREIGN KEY (`idTache`) REFERENCES `sutache`(`idTache`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_sutuser_idUser` FOREIGN KEY (`idUser`) REFERENCES `suuser`(`idUser`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;

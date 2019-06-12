@@ -31,3 +31,17 @@ if ($_POST["deadline"]!=="") {
     $dead = $_POST["deadline"];
 }
 $desc = $_POST["desc"];
+
+$sql = "SELECT idBD FROM subd";
+
+$res = query($sql);
+
+while ($row = mysqli_fetch_assoc($res)){
+    $id = $row["idBD"];
+
+
+    if(isset($_POST["$id"])){
+        $sql = "INSERT INTO sutbd(idBD,idTache) VALUES (\"$id\", \"$cpt\")";
+        query($sql);
+    }
+}
