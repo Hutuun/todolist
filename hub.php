@@ -146,7 +146,9 @@ while ($row = mysqli_fetch_assoc($res)){
         $affi .= "<span style='color: #$color;padding-right: 12px'><input type='checkbox' name='id' value='$id' onclick='valider($cpt)' >" . $row["prenom"] ."</span>";
     }
 }
-$affi.= "<span><input type='checkbox' name='id' value='4' onclick='valider($cpt)'>Autre</span></form></tr></table>";
+$affi.= "<span style='padding-right: 12px'><input type='checkbox' name='id' value='4'  onclick='valider($cpt)'>Autre</span></form>";
+
+$affi.="<form action='hub.php'><input type='submit' value='Reset'></form></tr></table>";
 
 $affi.="<br/>";
 
@@ -172,7 +174,7 @@ $affi .= "<td style='width: 80px; text-align: center'><form method='post' id='su
 $cpt += 1;
 $affi .= "<td style='width: 80px; text-align: center'><form method='post' id='sub$cpt'><input type='text' name='order' value='sutache.dateSuppr' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Fin</a></form></td>";
 $affi .= "<td style='text-align: center; '>Validation</td>";
-$affi .= "<td style='text-align: center; '>modif</td>";
+$affi .= "<td style='text-align: center; '>modifier</td>";
 if($_SESSION["admin"]>="1") {
     $affi .= "<td style='text-align: center; '>Supprimer</td>";
 }
@@ -196,7 +198,9 @@ if($_SERVER["REQUEST_METHOD"]==="POST") {
                 $affi .= "<span style='color: #$color;padding-right: 12px'><input type='checkbox' name='id' value='$id' onclick='valider($cpt)'>" . $row["prenom"] . "</span>";
             }
         }
-        $affi.= "<span><input type='checkbox' name='id' value='4' onclick='valider($cpt)'>Autre</span></form></tr></table>";
+        $affi.= "<span style='padding-right: 12px'><input type='checkbox' name='id' value='4'  onclick='valider($cpt)'>Autre</span></form>";
+
+        $affi.="<form action='hub.php'><input type='submit' value='Reset'></form></tr></table>";
 
         $affi.="<br/>";
 
@@ -223,7 +227,7 @@ if($_SERVER["REQUEST_METHOD"]==="POST") {
         $cpt += 1;
         $affi .= "<td style='width: 80px; text-align: center'><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.dateSuppr' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Fin</a></form></td>";
         $affi .= "<td style='text-align: center; '>Validation</td>";
-        $affi .= "<td style='text-align: center; '>modif</td>";
+        $affi .= "<td style='text-align: center; '>modifier</td>";
         if($_SESSION["admin"]>="1") {
             $affi .= "<td style='text-align: center; '>Supprimer</td>";
         }
