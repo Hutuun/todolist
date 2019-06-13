@@ -42,16 +42,9 @@ while ($row = mysqli_fetch_assoc($res)){
 }
 
 
-
-
 $sql = "INSERT IGNORE INTO sutache(idTache, nomTache, descriptionTache, idDemandeur, priorite ,deadline, dateCreation, dateSuppr) VALUES (\"$cpt\", \"$nom\",\"$desc\",\"$demandeur\",$prio,\"$dead\",CURRENT_TIME,\"''\");";
 
 query($sql);
-
-
-/*
- * Y A UN BUG SALE
- */
 
 $sql = "SELECT idBD FROM subd";
 
@@ -90,7 +83,8 @@ $sql = "SELECT nom, prenom, mail FROM suuser WHERE suuser.idUser = '".$demandeur
 $res = query($sql);
 
 $row = mysqli_fetch_assoc($res);
-$nom = $row["nom"]." ".$row["prenom"];
+
+
 $mailFrom = $row["mail"];
 
 

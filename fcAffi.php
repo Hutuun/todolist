@@ -126,7 +126,6 @@ function affiTf($row,&$cpt){
         $str .= "<td></td>";
     }
 
-
     $str .= "<td>".valid($row["idTache"],$row["idDemandeur"],$cpt)."</td>";
 
 
@@ -169,8 +168,6 @@ function affSuppr($row,&$cpt){
 
     $nom = $field["nom"];
     $prenom = $field["prenom"];
-    $n = strtoupper(substr($nom, 0, 1));
-    $p = strtoupper(substr($prenom, 0, 1));
 
     $str .= "<td style=' text-align: center'><td style='color: $color;' title='$prenom $nom'>" .strtoupper(substr($field["prenom"],0,1)).strtoupper(substr($field["nom"],0,1)). "</td>";
 

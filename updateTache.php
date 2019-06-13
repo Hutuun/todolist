@@ -59,12 +59,34 @@ while ($row = mysqli_fetch_assoc($res)) {
     $id = $row["idUser"];
     if(isset($_POST["$id"])) {
         $sql = "INSERT INTO sutuser(idUser, idTache, checked) VALUES (\"$id\",\"$idTache\",0);";
-        query($sql);
-        $mailto.=$row["mail"].",";
+        $r=query($sql);
+        if($r!==false) {
+            $mailto .= $row["mail"] . ",";
+        }
     }
     else{
         $sql = "DELETE FROM sutuser WHERE `idUser`='$id' and `idTache`='$idTache'";
-        query($sql);
+        $r=query($sql);
+        if($r!==false) {
+            $mailto .= $row["mail"] . ",";
+        }
     }
 }
+
+$sql = "SELECT nom, prenom, mail FROM suuser WHERE suuser.idUser = '".$demandeur."' ";
+
+
+$res = query($sql);
+
+$row = mysqli_fetch_assoc($res);
+
+
+$mailFrom = $row["mail"];
+
+
+$header = "From: Automatique <$mailFrom> \n";
+$header .= "MIME-Version: 1.0 \n";
+$header .= "Content-Transfer-Encoding: 8bit \r\n";
+mail($mailto,"Une de vos tâches a été modifiée","La tâche $idTache a été modifiée.",$header);
+
 header("Refresh:0, URL=hub.php");
