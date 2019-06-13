@@ -53,29 +53,9 @@ function affiTnfPDF($row,&$cpt){
         $str .= "<td></td>";
     }
 
-    $sql = "SELECT * FROM sutuser WHERE idTache='".$row["idTache"]."'";
 
-    $res = query($sql);
+    $str .= "<td>".validPDF($row["idTache"],$row["idDemandeur"],$cpt,$b)."</td>";
 
-    $b =1;
-
-    while ($r =mysqli_fetch_assoc($res)){
-        if($r["checked"]!=1)
-            $b = 0;
-    }
-
-    $sql = "SELECT * FROM sutuser,suuser,sutache WHERE suuser.idUser=sutuser.idUser and sutache.idtache=sutuser.idTache and sutache.idTache='".$row["idTache"]."'";
-
-    $res = query($sql);
-
-    $r =mysqli_fetch_array($res);
-
-
-    if(in_array($_SESSION["id"],$r) || ($_SESSION["id"]===$row["idDemandeur"] && $b)) {
-        $str .= "<td>".validPDF($row["idTache"],$row["idDemandeur"],$cpt,$b)."</td>";
-    }else{
-        $str .= "<td></td>";
-    }
 
     return $str;
 
@@ -127,28 +107,9 @@ function affiTfPDF($row,&$cpt){
     }else{
         $str .= "<td></td>";
     }
-    $sql = "SELECT * FROM sutuser WHERE idTache='".$row["idTache"]."'";
 
-    $res = query($sql);
+    $str .= "<td>".validPDF($row["idTache"],$row["idDemandeur"],$cpt,$b)."</td>";
 
-    $b =1;
-
-    while ($r =mysqli_fetch_assoc($res)){
-        if($r["checked"]!=1)
-            $b = 0;
-    }
-
-    $sql = "SELECT * FROM sutuser,suuser,sutache WHERE suuser.idUser=sutuser.idUser and sutache.idtache=sutuser.idTache and sutache.idTache='".$row["idTache"]."'";
-
-    $res = query($sql);
-
-    $r =mysqli_fetch_array($res);
-
-    if(in_array($_SESSION["id"],$r) || ($_SESSION["id"]===$row["idDemandeur"] && $b)) {
-        $str .= "<td>".validPDF($row["idTache"],$row["idDemandeur"],$cpt,$b)."</td>";
-    }else{
-        $str .= "<td></td>";
-    }
 
     return $str;
 }
@@ -204,7 +165,7 @@ function validPDF($res,$idD,&$cpt,$b){
     $r = query($sql);
 
     $row = mysqli_fetch_assoc($r);
-    if($_SESSION["id"]===$idD && $row["adminC"]==1 ) {
+    if($row["adminC"]==1 ) {
         $color = "#" . $row["color"];
 
 
