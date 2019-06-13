@@ -24,7 +24,6 @@ $row=mysqli_fetch_assoc($res);
 $dead = $row["deadline"];
 $dd= $row["dateCreation"];
 $df = $row["dateSuppr"];
-$dead = "";
 if ($_POST["deadline"]!=="") {
     $dead = $_POST["deadline"];
 }
@@ -35,13 +34,11 @@ if ($_POST["dd"]!=="") {
 if ($_POST["df"]!=="") {
     $df = $_POST["df"];
 }
-$dd= $_POST["dd"];
-$df = $_POST["df"];
 $sql = "UPDATE `sutache` SET `nomTache`=\"$nom\",`descriptionTache`=\"$desc\",`idDemandeur`=$demandeur,`priorite`=$prio,`deadline`=\"$dead\",`dateCreation`=\"$dd\",`dateSuppr`=\"$df\"
-          WHERE `idTache`='$idTache'";
+WHERE `idTache`='$idTache'";
+
+
 query($sql);
-$sql = "UPDATE `sutache` SET `nomTache`=\"$nom\",`descriptionTache`=\"$desc\",`idDemandeur`=$demandeur,`priorite`=$prio,`deadline`=\"$dead\",`dateCreation`=\"$dd\",`dateSuppr`=\"$df\"
-          WHERE `idTache`=$idTache";
 $sql = "SELECT idBD FROM subd";
 $res = query($sql);
 while ($row = mysqli_fetch_assoc($res)){
@@ -51,9 +48,9 @@ while ($row = mysqli_fetch_assoc($res)){
         query($sql);
     }
     else{
-        $sql = "DELETE FROM sutbd WHERE `idBD`='$id' and `idTache`='$idTache'";
-        query($sql);
-    }
+    $sql = "DELETE FROM sutbd WHERE `idBD`='$id' and `idTache`='$idTache'";
+    query($sql);
+}
 }
 $sql = "SELECT * From suuser";
 $res = query($sql);
