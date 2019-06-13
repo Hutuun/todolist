@@ -24,7 +24,10 @@ function affiTnf($row,&$cpt){
 
     $color = "#".$field["color"];
 
-    $str .= "<td style='color: $color; text-align: center'>" .strtoupper(substr($field["prenom"],0,1)).strtoupper(substr($field["nom"],0,1)). "</td>";
+    $nom = $field["nom"];
+    $prenom = $field["prenom"];
+
+    $str .= "<td style='text-align: center'><span style='color: $color;'  title='$prenom $nom'>" .strtoupper(substr($field["prenom"],0,1)).strtoupper(substr($field["nom"],0,1)). "</span></td>";
 
 
     $str .= "<td style='text-align: center'>".person($row["idTache"])."</td>";
@@ -92,7 +95,11 @@ function affiTf($row,&$cpt){
 
     $color = "#".$field["color"];
 
-    $str .= "<td style='color: $color; text-align: center'>" .strtoupper(substr($field["prenom"],0,1)).strtoupper(substr($field["nom"],0,1)). "</td>";
+    $nom = $field["nom"];
+    $prenom = $field["prenom"];
+
+
+    $str .= "<td style=' text-align: center'><span style='color: $color;' title='$prenom $nom'>" .strtoupper(substr($field["prenom"],0,1)).strtoupper(substr($field["nom"],0,1)). "</span></td>";
 
 
     $str .= "<td style='text-align: center'>".person($row["idTache"])."</td>";
@@ -160,10 +167,15 @@ function affSuppr($row,&$cpt){
 
     $color = "#".$field["color"];
 
-    $str .= "<td style='color: $color; text-align: center'>" .strtoupper(substr($field["prenom"],0,1)).strtoupper(substr($field["nom"],0,1)). "</td>";
+    $nom = $field["nom"];
+    $prenom = $field["prenom"];
+    $n = strtoupper(substr($nom, 0, 1));
+    $p = strtoupper(substr($prenom, 0, 1));
+
+    $str .= "<td style=' text-align: center'><td style='color: $color;' title='$prenom $nom'>" .strtoupper(substr($field["prenom"],0,1)).strtoupper(substr($field["nom"],0,1)). "</td>";
 
 
-    $str .= "<td>".person($row["idTache"],$row["idDemandeur"])."</td>";
+    $str .= "<td>".person($row["idTache"])."</td>";
     $str .= "<td>".bd($row["idTache"])."</td>";
     $date = $row["dateCreation"];
     $ymd = substr($date, 0, 10);
@@ -211,7 +223,9 @@ function person($res){
     while($row = mysqli_fetch_assoc($r)){
 
         $color = "#" . $row["color"];
-        $str .= "<span style='color: $color; padding-right: 2px;padding-left: 2px'>" . strtoupper(substr($row["prenom"], 0, 1)) . strtoupper(substr($row["nom"], 0, 1)) . "</span>";
+        $nom = $row["nom"];
+        $prenom = $row["prenom"];
+        $str .= "<span style='color: $color; padding-right: 2px;padding-left: 2px' title='$prenom $nom'>" . strtoupper(substr($prenom, 0, 1)) . strtoupper(substr($nom, 0, 1)) . "</span>";
     }
     $str .="</div>";
 
@@ -222,14 +236,15 @@ function bd($res){
 
     $str ="<div>\n";
 
-    $sql ="SELECT diminutif,color FROM subd,sutbd WHERE sutbd.idTache='$res' and sutbd.idBD=subd.idBD";
+    $sql ="SELECT nomBD,diminutif,color FROM subd,sutbd WHERE sutbd.idTache='$res' and sutbd.idBD=subd.idBD";
 
     $r = query($sql);
 
     while ($row = mysqli_fetch_assoc($r)){
 
         $color = "#".$row["color"];
-        $str .= "<span style='color: $color; padding-right: 2px; padding-left: 2px'>".$row["diminutif"]."</span>";
+        $nom = $row["nomBD"];
+        $str .= "<span style='color: $color; padding-right: 2px; padding-left: 2px' title='$nom'>".$row["diminutif"]."</span>";
 
     }
 

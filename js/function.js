@@ -16,3 +16,6 @@ function valider(cpt) {
 	document.getElementById('sub'+cpt).submit();
 
 }
+
+
+
