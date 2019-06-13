@@ -47,10 +47,10 @@ $r = mysqli_fetch_assoc($resultat);
                     echo "<td><table>";
                     while ($row = mysqli_fetch_assoc($res)) {
                         if ((strtotime($row["dateFin"]) > time() || strtotime($row["dateFin"])<0 || strtotime($row["dateFin"])==false) && $row["admin"]>=1) {
-                            $stri = '<td style="color: #'.$row["color"].'"><input type="checkbox"  value="' . $row['idUser'] . '" name="' . $row['idUser'] . '">' . substr_replace($row['nom'],strtoupper(substr($row['nom'],0,1)),0,1) . ' ' . substr_replace($row['prenom'],strtoupper(substr($row['prenom'],0,1)),0,1) . '</td>';
+                            $stri = '<td style="color: #'.$row["color"].'"><input type="checkbox"  value="' . $row['idUser'] . '" name="d' . $row['idUser'] . '">' . substr_replace($row['nom'],strtoupper(substr($row['nom'],0,1)),0,1) . ' ' . substr_replace($row['prenom'],strtoupper(substr($row['prenom'],0,1)),0,1) . '</td>';
 
                             if ($row["idUser"] == $r["idDemandeur"]) {
-                                $stri = '<td style="color: #'.$row["color"].'"><input type="checkbox" checked  value="' . $row['idUser'] . '" name="' . $row['idUser'] . '">' . substr_replace($row['nom'],strtoupper(substr($row['nom'],0,1)),0,1) . ' ' . substr_replace($row['prenom'],strtoupper(substr($row['prenom'],0,1)),0,1) . '</td>';
+                                $stri = '<td style="color: #'.$row["color"].'"><input type="checkbox" checked  value="' . $row['idUser'] . '" name="d' . $row['idUser'] . '">' . substr_replace($row['nom'],strtoupper(substr($row['nom'],0,1)),0,1) . ' ' . substr_replace($row['prenom'],strtoupper(substr($row['prenom'],0,1)),0,1) . '</td>';
 
                             }
                             $str.= $stri;
@@ -129,10 +129,13 @@ $r = mysqli_fetch_assoc($resultat);
                             <?php
                             if($r["priorite"]==0) {
                                 echo "<option value='0' selected>Pas prioritaire</option>";
+                                echo "<option value='1' > Prioritaire</option>";
+                                echo "<option value='2' >Très prioritaire</option>";
                             }else {
                                 echo "<option value='0'>Pas prioritaire</option>";
                                 if($r["priorite"]==1) {
                                     echo "<option value='1' selected> Prioritaire</option>";
+                                    echo "<option value='2' >Très prioritaire</option>";
                                 }
                                 else{
                                     echo "<option value='1'> Prioritaire</option>";
@@ -146,13 +149,13 @@ $r = mysqli_fetch_assoc($resultat);
                 <tr>
                     <td><label>Date de début : </label></td>
                     <td><input type="date" value="<?php
-                        echo date("y/m/d",$r["dateCreation"]);
+                        echo $r["dateCreation"];
                         ?>" name="dd" style="width:60%" ></td>
                 </tr>
                 <tr>
                     <td><label>Deadline(opt) : </label></td>
-                    <td><input type="date"  value="<?php if($r["deadline"]!=="0000-00-00"){
-                        echo date("y/m/d",$r["deadline"]);
+                    <td><input type="date"  value="<?php if($r["deadline"]!=="0000-00-00 00:00:00"){
+                            echo $r["deadline"];
                     }else{
                         echo "";
                         }?>" name="deadline" style="width:60%" ></td>
@@ -160,7 +163,7 @@ $r = mysqli_fetch_assoc($resultat);
                 <tr>
                     <td><label>Date de fin : </label></td>
                     <td><input type="date" value="<?php
-                        echo date("y/m/d",$r["dateSuppr"]);
+                        echo $r["dateSuppr"];
                         ?>" name="df" style="width:60%" ></td>
                 </tr>
                 <tr>
