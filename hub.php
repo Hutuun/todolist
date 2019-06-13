@@ -146,9 +146,7 @@ while ($row = mysqli_fetch_assoc($res)){
         $affi .= "<span style='color: #$color;padding-right: 12px'><input type='checkbox' name='id' value='$id' onclick='valider($cpt)' >" . $row["prenom"] ."</span>";
     }
 }
-$affi.= "<span style='padding-right: 12px'><input type='checkbox' name='id' value='4'  onclick='valider($cpt)'>Autre</span></form>";
-
-$affi.="<form action='hub.php'><input type='submit' value='Reset'></form></tr></table>";
+$affi.= "<span><input type='checkbox' name='id' value='4' onclick='valider($cpt)'>Autre</span></form></tr></table>";
 
 $affi.="<br/>";
 
@@ -198,9 +196,7 @@ if($_SERVER["REQUEST_METHOD"]==="POST") {
                 $affi .= "<span style='color: #$color;padding-right: 12px'><input type='checkbox' name='id' value='$id' onclick='valider($cpt)'>" . $row["prenom"] . "</span>";
             }
         }
-        $affi.= "<span style='padding-right: 12px'><input type='checkbox' name='id' value='4' onclick='valider($cpt)'>Autre</span></form>";
-
-        $affi.="<form action='hub.php'><input type='submit' value='Reset'></form></tr></table>";
+        $affi.= "<span><input type='checkbox' name='id' value='4' onclick='valider($cpt)'>Autre</span></form></tr></table>";
 
         $affi.="<br/>";
 

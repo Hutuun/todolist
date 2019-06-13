@@ -28,7 +28,7 @@ CREATE TABLE `sutache` (
   `descriptionTache` varchar(1500) NOT NULL,
   `idDemandeur` varchar(6) NOT NULL,
   `priorite` tinyint(4) NOT NULL DEFAULT '0',
-  `deadline` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deadline` timestamp NULL DEFAULT NULL,
   `dateCreation` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `dateSuppr` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `suppr` varchar(3) NOT NULL DEFAULT 'non'
