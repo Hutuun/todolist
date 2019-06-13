@@ -55,7 +55,20 @@ function affiTnf($row,&$cpt){
 
     $str .= "<td style='text-align: center'>".valid($row["idTache"],$row["idDemandeur"],$cpt)."</td>";
 
-    if($row["idUser"]===$_SESSION["id"] || $_SESSION["id"]===$row["idDemandeur"] || $_SESSION["admin"]==2){
+    $sql = "SELECT suuser.idUser FROM sutuser,suuser WHERE suuser.idUser=sutuser.idUser and sutuser.idtache='".$row["idTache"]."'";
+
+    $res = query($sql);
+
+    $b = false;
+
+    while ($field= mysqli_fetch_assoc($res)){
+        if($_SESSION["id"]==$field["idUser"]){
+            $b = true;
+            break;
+        }
+    }
+
+    if($b||$_SESSION["id"]===$row["idDemandeur"] || $_SESSION["admin"]=="2"){
         $str.="<td style='text-align: center;'><form method='post' action='modifTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer'><img src=\"write-paper-ink-icon.png\"></a></form></td>";
         $cpt+=1;
     }else{
@@ -128,8 +141,22 @@ function affiTf($row,&$cpt){
 
     $str .= "<td>".valid($row["idTache"],$row["idDemandeur"],$cpt)."</td>";
 
+    $sql = "SELECT suuser.idUser FROM sutuser,suuser WHERE suuser.idUser=sutuser.idUser and idtache='".$row["idTache"]."'";
 
-    if($row["idUser"]===$_SESSION["id"]||$_SESSION["id"]===$row["idDemandeur"] || $_SESSION["admin"]=="2"){
+    $res = query($sql);
+
+    $b = false;
+
+    while ($field= mysqli_fetch_assoc($res)){
+        if($_SESSION["id"]==$field["idUser"]){
+            $b = true;
+            break;
+        }
+    }
+
+
+
+    if($b ||$_SESSION["id"]===$row["idDemandeur"] || $_SESSION["admin"]=="2"){
         $str.="<td style='text-align: center;'><form method='post' action='modifTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer'><img src=\"write-paper-ink-icon.png\"></a></form></td>";
         $cpt+=1;
     }else{
