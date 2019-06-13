@@ -30,7 +30,7 @@ function affiTnfPDF($row,&$cpt){
     $str .= "<td style='color: $color; text-align: center'>" .strtoupper(substr($field["prenom"],0,1)).strtoupper(substr($field["nom"],0,1)). "</td>";
 
 
-    $str .= "<td>".personPDF($row["idTache"],$row["idDemandeur"])."</td>";
+    $str .= "<td>".personPDF($row["idTache"])."</td>";
     $str .= "<td>".bdPDF($row["idTache"])."</td>";
     $date = $row["dateCreation"];
     $ymd = substr($date, 0, 10);
@@ -54,7 +54,7 @@ function affiTnfPDF($row,&$cpt){
     }
 
 
-    $str .= "<td>".validPDF($row["idTache"],$row["idDemandeur"],$cpt,$b)."</td>";
+    $str .= "<td>".validPDF($row["idTache"],$row["idDemandeur"],$cpt)."</td>";
 
 
     return $str;
@@ -84,7 +84,7 @@ function affiTfPDF($row,&$cpt){
     $str .= "<td style='color: $color; text-align: center'>" .strtoupper(substr($field["prenom"],0,1)).strtoupper(substr($field["nom"],0,1)). "</td>";
 
 
-    $str .= "<td>".personPDF($row["idTache"],$row["idDemandeur"])."</td>";
+    $str .= "<td>".personPDF($row["idTache"])."</td>";
     $str .= "<td>".bdPDF($row["idTache"])."</td>";
     $date = $row["dateCreation"];
     $ymd = substr($date, 0, 10);
@@ -108,7 +108,7 @@ function affiTfPDF($row,&$cpt){
         $str .= "<td></td>";
     }
 
-    $str .= "<td>".validPDF($row["idTache"],$row["idDemandeur"],$cpt,$b)."</td>";
+    $str .= "<td>".validPDF($row["idTache"],$row["idDemandeur"],$cpt)."</td>";
 
 
     return $str;
@@ -117,7 +117,7 @@ function affiTfPDF($row,&$cpt){
 
 
 
-function personPDF($res,$idD){
+function personPDF($res){
 
     $str ="<ul>\n";
 
@@ -155,7 +155,7 @@ function bdPDF($res){
 }
 
 
-function validPDF($res,$idD,&$cpt,$b){
+function validPDF($res,$idD,&$cpt){
 
 
     $str ="<ul>\n";

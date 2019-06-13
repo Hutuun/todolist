@@ -27,7 +27,7 @@ function affiTnf($row,&$cpt){
     $str .= "<td style='color: $color; text-align: center'>" .strtoupper(substr($field["prenom"],0,1)).strtoupper(substr($field["nom"],0,1)). "</td>";
 
 
-    $str .= "<td style='text-align: center'>".person($row["idTache"],$row["idDemandeur"])."</td>";
+    $str .= "<td style='text-align: center'>".person($row["idTache"])."</td>";
     $str .= "<td style='text-align: center'>".bd($row["idTache"])."</td>";
     $date = $row["dateCreation"];
     $ymd = substr($date, 0, 10);
@@ -50,28 +50,9 @@ function affiTnf($row,&$cpt){
         $str .= "<td></td>";
     }
 
-    $sql = "SELECT * FROM sutuser WHERE idTache='".$row["idTache"]."'";
+    $str .= "<td style='text-align: center'>".valid($row["idTache"],$row["idDemandeur"],$cpt)."</td>";
 
-    $res = query($sql);
-
-    $b =1;
-
-    while ($r =mysqli_fetch_assoc($res)){
-        if($r["checked"]!=1)
-            $b = 0;
-    }
-
-    $sql = "SELECT * FROM suuser WHERE  idUser='".$_SESSION["id"]."'";
-
-    $res = query($sql);
-
-    $r =mysqli_fetch_array($res);
-
-
-
-    $str .= "<td style='text-align: center'>".valid($row["idTache"],$row["idDemandeur"],$cpt,$b)."</td>";
-
-    if($row["idUser"]===$_SESSION["id"] || $_SESSION["id"]===$row["idDemandeur"] || $r["admin"]==2){
+    if($row["idUser"]===$_SESSION["id"] || $_SESSION["id"]===$row["idDemandeur"] || $_SESSION["admin"]==2){
         $str.="<td style='text-align: center;'><form method='post' action='modifTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer'><img src=\"write-paper-ink-icon.png\"></a></form></td>";
         $cpt+=1;
     }else{
@@ -114,7 +95,7 @@ function affiTf($row,&$cpt){
     $str .= "<td style='color: $color; text-align: center'>" .strtoupper(substr($field["prenom"],0,1)).strtoupper(substr($field["nom"],0,1)). "</td>";
 
 
-    $str .= "<td style='text-align: center'>".person($row["idTache"],$row["idDemandeur"])."</td>";
+    $str .= "<td style='text-align: center'>".person($row["idTache"])."</td>";
     $str .= "<td style='text-align: center'>".bd($row["idTache"])."</td>";
     $date = $row["dateCreation"];
     $ymd = substr($date, 0, 10);
@@ -139,17 +120,10 @@ function affiTf($row,&$cpt){
     }
 
 
-    $sql = "SELECT * FROM suuser WHERE  idUser='".$_SESSION["id"]."'";
-
-    $res = query($sql);
-
-    $r =mysqli_fetch_array($res);
+    $str .= "<td>".valid($row["idTache"],$row["idDemandeur"],$cpt)."</td>";
 
 
-    $str .= "<td>".valid($row["idTache"],$row["idDemandeur"],$cpt,$b)."</td>";
-
-
-    if($row["idUser"]===$_SESSION["id"]||$_SESSION["id"]===$row["idDemandeur"] || $r["admin"]==2){
+    if($row["idUser"]===$_SESSION["id"]||$_SESSION["id"]===$row["idDemandeur"] || $_SESSION["admin"]=="2"){
         $str.="<td style='text-align: center;'><form method='post' action='modifTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer'><img src=\"write-paper-ink-icon.png\"></a></form></td>";
         $cpt+=1;
     }else{
@@ -171,7 +145,7 @@ function affiTf($row,&$cpt){
 function affSuppr($row,&$cpt){
     $color = "#000000";
     if($row["priorite"]==1){
-        $color = "#990000";
+        $color = "#ffa900";
     }
     if ($row["priorite"]==2){
         $color ="#ff0000";
@@ -224,7 +198,7 @@ function affSuppr($row,&$cpt){
 }
 
 
-function person($res,$idD){
+function person($res){
 
     $str ="<div>\n";
 
@@ -264,7 +238,7 @@ function bd($res){
     return $str;
 }
 
-function valid($res,$idD,&$cpt,$b){
+function valid($res,$idD,&$cpt){
 
 
     $str ="<table>\n";
