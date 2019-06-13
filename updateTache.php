@@ -26,18 +26,36 @@ $idTache = $_POST["idtache"];
 
 $nom = $_POST["nom"];
 $prio = $_POST["prio"];
-$dead = "";
+
+$sql = "SELECT * FROM sutache where idTache=$idTache";
+
+$res=query($sql);
+
+$row=mysqli_fetch_assoc($res);
+
+$dead = $row["deadline"];
+
+
+$dd= $row["dateCreation"];
+$df = $row["dateSuppr"];
+
+
 if ($_POST["deadline"]!=="") {
     $dead = $_POST["deadline"];
 }
 $desc = $_POST["desc"];
-
-$dd= $_POST["dd"];
-$df = $_POST["df"];
+if ($_POST["dd"]!=="") {
+    $dd= $_POST["dd"];
+}
+if ($_POST["df"]!=="") {
+    $df = $_POST["df"];
+}
 
 
 $sql = "UPDATE `sutache` SET `nomTache`=\"$nom\",`descriptionTache`=\"$desc\",`idDemandeur`=$demandeur,`priorite`=$prio,`deadline`=\"$dead\",`dateCreation`=\"$dd\",`dateSuppr`=\"$df\"
-          WHERE `idTache`=$idTache";
+          WHERE `idTache`='$idTache'";
+
+query($sql);
 
 $sql = "SELECT idBD FROM subd";
 
@@ -49,6 +67,10 @@ while ($row = mysqli_fetch_assoc($res)){
 
     if(isset($_POST["$id"])){
         $sql = "INSERT INTO sutbd(idBD,idTache) VALUES (\"$id\", \"$idTache\")";
+        query($sql);
+    }
+    else{
+        $sql = "DELETE FROM sutbd WHERE `idBD`='$id' and `idTache`='$idTache'";
         query($sql);
     }
 }
@@ -67,6 +89,10 @@ while ($row = mysqli_fetch_assoc($res)) {
         query($sql);
 
         $mailto.=$row["mail"].",";
+    }
+    else{
+        $sql = "DELETE FROM sutuser WHERE `idUser`='$id' and `idTache`='$idTache'";
+        query($sql);
     }
 }
 
