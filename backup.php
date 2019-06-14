@@ -31,7 +31,9 @@ CREATE TABLE `sutache` (
   `deadline` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `dateCreation` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `dateSuppr` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `suppr` varchar(3) NOT NULL DEFAULT 'non'
+  `suppr` varchar(3) NOT NULL DEFAULT 'non',
+  `archive` varchar(3) NOT NULL DEFAULT 'non'
+  
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;\n");
 
 
@@ -46,7 +48,8 @@ while($row = mysqli_fetch_assoc($res)){
     $dateCreation = $row["dateCreation"];
     $dateSuppr = $row["dateSuppr"];
     $suppr = $row["suppr"];
-    fwrite($file,"INSERT IGNORE INTO `sutache` (`idTache`, `nomTache`, `descriptionTache`, `idDemandeur`, `priorite`, `deadline`, `dateCreation`, `dateSuppr`, `suppr`) VALUES ('$id',\"$nom\",\"$descriptionTache\",'$idDemandeur',$priorite,'$deadline','$dateCreation','$dateSuppr','$suppr');\n");
+    $archi = $row["archive"];
+    fwrite($file,"INSERT IGNORE INTO `sutache` (`idTache`, `nomTache`, `descriptionTache`, `idDemandeur`, `priorite`, `deadline`, `dateCreation`, `dateSuppr`, `suppr`, `archive`) VALUES ('$id',\"$nom\",\"$descriptionTache\",'$idDemandeur',$priorite,'$deadline','$dateCreation','$dateSuppr','$suppr','$archi');\n");
 
 }
 
