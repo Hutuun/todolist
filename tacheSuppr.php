@@ -104,9 +104,7 @@ $cpt += 1;
 $affi .= "<td style='text-align: center; '><form method='post' id='sub$cpt'><input type='text' name='order' value='sutache.deadline' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Deadline</a></form></td>";
 $cpt += 1;
 $affi .= "<td style='text-align: center; '><form method='post' id='sub$cpt'><input type='text' name='order' value='sutache.dateSuppr' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Fin</a></form></td>";
-if($_SESSION["admin"]>="1") {
-    $affi .= "<td style='text-align: center; '>Supprimer</td>";
-}
+$affi .= "<td style='text-align: center; '>Actions</td>";
 
 if($_SERVER["REQUEST_METHOD"]==="POST") {
     if (isset($_POST["order"])) {
@@ -131,9 +129,8 @@ if($_SERVER["REQUEST_METHOD"]==="POST") {
         $affi .= "<td style='text-align: center; '><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.deadline' hidden><a onclick='valider($cpt)' style='cursor: pointer;'>Deadline</a></form></td>";
         $cpt += 1;
         $affi .= "<td style='text-align: center; '><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.dateSuppr' hidden><a onclick='valider($cpt)' style='cursor: pointer; '>Fin</a></form></td>";
-        if($_SESSION["admin"]>="1") {
-            $affi .= "<td style='text-align: center; '>Supprimer</td>";
-        }
+        $affi .= "<td style='text-align: center; '>Actions</td>";
+
 
     }else {
         if (isset($_POST["orderD"])) {
@@ -153,7 +150,7 @@ $result = query($sql);
 
 while ($row = mysqli_fetch_assoc($result)){
 
-    if($row["suppr"]==="oui") {
+    if($row["archive"]==="oui") {
 
         echo affSuppr($row,$cpt);
 

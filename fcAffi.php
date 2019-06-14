@@ -483,6 +483,8 @@ function valid($res,$idD,&$cpt)
 
             $r = query($sql);
 
+            $b=true;
+
             while ($row = mysqli_fetch_assoc($r)) {
                 if ($_SESSION["id"] === $row["idUser"]) {
 
@@ -504,20 +506,12 @@ function valid($res,$idD,&$cpt)
 
                         $cpt += 1;
                     } else {
+                        if ($b && $row["adminC"] == 1){
+                            $b = false;
+
+                            $str .= "<td style='padding: 3px ; border: none'><div class='check icon2' style='color: red'></td>";
+                        }
                         if ($row["checked"] == 1) {
-                            $color = "#" . $row["color"];
-                            $str .= "<td style='color: $color; padding: 3px ; border: none'>
-                    <form method='post' action='checked.php' id='sub$cpt'>
-                    <a onclick='valider($cpt)' style='cursor: pointer'>
-                    <input type='submit' id='sub$cpt' hidden>
-                    <input type='text' value='" . $res . "' name='idtache' hidden>
-                    <div class='check icon2' style='color: $color'>
-                    </div>
-                    </a>
-                    </form>
-                    </td>";
-                            $cpt += 1;
-                        } else {
                             $color = "#" . $row["color"];
                             $str .= "<td style='color: $color; padding: 3px ; border: none'>
                     <form method='post' action='checked.php' id='sub$cpt'>
@@ -530,11 +524,28 @@ function valid($res,$idD,&$cpt)
                     </form>
                     </td>";
                             $cpt += 1;
+                        } else {
+                            $color = "#" . $row["color"];
+                            $str .= "<td style='color: $color; padding: 3px ; border: none'>
+                    <form method='post' action='checked.php' id='sub$cpt'>
+                    <a onclick='valider($cpt)' style='cursor: pointer'>
+                    <input type='submit' id='sub$cpt' hidden>
+                    <input type='text' value='" . $res . "' name='idtache' hidden>
+                    <div class='check icon2' style='color: $color'>
+                    </div>
+                    </a>
+                    </form>
+                    </td>";
+                            $cpt += 1;
                         }
                     }
                 } else {
+                    if ($b && $row["adminC"] == 1){
+                        $b = false;
+
+                        $str .= "<td style='padding: 3px ; border: none'><div class='check icon2' style='color: red'></td>";
+                    }
                     if ($row["checked"] == 1) {
-                        $color = "#" . $row["color"];
                         $str .= "<td style='padding: 3px ; border: none'><div class='check icon2' style='color: green'></td>";
                     }
 

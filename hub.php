@@ -110,6 +110,7 @@ include ("fcAffi.php");
 session_start();
 
 $id = $_SESSION["id"];
+$_SESSION["last"]="hub.php";
 
 echo "<div style='width: 1002px; text-align: left; height: 100%; z-index: 0; position: relative; padding: 0px;margin: 0 auto;'>";
 
@@ -134,7 +135,7 @@ $orderD="";
 
 $affi =  "<h2 id='menu1' onclick='afficheMenu(this)'><a style='cursor: pointer;'>Liste des tâches</a></h2>";
 
-$sql = "SELECT DISTINCT nom,prenom,idUser,color,dateFin FROM suuser where idUser<>4 order by nom,prenom";
+$sql = "SELECT DISTINCT nom,prenom,idUser,color,dateFin FROM suuser order by nom,prenom";
 
 $res = query($sql);
 
@@ -148,11 +149,9 @@ while ($row = mysqli_fetch_assoc($res)){
         $affi .= "<span style='color: #$color;padding-right: 12px'><input type='checkbox' name='id' value='$id' onclick='valider($cpt)' >" . $row["prenom"] ."</span>";
     }
 }
-$affi.= "<span style='padding-right: 12px'><input type='checkbox' name='id' value='4'  onclick='valider($cpt)'>Autre</span></form>";
-
-
 $cpt += 1;
-$affi.="<form id='sub$cpt' action='hub.php'><a onclick='valider($cpt)' style='cursor: pointer'><img src='Reset-icon.png'></a></form></tr></table>";
+
+$affi.="</form><form id='sub$cpt' action='hub.php'><a onclick='valider($cpt)' style='cursor: pointer'><img src='Reset-icon.png'></a></form></tr></table>";
 
 $cpt +=1;
 
@@ -180,7 +179,7 @@ $affi .= "<td style='width: 80px; text-align: center'><form method='post' id='su
 $cpt += 1;
 $affi .= "<td style='width: 80px; text-align: center'><form method='post' id='sub$cpt'><input type='text' name='order' value='sutache.dateSuppr' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Fin</a></form></td>";
 $affi .= "<td style='text-align: center; '>Validation</td>";
-$affi .= "<td style='text-align: center; '>Modifier</td>";
+$affi .= "<td style='text-align: center; '>Actions</td>";
 
 
 if($_SERVER["REQUEST_METHOD"]==="POST") {
@@ -189,7 +188,7 @@ if($_SERVER["REQUEST_METHOD"]==="POST") {
 
         $affi =  "<h2 id='menu1' onclick='afficheMenu(this)'><a style='cursor: pointer;'>Liste des tâches</a></h2>";
 
-        $sql = "SELECT DISTINCT nom,prenom,idUser,color FROM suuser where idUser<>4 order by nom,prenom";
+        $sql = "SELECT DISTINCT nom,prenom,idUser,color FROM suuser order by nom,prenom";
 
         $res = query($sql);
 
@@ -202,11 +201,10 @@ if($_SERVER["REQUEST_METHOD"]==="POST") {
                 $affi .= "<span style='color: #$color;padding-right: 12px'><input type='checkbox' name='id' value='$id' onclick='valider($cpt)'>" . $row["prenom"] . "</span>";
             }
         }
-        $affi.= "<span style='padding-right: 12px'><input type='checkbox' name='id' value='4'  onclick='valider($cpt)'>Autre</span></form>";
 
         $cpt += 1;
 
-        $affi.="<form id='sub$cpt' action='hub.php'><a onclick='valider($cpt)' style='cursor: pointer'><img src='Reset-icon.png'></a></form></tr></table>";
+        $affi.="</form><form id='sub$cpt' action='hub.php'><a onclick='valider($cpt)' style='cursor: pointer'><img src='Reset-icon.png'></a></form></tr></table>";
 
         $cpt += 1;
 
@@ -235,7 +233,7 @@ if($_SERVER["REQUEST_METHOD"]==="POST") {
         $cpt += 1;
         $affi .= "<td style='width: 80px; text-align: center'><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.dateSuppr' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Fin</a></form></td>";
         $affi .= "<td style='text-align: center; '>Validation</td>";
-        $affi .= "<td style='text-align: center; '>Modifier</td>";
+        $affi .= "<td style='text-align: center; '>Actions</td>";
 
 
     }else {
@@ -256,7 +254,7 @@ $result = query($sql);
 
 while ($row = mysqli_fetch_assoc($result)){
 
-    if($row["suppr"]==="non" && (strtotime($row["dateFin"]) > time() || strtotime($row["dateFin"])<0 || strtotime($row["dateFin"])===false)) {
+    if(($row["suppr"]==="non"||$row["archive"]==="non") && (strtotime($row["dateFin"]) > time() || strtotime($row["dateFin"])<0 || strtotime($row["dateFin"])===false)) {
 
         if(isset($row["dateSuppr"]) && substr($row["dateSuppr"],0,10)!=="0000-00-00" && $row["adminC"]==1 ) {
 
@@ -277,7 +275,7 @@ echo "</div>";
 
 echo "<div style='float: right'>";
 echo "<br/>";
-echo "<form action='tacheSuppr.php'><input type='submit' name='' value='Voir les tâches supprimées' style='float: right'></form>";
+echo "<form action='tacheSuppr.php'><input type='submit' name='' value='Voir les tâches archivées' style='float: right'></form>";
 echo "</div>";
 
 echo "<div style='float: left'>";
