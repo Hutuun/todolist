@@ -67,15 +67,16 @@
         }
         .close.icon {
             color: #000;
-            position: absolute;
-            width: 10px;
+            position: relative;
+            padding-left: 40px;
+            width: 15px;
             height: 10px;
         }
         .close.icon:before {
             content: '';
             position: absolute;
-            top: 10px;
-            width: 21px;
+            top: 6px;
+            width: 15px;
             height: 1px;
             background-color: currentColor;
             -webkit-transform: rotate(-45deg);
@@ -84,8 +85,8 @@
         .close.icon:after {
             content: '';
             position: absolute;
-            top: 10px;
-            width: 21px;
+            top: 6px;
+            width: 15px;
             height: 1px;
             background-color: currentColor;
             -webkit-transform: rotate(45deg);
@@ -150,7 +151,12 @@ while ($row = mysqli_fetch_assoc($res)){
 }
 $affi.= "<span style='padding-right: 12px'><input type='checkbox' name='id' value='4'  onclick='valider($cpt)'>Autre</span></form>";
 
-$affi.="<form action='hub.php'><input type='submit' value='Reset'></form></tr></table>";
+$cpt += 1;
+
+$affi.="<form id='sub$cpt' action='hub.php'><a onclick='valider($cpt)' style='cursor: pointer'><img src='Reset-icon.png'></a></form></tr></table>";
+
+$cpt += 1;
+
 $affi.="<br/>";
 
 $cpt +=1;
@@ -178,10 +184,10 @@ $affi .= "<td style='width: 80px; text-align: center'><form action='hub.php' met
 $cpt += 1;
 $affi .= "<td style='width: 80px; text-align: center'><form action='hub.php' method='post' id='sub$cpt'><input type='text' name='order' value='sutache.dateSuppr' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Fin</a></form></td>";
 $affi .= "<td style='text-align: center; '>Validation</td>";
-$affi .= "<td style='text-align: center; '>modifier</td>";
-if($_SESSION["admin"]>="1") {
+$affi .= "<td style='text-align: center; '>Modifier</td>";
+/*if($_SESSION["admin"]>="1") {
     $affi .= "<td style='text-align: center; '>Supprimer</td>";
-}
+}*/
 
 if($_SERVER["REQUEST_METHOD"]==="POST") {
     if (isset($_POST["order"])) {
@@ -196,6 +202,7 @@ if($_SERVER["REQUEST_METHOD"]==="POST") {
 
         $affi .= "<table><tr><form method='post' id='sub$cpt'>";
 
+
         while ($row = mysqli_fetch_assoc($res)){
             if ((strtotime($row["dateFin"]) > time() || strtotime($row["dateFin"])<0 || strtotime($row["dateFin"])===false)) {
                 $color = $row["color"];
@@ -205,7 +212,12 @@ if($_SERVER["REQUEST_METHOD"]==="POST") {
         }
         $affi.= "<span style='padding-right: 12px'><input type='checkbox' name='id' value='4'  onclick='valider($cpt)'>Autre</span></form>";
 
-        $affi.="<form action='hub.php'><input type='submit' value='Reset'></form></tr></table>";
+        $cpt += 1;
+
+        $affi.="<form id='sub$cpt' action='hub.php'><a onclick='valider($cpt)' style='cursor: pointer;'><img src='Reset-icon.png'></a></form></tr></table>";
+
+        $cpt +=1;
+
         $affi.="<br/>";
 
         $cpt +=1;
@@ -233,7 +245,7 @@ if($_SERVER["REQUEST_METHOD"]==="POST") {
         $cpt += 1;
         $affi .= "<td style='width: 80px; text-align: center'><form action='hub.php' method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.dateSuppr' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Fin</a></form></td>";
         $affi .= "<td style='text-align: center; '>Validation</td>";
-        $affi .= "<td style='text-align: center; '>modifier</td>";
+        $affi .= "<td style='text-align: center; '>Modifier</td>";
         if($_SESSION["admin"]>="1") {
             $affi .= "<td style='text-align: center; '>Supprimer</td>";
         }
@@ -259,7 +271,7 @@ $result = query($sql);
 
 while ($row = mysqli_fetch_assoc($result)){
 
-    if($row["suppr"]==="non"||(strtotime($row["dateFin"]) > time() || strtotime($row["dateFin"])<0 || strtotime($row["dateFin"])===false)) {
+    if($row["suppr"]==="non" && (strtotime($row["dateFin"]) > time() || strtotime($row["dateFin"])<0 || strtotime($row["dateFin"])===false)) {
 
         if(isset($row["dateSuppr"]) && substr($row["dateSuppr"],0,10)!=="0000-00-00" && $row["adminC"]==1 ) {
 
@@ -298,9 +310,15 @@ echo "</table>";
 
 echo "</div>";
 
+echo "<div style='float: right'>";
+echo "<br/>";
 echo "<form action='tacheSuppr.php'><input type='submit' name='' value='Voir les tâches supprimées' style='float: right'></form>";
-echo "<form method='post' action='pdf.php' id='sub$cpt'><input type='text' name='order' value='$order' hidden><input type='text' name='orderD' value='$orderD' hidden><a style='float:bottom; cursor: pointer' onclick='valider($cpt)'>Imprimer en PDF<div class='download icon'></div></a></form><br/>";
+echo "</div>";
 
+echo "<div style='float: left'>";
+echo "<br/>";
+echo "<form method='post' action='pdf.php' id='sub$cpt'><input type='text' name='order' value='$order' hidden><input type='text' name='orderD' value='$orderD' hidden><a style='float:bottom; cursor: pointer' onclick='valider($cpt)'>Imprimer en PDF<div class='download icon'></div></a></form><br/>";
+echo "</div>";
 ?>
 
 </body>

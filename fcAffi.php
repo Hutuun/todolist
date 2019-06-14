@@ -69,18 +69,20 @@ function affiTnf($row,&$cpt){
     }
 
     if($b||$_SESSION["id"]===$row["idDemandeur"] || $_SESSION["admin"]=="2"){
-        $str.="<td style='text-align: center;'><form method='post' action='modifTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer'><img src=\"write-paper-ink-icon.png\"></a></form></td>";
+        $str.="<td style='text-align: center;'><table><td style='border: none'><form method='post' action='modifTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer'><img src=\"write-paper-ink-icon.png\"></a></form></td>";
         $cpt+=1;
     }else{
-        $str.="<td></td>";
+        $str.="<td><table><td style='border: none'></td>";
     }
 
     if(($_SESSION["id"]===$row["idDemandeur"] && $_SESSION["admin"]==1) || $_SESSION["admin"]==2) {
-        $str .= "<td style='text-align: center'><form method='post' action='supprTache.php' id='sub$cpt'><input type='text' value='" . $row["idTache"] . "' name='idtache' hidden><a onclick='valider($cpt)' style='cursor: pointer;'><img alt='' src='delete.png'/></a></form></td></tr>";
+        $str .= "<td style='text-align: center; border: none'><form method='post' action='supprTache.php' id='sub$cpt'><input type='text' value='" . $row["idTache"] . "' name='idtache' hidden><a onclick='valider($cpt)' style='cursor: pointer;'><img alt='' src='delete.png'/></a></form></td></td></table></tr>";
         $cpt += 1;
     }else {
         if ($_SESSION["admin"] == 1) {
-            $str .= "<td></td></tr>";
+            $str .= "<td style='border: none'></td></td></table></tr>";
+        }else{
+            $str .= "</table></tr>";
         }
     }
     return $str;
@@ -156,20 +158,21 @@ function affiTf($row,&$cpt){
 
 
 
-    if($b ||$_SESSION["id"]===$row["idDemandeur"] || $_SESSION["admin"]=="2"){
-        $str.="<td style='text-align: center;'><form method='post' action='modifTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer'><img src=\"write-paper-ink-icon.png\"></a></form></td>";
+    if($b||$_SESSION["id"]===$row["idDemandeur"] || $_SESSION["admin"]=="2"){
+        $str.="<td style='text-align: center;'><table><td style='border: none'><form method='post' action='modifTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer'><img src=\"write-paper-ink-icon.png\"></a></form></td>";
         $cpt+=1;
     }else{
-        $str.="<td></td>";
+        $str.="<td ><table><td style='border: none'></td>";
     }
 
-    if(($_SESSION["id"]===$row["idDemandeur"] && $_SESSION["admin"]=="1") || $_SESSION["admin"]=="2") {
-        $str .= "<td style='text-align: center;'><form method='post' action='supprTache.php' id='sub$cpt'><input type='text' value='" . $row["idTache"] . "' name='idtache' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand;'><img src='delete.png'></a></form></td></tr>";
-        $cpt +=1;
-    }
-    else {
+    if(($_SESSION["id"]===$row["idDemandeur"] && $_SESSION["admin"]==1) || $_SESSION["admin"]==2) {
+        $str .= "<td style='text-align: center;border: none'><form method='post' action='supprTache.php' id='sub$cpt'><input type='text' value='" . $row["idTache"] . "' name='idtache' hidden><a onclick='valider($cpt)' style='cursor: pointer;'><img alt='' src='delete.png'/></a></form></td></td></table></tr>";
+        $cpt += 1;
+    }else {
         if ($_SESSION["admin"] == 1) {
-            $str .= "<td></td></tr>";
+            $str .= "<td style='border: none'></td></td></table></tr>";
+        }else{
+            $str .= "</td></table></tr>";
         }
     }
     return $str;
@@ -277,26 +280,29 @@ function bd($res){
     return $str;
 }
 
-function valid($res,$idD,&$cpt){
+function valid($res,$idD,&$cpt)
+{
 
 
-    $str ="<table>\n";
+    $str = "<table>\n";
 
-        $sql = "SELECT nom, prenom, color, adminC FROM suuser,sutuser where suuser.idUser = '$idD' and idTache='$res'";
+    $sql = "SELECT nom, prenom, color, adminC FROM suuser,sutuser where suuser.idUser = '$idD' and idTache='$res'";
 
-        $r = query($sql);
+    $r = query($sql);
 
-        $row = mysqli_fetch_assoc($r);
+    $row = mysqli_fetch_assoc($r);
 
-        $id = $_SESSION["id"];
+    $id = $_SESSION["id"];
 
-        $sql = "SELECT * FROM suuser where idUser=$id";
+    $sql = "SELECT * FROM suuser where idUser=$id";
 
-        $resultat = query($sql);
+    $resultat = query($sql);
 
-        $r = mysqli_fetch_assoc($resultat);
+    $r = mysqli_fetch_assoc($resultat);
 
-    if($_SESSION["id"]===$idD || $r["admin"]==2) {
+    $stri = "";
+
+    if ($_SESSION["id"] === $idD || $r["admin"] == 2) {
         $color = "#" . $row["color"];
 
         $sql = "SELECT * FROM suuser,sutuser,sutache where idDemandeur=suuser.idUser and sutache.idTache=sutuser.idTache and sutache.idTache=$res";
@@ -304,145 +310,117 @@ function valid($res,$idD,&$cpt){
         $resultat = query($sql);
 
         while ($row = mysqli_fetch_assoc($resultat)) {
-            if ($row["adminC"] == 1) {
-                $str .= "<td style='color: $color;padding: 2px; border: none'>
+            if ($r["admin"] != 2) {
+                if ($row["adminC"] == 1) {
+                    $str .= "<td style='color: $color;padding: 2px; border: none'>
             <form method='post' action='checked.php' id='sub$cpt'>
             <a onclick='valider($cpt)' style='cursor: pointer'>
             <input type='submit' id='sub$cpt' hidden>
             <input type='text' value='" . $res . "' name='idtache' hidden>
             <input type='text' value='ok' name='admin' hidden>
-            <div class='check icon' style='color: $color'>
+            <div class='check icon2' style='color: red'>
             </div>
             </a>
             </form>
             </td>
             ";
 
-                $cpt += 1;
-                break;
-            } else {
-                if ($row["checked"] == 0) {
-                    $stri = "<td style='color: $color;padding: 2px; border: none'>
+                    $cpt += 1;
+                    break;
+                } else {
+                    if ($row["checked"] == 0) {
+                        $stri = "<td style='color: $color;padding: 2px; border: none'>
             <div class='close icon' style='color: $color'>
             </div>
             </td>
             ";
 
 
-                    break;
+                        break;
+                    }
+                    $stri = "<td style='color: $color;padding: 2px; border: none'>
+                <form method='post' action='checked.php' id='sub$cpt'>
+                <a onclick='valider($cpt)' style='cursor: pointer'>
+                <input type='submit' id='sub$cpt' hidden>
+                <input type='text' value='" . $res . "' name='idtache' hidden>
+                <input type='text' value='ok' name='admin' hidden>
+                <div class='check icon' style='color: $color'>
+                </div>
+                </a>
+                </form>
+                </td>
+                ";
+                    $cpt += 1;
+
                 }
-                $stri = "<td style='color: $color;padding: 2px; border: none'>
+            } else {
+
+                if ($row["adminC"] == 1) {
+                    $str .= "<td style='color: $color;padding: 2px; border: none'>
             <form method='post' action='checked.php' id='sub$cpt'>
             <a onclick='valider($cpt)' style='cursor: pointer'>
             <input type='submit' id='sub$cpt' hidden>
             <input type='text' value='" . $res . "' name='idtache' hidden>
             <input type='text' value='ok' name='admin' hidden>
-            <div class='check icon2' style='color: $color'>
+            <div class='check icon2' style='color: red'>
             </div>
             </a>
             </form>
             </td>
             ";
-                $cpt += 1;
 
+                    $cpt += 1;
+                    break;
+                } else {
+                    if ($row["checked"] == 0) {
+                        $stri = "<td style='color: $color;padding: 2px; border: none; '>
+            <form method='post' action='checked.php' id='sub$cpt'>
+            <a onclick='valider($cpt)' style='cursor: pointer'>
+            <input type='submit' id='sub$cpt' hidden>
+            <input type='text' value='" . $res . "' name='idtache' hidden>
+            <input type='text' value='ok' name='admin' hidden>
+            <div class='close icon' style='color: $color'>
+            </div>
+            </a>
+            </form>
+            </td>
+            ";
+
+                        $cpt +=1;
+
+
+                        break;
+                    }
+                    $stri = "<td style='color: $color;padding: 2px; border: none'>
+                <form method='post' action='checked.php' id='sub$cpt'>
+                <a onclick='valider($cpt)' style='cursor: pointer'>
+                <input type='submit' id='sub$cpt' hidden>
+                <input type='text' value='" . $res . "' name='idtache' hidden>
+                <input type='text' value='ok' name='admin' hidden>
+                <div class='check icon' style='color: $color'>
+                </div>
+                </a>
+                </form>
+                </td>
+                ";
+                    $cpt += 1;
+                }
             }
         }
 
-        $str .= $stri;
+            $str .= $stri;
 
-        $sql = "SELECT suuser.idUser,nom, prenom, color, checked, adminC FROM suuser,sutuser where sutuser.idTache='$res' and suuser.idUser=sutuser.idUser";
+            $sql = "SELECT suuser.idUser,nom, prenom, color, checked, adminC FROM suuser,sutuser where sutuser.idTache='$res' and suuser.idUser=sutuser.idUser";
 
-        $r = query($sql);
+            $r = query($sql);
 
-        while($row = mysqli_fetch_assoc($r)){
-
-
-            if($_SESSION["id"]===$row["idUser"] ) {
-
-                if ($row["checked"] == 0 && $row["adminC"] == 0) {
-
-                    $color = "#" . $row["color"];
-                    $str .= "<td style='color: $color; padding: 3px ; border: none'>
-                    <form method='post' action='checked.php' id='sub$cpt'>
-                    <a onclick='valider($cpt)' style='cursor: pointer'>
-                    <input type='submit' id='sub$cpt' hidden>
-                    <input type='text' value='" . $res . "' name='idtache' hidden>
-                    <div class='check icon2' style='color: $color'>
-                    </div>
-                    </a>
-                    </form>
-                    </td>";
+            while ($row = mysqli_fetch_assoc($r)) {
 
 
-                    $cpt += 1;
-                } else {
-                    if ($row["checked"] == 1 && $row["adminC"] == 1) {
-                        $color = "#" . $row["color"];
-                        $str .= "<td style='color: $color; padding: 3px ; border: none'>
-                        <form method='post' action='checked.php' id='sub$cpt'>
-                        <a onclick='valider($cpt)' style='cursor: pointer'>
-                        <input type='submit' id='sub$cpt' hidden>
-                        <input type='text' value='" . $res . "' name='idtache' hidden>
-                        <div class='check icon' style='color: $color'>
-                        </div>
-                        </a>
-                        </form>
-                        </td>";
+                if ($_SESSION["id"] === $row["idUser"]) {
 
-                        $cpt +=1;
-                    }
-                    else{
-                        $color = "#" . $row["color"];
-                        $str .= "<td style='color: $color; padding: 3px ; border: none'>
-                        <form method='post' action='checked.php' id='sub$cpt'>
-                        <a onclick='valider($cpt)' style='cursor: pointer'>
-                        <input type='submit' id='sub$cpt' hidden>
-                        <input type='text' value='" . $res . "' name='idtache' hidden>
-                        <div class='check icon2' style='color: $color'>
-                        </div>
-                        </a>
-                        </form>
-                        </td>";
-                        $cpt +=1;
-                    }
-                }
-            }else{
-                if ($row["checked"] == 1) {
-                    $color = "#" . $row["color"];
+                    if ($row["checked"] == 0 && $row["adminC"] == 0) {
 
-                    $str .= "<td style='color: $color; padding: 3px ; border: none'><div class='check icon' style='color: $color'></td>";
-                }
-            }
-
-
-        }
-    }else {
-        $sql = "SELECT suuser.idUser,nom, prenom, color, checked, adminC FROM suuser,sutuser where sutuser.idTache='$res' and suuser.idUser=sutuser.idUser";
-
-        $r = query($sql);
-
-        while ($row = mysqli_fetch_assoc($r)) {
-            if ($_SESSION["id"] === $row["idUser"]) {
-
-
-                if ($row["checked"] == 0 && $row["adminC"] == 0) {
-
-                    $color = "#" . $row["color"];
-                    $str .= "<td style='color: $color; padding: 3px ; border: none'>
-                    <form method='post' action='checked.php' id='sub$cpt'>
-                    <a onclick='valider($cpt)' style='cursor: pointer'>
-                    <input type='submit' id='sub$cpt' hidden>
-                    <input type='text' value='" . $res . "' name='idtache' hidden>
-                    <div class='check icon2' style='color: $color'>
-                    </div>
-                    </a>
-                    </form>
-                    </td>";
-
-
-                    $cpt += 1;
-                } else {
-                    if ($row["checked"] == 1) {
                         $color = "#" . $row["color"];
                         $str .= "<td style='color: $color; padding: 3px ; border: none'>
                     <form method='post' action='checked.php' id='sub$cpt'>
@@ -454,10 +432,81 @@ function valid($res,$idD,&$cpt){
                     </a>
                     </form>
                     </td>";
-                        $cpt +=1;
+
+
+                        $cpt += 1;
                     } else {
+                        if ($row["checked"] == 1 && $row["adminC"] == 1) {
+                            $color = "#" . $row["color"];
+                            $str .= "<td style='color: $color; padding: 3px ; border: none'>
+                        <form method='post' action='checked.php' id='sub$cpt'>
+                        <a onclick='valider($cpt)' style='cursor: pointer'>
+                        <input type='submit' id='sub$cpt' hidden>
+                        <input type='text' value='" . $res . "' name='idtache' hidden>
+                        <div class='check icon2' style='color: $color'>
+                        </div>
+                        </a>
+                        </form>
+                        </td>";
+
+                            $cpt += 1;
+                        } else {
+                            $color = "#" . $row["color"];
+                            $str .= "<td style='color: $color; padding: 3px ; border: none'>
+                        <form method='post' action='checked.php' id='sub$cpt'>
+                        <a onclick='valider($cpt)' style='cursor: pointer'>
+                        <input type='submit' id='sub$cpt' hidden>
+                        <input type='text' value='" . $res . "' name='idtache' hidden>
+                        <div class='check icon2' style='color: $color'>
+                        </div>
+                        </a>
+                        </form>
+                        </td>";
+                            $cpt += 1;
+                        }
+                    }
+                } else {
+                    if ($row["checked"] == 1) {
+                        $color = "#" . $row["color"];
+
+                        $str .= "<td style='padding: 3px ; border: none'><div class='check icon2' style='color: green'></td>";
+                    }
+                }
+
+
+            }
+
+        }
+
+    else {
+            $sql = "SELECT suuser.idUser,nom, prenom, color, checked, adminC FROM suuser,sutuser where sutuser.idTache='$res' and suuser.idUser=sutuser.idUser";
+
+            $r = query($sql);
+
+            while ($row = mysqli_fetch_assoc($r)) {
+                if ($_SESSION["id"] === $row["idUser"]) {
+
+
+                    if ($row["checked"] == 0 && $row["adminC"] == 0) {
+
                         $color = "#" . $row["color"];
                         $str .= "<td style='color: $color; padding: 3px ; border: none'>
+                    <form method='post' action='checked.php' id='sub$cpt'>
+                    <a onclick='valider($cpt)' style='cursor: pointer'>
+                    <input type='submit' id='sub$cpt' hidden>
+                    <input type='text' value='" . $res . "' name='idtache' hidden>
+                    <div class='check icon' style='color: $color'>
+                    </div>
+                    </a>
+                    </form>
+                    </td>";
+
+
+                        $cpt += 1;
+                    } else {
+                        if ($row["checked"] == 1) {
+                            $color = "#" . $row["color"];
+                            $str .= "<td style='color: $color; padding: 3px ; border: none'>
                     <form method='post' action='checked.php' id='sub$cpt'>
                     <a onclick='valider($cpt)' style='cursor: pointer'>
                     <input type='submit' id='sub$cpt' hidden>
@@ -467,22 +516,35 @@ function valid($res,$idD,&$cpt){
                     </a>
                     </form>
                     </td>";
-                        $cpt +=1;
+                            $cpt += 1;
+                        } else {
+                            $color = "#" . $row["color"];
+                            $str .= "<td style='color: $color; padding: 3px ; border: none'>
+                    <form method='post' action='checked.php' id='sub$cpt'>
+                    <a onclick='valider($cpt)' style='cursor: pointer'>
+                    <input type='submit' id='sub$cpt' hidden>
+                    <input type='text' value='" . $res . "' name='idtache' hidden>
+                    <div class='check icon' style='color: $color'>
+                    </div>
+                    </a>
+                    </form>
+                    </td>";
+                            $cpt += 1;
+                        }
                     }
+                } else {
+                    if ($row["checked"] == 1) {
+                        $color = "#" . $row["color"];
+                        $str .= "<td style='padding: 3px ; border: none'><div class='check icon2' style='color: green'></td>";
+                    }
+
                 }
-            } else {
-                if ($row["checked"] == 1) {
-                    $color = "#" . $row["color"];
-                    $str .= "<td style='color: $color; padding: 3px ; border: none'><div class='check icon' style='color: $color'></td>";
-                }
+
 
             }
-
-
         }
+
+        $str .= "</table>";
+
+        return $str;
     }
-
-    $str .="</table>";
-
-    return $str;
-}

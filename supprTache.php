@@ -19,7 +19,7 @@ if($row["suppr"]==="non") {
 
     query($sql);
 }else{
-    $sql = "UPDATE sutache SET suppr='non', dateSuppr='' WHERE idTache='" . $_POST["idtache"] . "'";
+    $sql = "UPDATE sutache SET suppr='non', dateSuppr='0000-00-00 00:00:00' WHERE idTache='" . $_POST["idtache"] . "'";
 
     query($sql);
 }
