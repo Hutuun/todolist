@@ -19,8 +19,10 @@ $idTache = $_POST["idtache"];
 $nom = $_POST["nom"];
 $prio = $_POST["prio"];
 $sql = "SELECT * FROM sutache where idTache=$idTache";
+
 $res=query($sql);
 $row=mysqli_fetch_assoc($res);
+
 $dead = $row["deadline"];
 $dd= $row["dateCreation"];
 $df = $row["dateSuppr"];

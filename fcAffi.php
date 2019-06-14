@@ -15,7 +15,7 @@ function affiTnf($row,&$cpt){
         $color ="#ff0000";
     }
     $str = "<tr><td style='text-align: center'>".$row["idTache"]."</td>";
-    $str .= "<td style='color: $color; padding-left: 4px; padding-right: 4px'><form method='post' action='afficheTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer'>".$row["nomTache"]."</a></form></td>";
+    $str .= "<td style='color: $color; padding-left: 4px; padding-right: 4px'><form method='post' action='afficheTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer' title=\"".$row["descriptionTache"]."\">".$row["nomTache"]."</a></form></td>";
     $cpt+=1;
     $sql = "SELECT nom, prenom, idUser,color From suuser, sutache where idDemandeur ='" . $row["idDemandeur"] . "' and suuser.idUser=sutache.idDemandeur";
     $res = query($sql);
@@ -76,14 +76,17 @@ function affiTnf($row,&$cpt){
     }
 
     if(($_SESSION["id"]===$row["idDemandeur"] && $_SESSION["admin"]==1) || $_SESSION["admin"]==2) {
-        $str .= "<td style='text-align: center; border: none'><form method='post' action='supprTache.php' id='sub$cpt'><input type='text' value='" . $row["idTache"] . "' name='idtache' hidden><a onclick='valider($cpt)' style='cursor: pointer;'><img alt='' src='delete.png'/></a></form></td></td></table></tr>";
+        $str .= "<td style='text-align: center; border: none'><form method='post' action='supprTache.php' id='sub$cpt'><input type='text' value='" . $row["idTache"] . "' name='idtache' hidden><a onclick='valider($cpt)' style='cursor: pointer;'><img alt='' src='delete.png'/></a></form></td>";
         $cpt += 1;
     }else {
         if ($_SESSION["admin"] == 1) {
-            $str .= "<td style='border: none'></td></td></table></tr>";
-        }else{
-            $str .= "</table></tr>";
+            $str .= "<td style='border: none'></td></td>";
         }
+    }
+    if($row["descriptionTache"]!==""){
+        $str.= "<td style='border: none'><img src=\"information-icon2.png\" title=\"".$row["descriptionTache"]."\"></td></td></table></tr>";
+    }else{
+        $str.= "<td style='border: none'><img src=\"information-icon.png\" title=\"".$row["descriptionTache"]."\"></td></td></table></tr>";
     }
     return $str;
 
@@ -100,7 +103,7 @@ function affiTf($row,&$cpt){
         $color ='#ff0000';
     }
     $str = "<tr style='background-color: lightgray'><td style='text-align: center'>".$row["idTache"]."</td>";
-    $str .= "<td style='color: $color; padding-left: 4px; padding-right: 4px'><form method='post' action='afficheTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer'>".$row["nomTache"]."</a></form></td>";
+    $str .= "<td style='color: $color; padding-left: 4px; padding-right: 4px'><form method='post' action='afficheTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer' title=\"".$row["descriptionTache"]."\"> ".$row["nomTache"]."</a></form></td>";
     $cpt += 1;
 
     $sql = "SELECT nom, prenom, idUser,color From suuser, sutache where idDemandeur ='" . $row["idDemandeur"] . "' and suuser.idUser=sutache.idDemandeur";
@@ -166,14 +169,17 @@ function affiTf($row,&$cpt){
     }
 
     if(($_SESSION["id"]===$row["idDemandeur"] && $_SESSION["admin"]==1) || $_SESSION["admin"]==2) {
-        $str .= "<td style='text-align: center;border: none'><form method='post' action='supprTache.php' id='sub$cpt'><input type='text' value='" . $row["idTache"] . "' name='idtache' hidden><a onclick='valider($cpt)' style='cursor: pointer;'><img alt='' src='delete.png'/></a></form></td></td></table></tr>";
+        $str .= "<td style='text-align: center; border: none'><form method='post' action='supprTache.php' id='sub$cpt'><input type='text' value='" . $row["idTache"] . "' name='idtache' hidden><a onclick='valider($cpt)' style='cursor: pointer;'><img alt='' src='delete.png'/></a></form></td>";
         $cpt += 1;
     }else {
         if ($_SESSION["admin"] == 1) {
-            $str .= "<td style='border: none'></td></td></table></tr>";
-        }else{
-            $str .= "</td></table></tr>";
+            $str .= "<td style='border: none'></td></td>";
         }
+    }
+    if($row["descriptionTache"]!==""){
+        $str.= "<td style='border: none'><img src=\"information-icon2.png\" title=\"".$row["descriptionTache"]."\"></td></td></table></tr>";
+    }else{
+        $str.= "<td style='border: none'><img src=\"information-icon.png\" title=\"".$row["descriptionTache"]."\"></td></td></table></tr>";
     }
     return $str;
 }
@@ -187,7 +193,7 @@ function affSuppr($row,&$cpt){
         $color ="#ff0000";
     }
     $str = "<tr><td style='text-align: center'>".$row["idTache"]."</td>";
-    $str .= "<td style='color: $color; padding-left: 4px; padding-right: 4px'><form method='post' action='afficheTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer'>".$row["nomTache"]."</a></form></td>";
+    $str .= "<td style='color: $color; padding-left: 4px; padding-right: 4px'><form method='post' action='afficheTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer' title=\"".$row["descriptionTache"]."\">".$row["nomTache"]."</a></form></td>";
     $cpt+=1;
     $sql = "SELECT nom, prenom, idUser,color From suuser, sutache where idDemandeur ='" . $row["idDemandeur"] . "' and suuser.idUser=sutache.idDemandeur";
     $res = query($sql);
@@ -225,13 +231,19 @@ function affSuppr($row,&$cpt){
         $str .= "<td></td>";
     }
 
+    $str .= "<td><table";
     if(($_SESSION["id"]===$row["idDemandeur"] && $_SESSION["admin"]==1) || $_SESSION["admin"]==2) {
-        $str .= "<td style='text-align: center'><form method='post' action='supprTache.php' id='sub$cpt'><input type='text' value='" . $row["idTache"] . "' name='idtache' hidden><a onclick='valider($cpt)' style='cursor: pointer;'><img alt='' src='delete.png'/></a></form></td></tr>";
+        $str .= "<td style='text-align: center; border: none'><form method='post' action='supprTache.php' id='sub$cpt'><input type='text' value='" . $row["idTache"] . "' name='idtache' hidden><a onclick='valider($cpt)' style='cursor: pointer;'><img alt='' src='delete.png'/></a></form></td>";
         $cpt += 1;
     }else {
-        if ($_SESSION["admin"] >= 1) {
-            $str .= "<td></td></tr>";
+        if ($_SESSION["admin"] == 1) {
+            $str .= "<td style='border: none'></td></td>";
         }
+    }
+    if($row["descriptionTache"]!==""){
+        $str.= "<td style='border: none'><img src=\"information-icon2.png\" title=\"".$row["descriptionTache"]."\"></td></td></table></tr>";
+    }else{
+        $str.= "<td style='border: none'><img src=\"information-icon.png\" title=\"".$row["descriptionTache"]."\"></td></td></table></tr>";
     }
     return $str;
 }
