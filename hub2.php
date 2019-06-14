@@ -185,9 +185,7 @@ $cpt += 1;
 $affi .= "<td style='width: 80px; text-align: center'><form action='hub.php' method='post' id='sub$cpt'><input type='text' name='order' value='sutache.dateSuppr' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Fin</a></form></td>";
 $affi .= "<td style='text-align: center; '>Validation</td>";
 $affi .= "<td style='text-align: center; '>Modifier</td>";
-/*if($_SESSION["admin"]>="1") {
-    $affi .= "<td style='text-align: center; '>Supprimer</td>";
-}*/
+
 
 if($_SERVER["REQUEST_METHOD"]==="POST") {
     if (isset($_POST["order"])) {
@@ -246,9 +244,7 @@ if($_SERVER["REQUEST_METHOD"]==="POST") {
         $affi .= "<td style='width: 80px; text-align: center'><form action='hub.php' method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.dateSuppr' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Fin</a></form></td>";
         $affi .= "<td style='text-align: center; '>Validation</td>";
         $affi .= "<td style='text-align: center; '>Modifier</td>";
-        if($_SESSION["admin"]>="1") {
-            $affi .= "<td style='text-align: center; '>Supprimer</td>";
-        }
+
 
     }else {
         if (isset($_POST["orderD"])) {
