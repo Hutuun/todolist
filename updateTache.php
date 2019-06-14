@@ -37,7 +37,6 @@ if ($_POST["df"]!=="") {
 $sql = "UPDATE `sutache` SET `nomTache`=\"$nom\",`descriptionTache`=\"$desc\",`idDemandeur`=$demandeur,`priorite`=$prio,`deadline`=\"$dead\",`dateCreation`=\"$dd\",`dateSuppr`=\"$df\"
 WHERE `idTache`='$idTache'";
 
-
 query($sql);
 $sql = "SELECT idBD FROM subd";
 $res = query($sql);
@@ -45,11 +44,11 @@ while ($row = mysqli_fetch_assoc($res)){
     $id = $row["idBD"];
     if(isset($_POST["$id"])){
         $sql = "INSERT INTO sutbd(idBD,idTache) VALUES (\"$id\", \"$idTache\")";
-        query($sql);
+        query($sql,false);
     }
     else{
     $sql = "DELETE FROM sutbd WHERE `idBD`='$id' and `idTache`='$idTache'";
-    query($sql);
+    query($sql,false);
 }
 }
 $sql = "SELECT * From suuser";
@@ -61,7 +60,7 @@ while ($row = mysqli_fetch_assoc($res)) {
     $id = $row["idUser"];
     if(isset($_POST["$id"])) {
         $sql = "INSERT INTO sutuser(idUser, idTache, checked) VALUES (\"$id\",\"$idTache\",0);";
-        $r=query($sql);
+        $r=query($sql,false);
 
         if($r!==false) {
             $mailto .= $row["mail"] . ",";
@@ -74,7 +73,7 @@ while ($row = mysqli_fetch_assoc($res)) {
         $r = query($sql);
         if (mysqli_num_rows($r)>0) {
             $sql = "DELETE FROM sutuser WHERE `idUser`='$id' and `idTache`='$idTache'";
-            $r = query($sql);
+            $r = query($sql,false);
             $mailto .= $row["mail"] . ",";
         }
     }

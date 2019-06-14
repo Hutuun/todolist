@@ -272,7 +272,8 @@ while ($row = mysqli_fetch_assoc($result)){
 echo "</table>";
 
 echo "</div>";
-
+echo "<br/>";
+echo "<br/>";
 echo "<div style='float: right'>";
 echo "<br/>";
 echo "<form action='tacheSuppr.php'><input type='submit' name='' value='Voir les tâches archivées' style='float: right'></form>";

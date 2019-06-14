@@ -467,7 +467,6 @@ function valid($res,$idD,&$cpt)
                     }
                 } else {
                     if ($row["checked"] == 1) {
-                        $color = "#" . $row["color"];
 
                         $str .= "<td style='padding: 3px ; border: none'><div class='check icon2' style='color: green'></td>";
                     }
@@ -477,6 +476,9 @@ function valid($res,$idD,&$cpt)
             }
 
         }
+
+    ///Pas Admin mais un simple utilisateur
+
 
     else {
             $sql = "SELECT suuser.idUser,nom, prenom, color, checked, adminC FROM suuser,sutuser where sutuser.idTache='$res' and suuser.idUser=sutuser.idUser";
