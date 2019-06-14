@@ -324,7 +324,7 @@ function valid($res,$idD,&$cpt)
         while ($row = mysqli_fetch_assoc($resultat)) {
             if ($r["admin"] != 2) {
                 if ($row["adminC"] == 1) {
-                    $str .= "<td style='color: $color;padding: 2px; border: none'>
+                    $str .= "<td style='padding: 2px; border: none'>
             <form method='post' action='checked.php' id='sub$cpt'>
             <a onclick='valider($cpt)' style='cursor: pointer'>
             <input type='submit' id='sub$cpt' hidden>
@@ -350,7 +350,7 @@ function valid($res,$idD,&$cpt)
 
                         break;
                     }
-                    $stri = "<td style='color: $color;padding: 2px; border: none'>
+                    $stri = "<td style='padding: 2px; border: none'>
                 <form method='post' action='checked.php' id='sub$cpt'>
                 <a onclick='valider($cpt)' style='cursor: pointer'>
                 <input type='submit' id='sub$cpt' hidden>
@@ -368,7 +368,7 @@ function valid($res,$idD,&$cpt)
             } else {
 
                 if ($row["adminC"] == 1) {
-                    $str .= "<td style='color: $color;padding: 2px; border: none'>
+                    $str .= "<td style='padding: 2px; border: none'>
             <form method='post' action='checked.php' id='sub$cpt'>
             <a onclick='valider($cpt)' style='cursor: pointer'>
             <input type='submit' id='sub$cpt' hidden>
@@ -385,7 +385,7 @@ function valid($res,$idD,&$cpt)
                     break;
                 } else {
                     if ($row["checked"] == 0) {
-                        $stri = "<td style='color: $color;padding: 2px; border: none; '>
+                        $stri = "<td style='padding: 2px; border: none; '>
             <form method='post' action='checked.php' id='sub$cpt'>
             <a onclick='valider($cpt)' style='cursor: pointer'>
             <input type='submit' id='sub$cpt' hidden>
@@ -403,7 +403,7 @@ function valid($res,$idD,&$cpt)
 
                         break;
                     }
-                    $stri = "<td style='color: $color;padding: 2px; border: none'>
+                    $stri = "<td style='padding: 2px; border: none'>
                 <form method='post' action='checked.php' id='sub$cpt'>
                 <a onclick='valider($cpt)' style='cursor: pointer'>
                 <input type='submit' id='sub$cpt' hidden>
@@ -434,7 +434,7 @@ function valid($res,$idD,&$cpt)
                     if ($row["checked"] == 0 && $row["adminC"] == 0) {
 
                         $color = "#" . $row["color"];
-                        $str .= "<td style='color: $color; padding: 3px ; border: none'>
+                        $str .= "<td style=' padding: 3px ; border: none'>
                     <form method='post' action='checked.php' id='sub$cpt'>
                     <a onclick='valider($cpt)' style='cursor: pointer'>
                     <input type='submit' id='sub$cpt' hidden>
@@ -450,7 +450,7 @@ function valid($res,$idD,&$cpt)
                     } else {
                         if ($row["checked"] == 1 && $row["adminC"] == 1) {
                             $color = "#" . $row["color"];
-                            $str .= "<td style='color: $color; padding: 3px ; border: none'>
+                            $str .= "<td style=' padding: 3px ; border: none'>
                         <form method='post' action='checked.php' id='sub$cpt'>
                         <a onclick='valider($cpt)' style='cursor: pointer'>
                         <input type='submit' id='sub$cpt' hidden>
@@ -464,7 +464,7 @@ function valid($res,$idD,&$cpt)
                             $cpt += 1;
                         } else {
                             $color = "#" . $row["color"];
-                            $str .= "<td style='color: $color; padding: 3px ; border: none'>
+                            $str .= "<td style=' padding: 3px ; border: none'>
                         <form method='post' action='checked.php' id='sub$cpt'>
                         <a onclick='valider($cpt)' style='cursor: pointer'>
                         <input type='submit' id='sub$cpt' hidden>
@@ -506,7 +506,7 @@ function valid($res,$idD,&$cpt)
                     if ($row["checked"] == 0 && $row["adminC"] == 0) {
 
                         $color = "#" . $row["color"];
-                        $str .= "<td style='color: $color; padding: 3px ; border: none'>
+                        $str .= "<td style=' padding: 3px ; border: none'>
                     <form method='post' action='checked.php' id='sub$cpt'>
                     <a onclick='valider($cpt)' style='cursor: pointer'>
                     <input type='submit' id='sub$cpt' hidden>
@@ -527,12 +527,12 @@ function valid($res,$idD,&$cpt)
                         }
                         if ($row["checked"] == 1) {
                             $color = "#" . $row["color"];
-                            $str .= "<td style='color: $color; padding: 3px ; border: none'>
+                            $str .= "<td style=' padding: 3px ; border: none'>
                     <form method='post' action='checked.php' id='sub$cpt'>
                     <a onclick='valider($cpt)' style='cursor: pointer'>
                     <input type='submit' id='sub$cpt' hidden>
                     <input type='text' value='" . $res . "' name='idtache' hidden>
-                    <div class='check icon' style='color: $color'>
+                    <div class='check icon2' style='color: $color'>
                     </div>
                     </a>
                     </form>
@@ -540,7 +540,7 @@ function valid($res,$idD,&$cpt)
                             $cpt += 1;
                         } else {
                             $color = "#" . $row["color"];
-                            $str .= "<td style='color: $color; padding: 3px ; border: none'>
+                            $str .= "<td style=' padding: 3px ; border: none'>
                     <form method='post' action='checked.php' id='sub$cpt'>
                     <a onclick='valider($cpt)' style='cursor: pointer'>
                     <input type='submit' id='sub$cpt' hidden>
