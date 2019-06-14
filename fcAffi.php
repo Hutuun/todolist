@@ -231,7 +231,27 @@ function affSuppr($row,&$cpt){
         $str .= "<td></td>";
     }
 
-    $str .= "<td><table";
+    $sql = "SELECT suuser.idUser FROM sutuser,suuser WHERE suuser.idUser=sutuser.idUser and idtache='".$row["idTache"]."'";
+
+    $res = query($sql);
+
+    $b = false;
+
+    while ($field= mysqli_fetch_assoc($res)){
+        if($_SESSION["id"]==$field["idUser"]){
+            $b = true;
+            break;
+        }
+    }
+
+
+
+    if($b||$_SESSION["id"]===$row["idDemandeur"] || $_SESSION["admin"]=="2"){
+        $str.="<td style='text-align: center;'><table><td style='border: none'><form method='post' action='modifTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer'><img src=\"write-paper-ink-icon.png\"></a></form></td>";
+        $cpt+=1;
+    }else{
+        $str.="<td ><table><td style='border: none'></td>";
+    }
     if(($_SESSION["id"]===$row["idDemandeur"] && $_SESSION["admin"]==1) || $_SESSION["admin"]==2) {
         $str .= "<td style='text-align: center; border: none'><form method='post' action='supprTache.php' id='sub$cpt'><input type='text' value='" . $row["idTache"] . "' name='idtache' hidden><a onclick='valider($cpt)' style='cursor: pointer;'><img alt='' src='delete.png'/></a></form></td>";
         $cpt += 1;
