@@ -254,7 +254,7 @@ $result = query($sql);
 
 while ($row = mysqli_fetch_assoc($result)){
 
-    if(($row["suppr"]==="non"||$row["archive"]==="non") && (strtotime($row["dateFin"]) > time() || strtotime($row["dateFin"])<0 || strtotime($row["dateFin"])===false)) {
+    if(($row["suppr"]==="non" && $row["archive"]==="non") && (strtotime($row["dateFin"]) > time() || strtotime($row["dateFin"])<0 || strtotime($row["dateFin"])===false)) {
 
         if(isset($row["dateSuppr"]) && substr($row["dateSuppr"],0,10)!=="0000-00-00" && $row["adminC"]==1 ) {
 
@@ -274,13 +274,14 @@ echo "</table>";
 echo "</div>";
 echo "<br/>";
 echo "<br/>";
-echo "<div style='float: right'>";
 echo "<br/>";
+
 echo "<form action='tacheSuppr.php'><input type='submit' name='' value='Voir les tâches archivées' style='float: right'></form>";
-echo "</div>";
+echo "<a href=\"archive.php\"><input type='button' value='Archiver' style=\"width: 80px;float: right\"/></a>";
 
 echo "<div style='float: left'>";
 echo "<br/>";
+
 echo "<form method='post' action='pdf.php' id='sub$cpt'><input type='text' name='order' value='$order' hidden><input type='text' name='orderD' value='$orderD' hidden><a style='float:bottom; cursor: pointer' onclick='valider($cpt)'>Imprimer en PDF<div class='download icon'></div></a></form><br/>";
 echo "</div>";
 ?>

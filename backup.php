@@ -93,8 +93,8 @@ while($row = mysqli_fetch_assoc($res)) {
 
 fwrite($file,"DROP TABLE IF EXISTS `sutuser`;
 CREATE TABLE `sutuser` (
-  `idUser` varchar(6) NOT NULL,
-  `idTache` varchar(6) NOT NULL,
+  `idUser` int(6) NOT NULL,
+  `idTache` int(6) NOT NULL,
   `checked` tinyint(1) NOT NULL DEFAULT '0',
   `adminC` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;\n");
@@ -113,7 +113,7 @@ while($row = mysqli_fetch_assoc($res)) {
 
 fwrite($file,"DROP TABLE IF EXISTS `suuser`;
 CREATE TABLE `suuser` (
-  `idUser` varchar(6) NOT NULL,
+  `idUser` int(6) NOT NULL,
   `nom` varchar(100) NOT NULL,
   `prenom` varchar(100) NOT NULL,
   `admin` varchar(3) NOT NULL DEFAULT 'non',

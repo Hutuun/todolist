@@ -12,13 +12,19 @@ session_start();
 
 $id = $_SESSION["id"];
 
-$sql = "SELECT * FROM sutache,sutuser where sutache.idtache=sutuser.idTache and sutache.idTache='".$_POST["idtache"]."'";
+$sql = "SELECT * FROM sutache,sutuser where sutache.idtache=sutuser.idTache and  sutache.idTache='".$_POST["idtache"]."'";
 
 $r = query($sql);
 
 $row = mysqli_fetch_assoc($r);
 
-if($row["adminC"]==1 && $row["idDemandeur"] === $id && isset($_POST["admin"]) && $_POST["admin"] === "ok") {
+$sql = "SELECT admin FROM suuser WHERE idUser = $id";
+
+$re = query($sql);
+
+$fields = mysqli_fetch_assoc($re);
+
+if($row["adminC"]==1 && ($row["idDemandeur"] === $id || $fields["admin"]==2) && isset($_POST["admin"]) && $_POST["admin"] === "ok") {
 
 
     $sql = "UPDATE sutuser SET adminC = 0 WHERE idTache = '" . $_POST["idtache"] . "'";
@@ -34,7 +40,7 @@ if($row["adminC"]==1 && $row["idDemandeur"] === $id && isset($_POST["admin"]) &&
     query($sql);
 }
 else{
-    if($row["adminC"]==0 && $row["idDemandeur"] === $id && isset($_POST["admin"]) && $_POST["admin"] === "ok"){
+    if($row["adminC"]==0 && ($row["idDemandeur"] === $id || $fields["admin"]==2) && isset($_POST["admin"]) && $_POST["admin"] === "ok"){
 
 
         $sql = "UPDATE sutuser SET adminC = 1 WHERE idTache = '" . $_POST["idtache"] . "'";

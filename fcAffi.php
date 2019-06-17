@@ -205,7 +205,7 @@ function affSuppr($row,&$cpt){
     $nom = $field["nom"];
     $prenom = $field["prenom"];
 
-    $str .= "<td style=' text-align: center'><td style='color: $color;' title='$prenom $nom'>" .strtoupper(substr($field["prenom"],0,1)).strtoupper(substr($field["nom"],0,1)). "</td>";
+    $str .= "<td style=' text-align: center'><span style='color: $color;' title='$prenom $nom'>" .strtoupper(substr($field["prenom"],0,1)).strtoupper(substr($field["nom"],0,1)). "</span></td>";
 
 
     $str .= "<td>".person($row["idTache"])."</td>";

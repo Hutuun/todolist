@@ -265,7 +265,7 @@ $result = query($sql);
 
 while ($row = mysqli_fetch_assoc($result)){
 
-    if(($row["suppr"]==="non"||$row["archive"]==="non") && (strtotime($row["dateFin"]) > time() || strtotime($row["dateFin"])<0 || strtotime($row["dateFin"])===false)) {
+    if(($row["suppr"]==="non"&&$row["archive"]==="non") && (strtotime($row["dateFin"]) > time() || strtotime($row["dateFin"])<0 || strtotime($row["dateFin"])===false)) {
 
         if(isset($row["dateSuppr"]) && substr($row["dateSuppr"],0,10)!=="0000-00-00" && $row["adminC"]==1 ) {
 
@@ -284,7 +284,7 @@ $result = query($sql2);
 
 while ($row = mysqli_fetch_assoc($result)){
 
-    if($row["suppr"]==="non") {
+    if($row["suppr"]==="non" && $row["archive"]==="non") {
 
         if(isset($row["dateSuppr"]) && substr($row["dateSuppr"],0,10)!=="0000-00-00" && $row["adminC"]==1 ) {
 

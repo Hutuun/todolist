@@ -87,7 +87,7 @@ $sql = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM
 $order="";
 $orderD="";
 
-$affi =  "<h2 id='menu1' onclick='afficheMenu(this)'><a style='cursor: pointer; cursor: hand'>Liste des tâches supprimées</a></h2>";
+$affi =  "<h2 id='menu1' onclick='afficheMenu(this)'><a style='cursor: pointer; cursor: hand'>Liste des tâches archivées</a></h2>";
 $affi .=  "<table id='sousmenu1' style='display: table' class='ta'><tr>";
 $affi .= "<td style='max-width: 45px'><form method='post' id='sub$cpt'><input type='text' name='order' value='sutache.idTache' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Num</a></form></td>";
 $cpt += 1;
@@ -111,7 +111,7 @@ if($_SERVER["REQUEST_METHOD"]==="POST") {
         $order = $_POST["order"];
         $sql = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM sutache,sutuser,suuser where suuser.idUser = sutuser.idUser and sutuser.idTache = sutache.idTache group by sutuser.idTache ORDER by $order, priorite DESC";
 
-        $affi =  "<h2 id='menu1' onclick='afficheMenu(this)'><a style='cursor: pointer; cursor: hand'>Liste des tâches supprimées</a></h2>";
+        $affi =  "<h2 id='menu1' onclick='afficheMenu(this)'><a style='cursor: pointer; cursor: hand'>Liste des tâches archivées</a></h2>";
         $affi .=  "<table id='sousmenu1' style='display: table' class='ta'><tr>";
 
         $affi .= "<td style='max-width: 45px'><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.idTache' hidden><a onclick='valider($cpt)' style='cursor: pointer;'>Num</a></form></td>";
@@ -151,6 +151,7 @@ $result = query($sql);
 while ($row = mysqli_fetch_assoc($result)){
 
     if($row["archive"]==="oui") {
+
 
         echo affSuppr($row,$cpt);
 
