@@ -110,7 +110,7 @@ $res = query($sql);
             ?></p>
             <br/><br/>
             <p>
-                <a href="hub.php"><input type='button' value='Annuler' style="width: 80px"/></a>
+                <a href="hub.php" style="text-decoration: none"><input type='button' value='Annuler' style="width: 80px"/></a>
                 <input type="submit" value="Nouvelle tâche" name="tache" style="width: 120px"/>
                 <input type="submit" value="Valider" name="valider" style="width: 80px"/>
             </p>

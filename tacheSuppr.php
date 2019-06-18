@@ -163,7 +163,7 @@ echo "</table>";
 
 echo "</div>";
 ?>
-<a href="hub.php"><input type='button' value='Retour' style="width: 80px"/></a>
+<a href="hub.php" style="text-decoration: none"><input type='button' value='Retour' style="width: 80px"/></a>
 
 </body>
 </html>
