@@ -56,8 +56,7 @@ while ($row = mysqli_fetch_assoc($res)){
 $sql = "SELECT * From suuser";
 $res = query($sql);
 $mailto="";
-$mailto2="";
-$mailto3="";
+
 while ($row = mysqli_fetch_assoc($res)) {
     $id = $row["idUser"];
     if(isset($_POST["$id"])) {
@@ -65,8 +64,6 @@ while ($row = mysqli_fetch_assoc($res)) {
         $r=query($sql,false);
 
         if($r!==false) {
-            $mailto .= $row["mail"] . ",";
-        }else{
             $mailto .= $row["mail"] . ",";
         }
     }
