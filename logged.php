@@ -38,7 +38,7 @@ else {
             $_SESSION["id"] = $row["idUser"];
             $_SESSION["admin"] = $row["admin"];
 
-            header("Refresh:0; URL=hub.php");
+            header("Refresh:0; URL=hub2.php");
         }
      }else{
 

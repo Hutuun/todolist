@@ -10,6 +10,22 @@
 include ("database.php");
 
 
-$sql = "SELECT idTache,dateSuppr ";
+$sql = "SELECT idTache,dateSuppr FROM sutache";
 
-//header("Refresh:0; URL=hub.php");
+$res = query($sql);
+
+while ($row = mysqli_fetch_assoc($res)){
+
+    $str = $row["dateSuppr"];
+    $id = $row["idTache"];
+
+    if($str!=="0000-00-00 00:00:00"){
+
+       if(strtotime($str)<strtotime(date("d-M-Y H:i:s")." -7 day")){
+           $sql = "UPDATE `sutache` SET `archive`='oui' WHERE `idTache`=$id";
+           query($sql);
+       }
+    }
+}
+
+header("Refresh:0; URL=hub.php");

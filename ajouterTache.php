@@ -8,6 +8,8 @@
 
 include ("database.php");
 
+session_start();
+
 $sql = "SELECT * FROM suuser order by nom,prenom";
 
 $res = query($sql);
@@ -101,9 +103,11 @@ $res = query($sql);
         </fieldset>
         <br/>
         <fieldset style="border: 0px">
-            <p>
-                <label style="float: right">La personne ne se trouve pas dans la liste ? cliquez <a href="ajouterUser.php">ici</a> &nbsp;</label>
-            </p>
+            <p><?php
+                if($_SESSION["admin"]>=1){
+                    echo "<label style=\"float: right\">La personne ne se trouve pas dans la liste ? cliquez <a href=\"ajouterUser.php\">ici</a> &nbsp;</label>";
+                }
+            ?></p>
             <br/><br/>
             <p>
                 <a href="hub.php"><input type='button' value='Annuler' style="width: 80px"/></a>

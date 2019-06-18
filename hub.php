@@ -151,7 +151,7 @@ while ($row = mysqli_fetch_assoc($res)){
 }
 $cpt += 1;
 
-$affi.="</form><form id='sub$cpt' action='hub.php'><a onclick='valider($cpt)' style='cursor: pointer'><img src='Reset-icon.png'></a></form></tr></table>";
+$affi.="</form><form id='sub$cpt' action='hub.php'><input type='image' src='Reset-icon.png' alt='Submit'></a></form></tr></table>";
 
 $cpt +=1;
 
@@ -188,7 +188,7 @@ if($_SERVER["REQUEST_METHOD"]==="POST") {
 
         $affi =  "<h2 id='menu1' onclick='afficheMenu(this)'><a style='cursor: pointer;'>Liste des tâches</a></h2>";
 
-        $sql = "SELECT DISTINCT nom,prenom,idUser,color FROM suuser order by nom,prenom";
+        $sql = "SELECT DISTINCT nom,prenom,idUser,color,dateFin FROM suuser order by nom,prenom";
 
         $res = query($sql);
 
@@ -217,21 +217,21 @@ if($_SERVER["REQUEST_METHOD"]==="POST") {
 
         $affi .=  "<table id='sousmenu1' style='display: table' class='ta'><tr>";
 
-        $affi .= "<td style='max-width: 45px'><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.idTache' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Num</a></form></td>";
+        $affi .= "<td style='max-width: 45px'><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.idTache' hidden><a onclick='valider($cpt)' style='cursor: pointer;'>Num</a></form></td>";
         $cpt += 1;
-        $affi .= "<td style='text-align: center; width: 400px'><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.nomTache' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Tâches</a></form></td>";
+        $affi .= "<td style='text-align: center; width: 400px'><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.nomTache' hidden><a onclick='valider($cpt)' style='cursor: pointer;'>Tâches</a></form></td>";
         $cpt += 1;
-        $affi .= "<td style='text-align: center; '><form method='post' id='sub$cpt'><input type='text' name='orderD' value='idDemandeur' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Demandeur</a></form></td>";
+        $affi .= "<td style='text-align: center; '><form method='post' id='sub$cpt'><input type='text' name='orderD' value='idDemandeur' hidden><a onclick='valider($cpt)' style='cursor: pointer; '>Demandeur</a></form></td>";
         $cpt += 1;
         $affi .= "<td style='text-align: center; width: 80px'>Qui</td>";
         $cpt += 1;
         $affi .= "<td style='text-align: center; width: 80px'>BD</td>";
         $cpt += 1;
-        $affi .= "<td style='width: 80px; text-align: center'><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.dateCreation' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Début</a></form></td>";
+        $affi .= "<td style='width: 80px; text-align: center'><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.dateCreation' hidden><a onclick='valider($cpt)' style='cursor: pointer; '>Début</a></form></td>";
         $cpt += 1;
-        $affi .= "<td style='width: 80px; text-align: center'><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.deadline' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Deadline</a></form></td>";
+        $affi .= "<td style='width: 80px; text-align: center'><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.deadline' hidden><a onclick='valider($cpt)' style='cursor: pointer; '>Deadline</a></form></td>";
         $cpt += 1;
-        $affi .= "<td style='width: 80px; text-align: center'><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.dateSuppr' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Fin</a></form></td>";
+        $affi .= "<td style='width: 80px; text-align: center'><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.dateSuppr' hidden><a onclick='valider($cpt)' style='cursor: pointer; '>Fin</a></form></td>";
         $affi .= "<td style='text-align: center; '>Validation</td>";
         $affi .= "<td style='text-align: center; '>Actions</td>";
 
@@ -275,13 +275,12 @@ echo "</div>";
 echo "<br/>";
 echo "<br/>";
 echo "<br/>";
+echo "<br/>";
 
 echo "<form action='tacheSuppr.php'><input type='submit' name='' value='Voir les tâches archivées' style='float: right'></form>";
 echo "<a href=\"archive.php\"><input type='button' value='Archiver' style=\"width: 80px;float: right\"/></a>";
 
 echo "<div style='float: left'>";
-echo "<br/>";
-
 echo "<form method='post' action='pdf.php' id='sub$cpt'><input type='text' name='order' value='$order' hidden><input type='text' name='orderD' value='$orderD' hidden><a style='float:bottom; cursor: pointer' onclick='valider($cpt)'>Imprimer en PDF<div class='download icon'></div></a></form><br/>";
 echo "</div>";
 ?>

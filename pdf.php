@@ -103,10 +103,10 @@ $affi = "<!DOCTYPE html>
 </head>
 <body style=\"font-family: Trebuchet,Trebuchet MS,Arial,Helvetica,Sans-serif;\">";
 
-$affi .=  "<h2 id='menu1' onclick='afficheMenu(this)'><a style='cursor: pointer; cursor: hand'>Liste des tâches</a></h2>";
-$affi .=  "<table id='sousmenu1' style='display: table; page-break-inside: avoid' class='ta'>";
+$affi .=  "<h2>Liste des tâches</h2>";
+$affi .=  "<table style='display: table;' class='ta'>";
 $affi .= "<tr><td style='max-width: 45px'>Num</td>";
-$affi .= "<td style='text-align: center'>Tâches</td>";
+$affi .= "<td style='text-align: center; width: 300px'>Tâches</td>";
 $affi .= "<td>Demandeur</td>";
 $affi .= "<td style='text-align: center; width: 80px'>Qui</td>";
 $affi .= "<td style='text-align: center; width: 80px'>BD</td>";
@@ -119,15 +119,17 @@ $affi.="</tr>";
 
 while ($row = mysqli_fetch_assoc($result)) {
 
-    if ($row["suppr"] === "non") {
+    if (($row["suppr"] === "non" && $row["archive"]==="non")) {
 
         if (isset($row["dateSuppr"]) && substr($row["dateSuppr"], 0, 10) !== "0000-00-00" && $row["adminC"] == 1) {
 
-
             $affi .= affiTfPDF($row, $cpt);
+
+
         } else {
 
             $affi .= affiTnfPDF($row, $cpt);
+
         }
         $cpt += 1;
     }
@@ -137,7 +139,6 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 
 $affi .= "</table>";
-
 
 
 $affi .= "</div>";
