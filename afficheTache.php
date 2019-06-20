@@ -23,7 +23,7 @@ $aff ="<!DOCTYPE html>
 <head>
     <meta charset=\"UTF-8\">
     <script src=\"js/function.js\" type=\"text/javascript\"></script>
-    <title>Tache $id</title>
+    <title>Tâche $id</title>
 
 </head>
 <body>";
@@ -43,7 +43,7 @@ $row = mysqli_fetch_assoc($result);
 $color = "#".$row["color"];
 
 $aff .= "<p>Numéro : ".$row["idTache"]."</p>";
-$aff .= "<p>Tache : ".$row["nomTache"]."</p>";
+$aff .= "<p>Tâche : ".$row["nomTache"]."</p>";
 $aff .= "<p>Description : ".$row["descriptionTache"]."</p>";
 
 $date = $row["dateCreation"];

@@ -18,4 +18,4 @@ $sql = "UPDATE suuser SET `password` = '$pwd' WHERE idUser = '$id'";
 
 query($sql);
 
-header("Refresh:0; URL=hub.php");
+header("Refresh:0; URL=hub2.php");

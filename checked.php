@@ -74,4 +74,4 @@ else{
     }
 }
 
-header("Refresh:0; URL=hub.php");
+header("Refresh:0; URL=hub2.php");

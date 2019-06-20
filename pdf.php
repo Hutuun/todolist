@@ -123,15 +123,15 @@ while ($row = mysqli_fetch_assoc($result)) {
 
         if (isset($row["dateSuppr"]) && substr($row["dateSuppr"], 0, 10) !== "0000-00-00" && $row["adminC"] == 1) {
 
-            $affi .= affiTfPDF($row, $cpt);
+            $affi .= affiTfPDF($row);
 
 
         } else {
 
-            $affi .= affiTnfPDF($row, $cpt);
+            $affi .= affiTnfPDF($row);
 
         }
-        $cpt += 1;
+
     }
 
 }

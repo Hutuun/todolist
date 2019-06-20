@@ -24,4 +24,4 @@ if($row["suppr"]==="non") {
     query($sql);
 }
 
-header("Refresh:0; URL=hub.php");
+header("Refresh:0; URL=hub2.php");

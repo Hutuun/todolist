@@ -12,7 +12,7 @@ include ("database.php");
 
 $da = date("d-m-y",time());
 
-$file = fopen("backupTODO$da.sql","w+");
+$file = fopen("backup/backupTODO$da.sql","w+");
 
 fwrite($file,"\n\n");
 
@@ -32,7 +32,8 @@ CREATE TABLE `sutache` (
   `dateCreation` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `dateSuppr` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `suppr` varchar(3) NOT NULL DEFAULT 'non',
-  `archive` varchar(3) NOT NULL DEFAULT 'non'
+  `archive` varchar(3) NOT NULL DEFAULT 'non',
+  `wait` varchar(3) NOT NULL DEFAULT 'non'
   
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;\n");
 
@@ -49,7 +50,8 @@ while($row = mysqli_fetch_assoc($res)){
     $dateSuppr = $row["dateSuppr"];
     $suppr = $row["suppr"];
     $archi = $row["archive"];
-    fwrite($file,"INSERT IGNORE INTO `sutache` (`idTache`, `nomTache`, `descriptionTache`, `idDemandeur`, `priorite`, `deadline`, `dateCreation`, `dateSuppr`, `suppr`, `archive`) VALUES ('$id',\"$nom\",\"$descriptionTache\",'$idDemandeur',$priorite,'$deadline','$dateCreation','$dateSuppr','$suppr','$archi');\n");
+    $wait = $row["wait"];
+    fwrite($file,"INSERT IGNORE INTO `sutache` (`idTache`, `nomTache`, `descriptionTache`, `idDemandeur`, `priorite`, `deadline`, `dateCreation`, `dateSuppr`, `suppr`, `archive`,`wait`) VALUES ('$id',\"$nom\",\"$descriptionTache\",'$idDemandeur',$priorite,'$deadline','$dateCreation','$dateSuppr','$suppr','$archi','$wait');\n");
 
 }
 
@@ -176,4 +178,4 @@ COMMIT;
 
 fclose($file);
 
-header("Refresh:0 ;URL=hub.php");
+header("Refresh:0 ;URL=hub2.php");

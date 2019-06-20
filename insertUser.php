@@ -38,4 +38,4 @@ $sql = "INSERT INTO suuser(idUser,nom,prenom,admin,login,password,dateDebut,date
 
 query($sql);
 
-header("Refresh:0; URL=hub.php");
+header("Refresh:0; URL=hub2.php");

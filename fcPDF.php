@@ -9,7 +9,7 @@
 
 
 
-function affiTnfPDF($row,&$cpt){
+function affiTnfPDF($row){
     $color = "#000000";
     if($row["priorite"]==1){
         $color = "#cca300";
@@ -19,7 +19,6 @@ function affiTnfPDF($row,&$cpt){
     }
     $str = "<tr><td style='text-align: center'>".$row["idTache"]."</td>";
     $str .= "<td style='color: $color; padding-left: 4px; padding-right: 4px'>".$row["nomTache"]."</td>";
-    $cpt+=1;
     $sql = "SELECT nom, prenom, idUser,color From suuser, sutache where idDemandeur ='" . $row["idDemandeur"] . "' and suuser.idUser=sutache.idDemandeur";
     $res = query($sql);
 
@@ -54,14 +53,14 @@ function affiTnfPDF($row,&$cpt){
     }
 
 
-    $str .= "<td>".validPDF($row["idTache"],$row["idDemandeur"],$cpt)."</td>";
+    $str .= "<td>".validPDF($row["idTache"],$row["idDemandeur"])."</td>";
 
 
     return $str;
 
 }
 
-function affiTfPDF($row,&$cpt){
+function affiTfPDF($row){
 
     $color = '#000000';
     if($row["priorite"]==1){
@@ -72,7 +71,6 @@ function affiTfPDF($row,&$cpt){
     }
     $str = "<tr style='background-color: lightgray'><td style='text-align: center'>".$row["idTache"]."</td>";
     $str .= "<td style='color: $color; padding-left: 4px; padding-right: 4px'>".$row["nomTache"]."</td>";
-    $cpt += 1;
 
     $sql = "SELECT nom, prenom, idUser,color From suuser, sutache where idDemandeur ='" . $row["idDemandeur"] . "' and suuser.idUser=sutache.idDemandeur";
     $res = query($sql);
@@ -108,7 +106,7 @@ function affiTfPDF($row,&$cpt){
         $str .= "<td></td>";
     }
 
-    $str .= "<td>".validPDF($row["idTache"],$row["idDemandeur"],$cpt)."</td>";
+    $str .= "<td>".validPDF($row["idTache"],$row["idDemandeur"])."</td>";
 
 
     return $str;
@@ -155,7 +153,7 @@ function bdPDF($res){
 }
 
 
-function validPDF($res,$idD,&$cpt){
+function validPDF($res,$idD){
 
 
     $str ="<ul>\n";
@@ -176,7 +174,7 @@ function validPDF($res,$idD,&$cpt){
            
             </li>
             ";
-        $cpt += 1;
+
 
         $sql = "SELECT suuser.idUser,nom, prenom, color, checked, adminC FROM suuser,sutuser where sutuser.idTache='$res' and suuser.idUser=sutuser.idUser";
 
@@ -197,7 +195,7 @@ function validPDF($res,$idD,&$cpt){
                     </li>";
 
 
-                    $cpt += 1;
+
                 } else {
                     if ($row["checked"] == 1 && $row["adminC"] == 1) {
                         $color = "#" . $row["color"];
@@ -208,9 +206,7 @@ function validPDF($res,$idD,&$cpt){
                      
                         </li>";
                     }
-                    else{
 
-                    }
                 }
             }else{
                 if ($row["checked"] == 1) {
@@ -242,8 +238,6 @@ function validPDF($res,$idD,&$cpt){
                     </div>
 
                     </li>";
-                    } else {
-
                     }
                 }
             } else {

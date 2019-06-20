@@ -114,14 +114,14 @@ $_SESSION["last"]="hub.php";
 
 echo "<div style='width: 1002px; text-align: left; height: 100%; z-index: 0; position: relative; padding: 0px;margin: 0 auto;'>";
 
-echo "<a style='float:left' href='login.php'><img src=\"inside-logout-icon.png\">logout</a>";
+echo "<a style='float:left' href='login.php'><img src=\"img/inside-logout-icon.png\">logout</a>";
 
-echo "<a style='float:right' href='ajouterTache.php'><img src=\"add.png\">Ajouter une tâche</a><br>";
+echo "<a style='float:right' href='ajouterTache.php'><img src=\"img/add.png\">Ajouter une tâche</a><br>";
 
 if($_SESSION["admin"]>="1") {
 
-    echo "<br/><a style='float:right' href='ajouterUser.php'><img src=\"add.png\">Ajouter un utilisateur</a>";
-    echo "<a style='float: bottom' href='backup.php'><img src=\"Data-Database-Backup-icon.png\">Backup</a>";
+    echo "<br/><a style='float:right' href='ajouterUser.php'><img src=\"img/add.png\">Ajouter un utilisateur</a>";
+    echo "<a style='float: bottom' href='backup.php'><img src=\"img/Data-Database-Backup-icon.png\">Backup</a>";
 }
 
 $cpt = 0;
@@ -151,7 +151,7 @@ while ($row = mysqli_fetch_assoc($res)){
 }
 $cpt += 1;
 
-$affi.="</form><form id='sub$cpt' action='hub.php'><input type='image' src='Reset-icon.png' alt='Submit'></a></form></tr></table>";
+$affi.="</form><form id='sub$cpt' action='hub.php'><input type='image' src='img/Reset-icon.png' alt='Submit'></a></form></tr></table>";
 
 $cpt +=1;
 
@@ -204,7 +204,7 @@ if($_SERVER["REQUEST_METHOD"]==="POST") {
 
         $cpt += 1;
 
-        $affi.="</form><form id='sub$cpt' action='hub.php'><a onclick='valider($cpt)' style='cursor: pointer'><img src='Reset-icon.png'></a></form></tr></table>";
+        $affi.="</form><form id='sub$cpt' action='hub.php'><a onclick='valider($cpt)' style='cursor: pointer'><img src='img/Reset-icon.png'></a></form></tr></table>";
 
         $cpt += 1;
 
@@ -277,13 +277,18 @@ echo "<br/>";
 echo "<br/>";
 echo "<br/>";
 
-echo "<form action='tacheSuppr.php'><input type='submit' name='' value='Voir les tâches archivées' style='float: right'></form>";
 echo "<a href=\"archive.php\"><input type='button' value='Archiver' style=\"width: 80px;float: right\"/></a>";
+echo "<form action='tacheSuppr.php'><input type='submit' name='' value='Voir les tâches archivées' style='float: right; padding-right: 5px'></form>";
+
 
 echo "<div style='float: left'>";
 echo "<form method='post' action='pdf.php' id='sub$cpt'><input type='text' name='order' value='$order' hidden><input type='text' name='orderD' value='$orderD' hidden><a style='float:bottom; cursor: pointer' onclick='valider($cpt)'>Imprimer en PDF<div class='download icon'></div></a></form><br/>";
+echo "<br/>";
+echo "<br/>";
+echo "<br/>";
 echo "</div>";
 ?>
+
 
 </body>
 </html>

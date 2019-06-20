@@ -58,7 +58,7 @@
         <br/>
         <fieldset style="border: 0px">
             <p>
-                <a href="hub.php"><input type='button' value='Annuler' style="width: 80px"/></a>
+                <a href="hub2.php"><input type='button' value='Annuler' style="width: 80px"/></a>
                 <label class="right">&nbsp;</label>
                 <input type="submit" value="Valider" style="width: 80px"/>
             </p>

@@ -170,6 +170,10 @@ $r = mysqli_fetch_assoc($resultat);
                     <td><label>Description : </label></td>
                     <td><textarea style="resize: none; width: 60%"  name="desc" maxlength="1500"><?php echo $r["descriptionTache"];?></textarea></td>
                 </tr>
+                <tr>
+                    <td><label>En attente ? : </label></td>
+                    <td><input type="checkbox"  name="wait" value="oui">En attente</td>
+                </tr>
             </table>
         </fieldset>
         <br/>

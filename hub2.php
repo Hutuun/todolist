@@ -114,14 +114,14 @@ $_SESSION["last"]="hub2.php";
 
 echo "<div style='width: 1002px; text-align: left; height: 100%; z-index: 0; position: relative; padding: 0px;margin: 0 auto;'>";
 
-echo "<a style='float:left' href='login.php'><img src=\"inside-logout-icon.png\">logout</a>";
+echo "<a style='float:left' href='login.php'><img src=\"img/inside-logout-icon.png\">logout</a>";
 
-echo "<a style='float:right' href='ajouterTache.php'><img src=\"add.png\">Ajouter une tâche</a><br>";
+echo "<a style='float:right' href='ajouterTache.php'><img src=\"img/add.png\">Ajouter une tâche</a><br>";
 
 if($_SESSION["admin"]>="1") {
 
-    echo "<br><a style='float:right' href='ajouterUser.php'><img src=\"add.png\">Ajouter un utilisateur</a>";
-    echo "<a style='float: bottom' href='backup.php'><img src=\"Data-Database-Backup-icon.png\">Backup</a>";
+    echo "<br><a style='float:right' href='ajouterUser.php'><img src=\"img/add.png\">Ajouter un utilisateur</a>";
+    echo "<a style='float: bottom' href='backup.php'><img src=\"img/Data-Database-Backup-icon.png\">Backup</a>";
 }
 
 $cpt = 0;
@@ -152,7 +152,7 @@ while ($row = mysqli_fetch_assoc($res)){
 }
 $cpt += 1;
 
-$affi.="</form><form id='sub$cpt' action='hub.php'><input type='image' alt='Submit' src='Reset-icon.png'></a></form></tr></table>";
+$affi.="</form><form id='sub$cpt' action='hub.php'><input type='image' alt='Submit' src='img/Reset-icon.png'></a></form></tr></table>";
 
 $cpt += 1;
 
@@ -165,26 +165,26 @@ if(isset($_POST["id"])) {
     $id = $_POST["id"];
 }
 
-$sql = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM sutache,sutuser,suuser where suuser.idUser = sutuser.idUser and sutuser.idTache = sutache.idTache and suuser.idUser = $id GROUP by sutuser.idTache order by dateSuppr, priorite DESC, dateCreation, deadline, sutache.idTache";
+$sql = "SELECT * FROM sutache,sutuser,suuser where suuser.idUser = sutuser.idUser and sutuser.idTache = sutache.idTache and suuser.idUser = $id GROUP by sutuser.idTache order by dateSuppr, priorite DESC, dateCreation, deadline, sutache.idTache";
 
-$sql2 = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM sutache,sutuser,suuser where suuser.idUser = sutuser.idUser and sutuser.idTache = sutache.idTache and suuser.idUser <> $id GROUP by sutuser.idTache order by dateSuppr, priorite DESC, dateCreation, deadline, sutache.idTache";
+$sql2 = "SELECT * FROM sutache,sutuser,suuser where sutache.idTache = sutuser.idTache and suuser.idUser=sutuser.idUser and suuser.idUser<>$id GROUP by sutuser.idTache order by dateSuppr, priorite DESC, dateCreation, deadline, sutache.idTache";
 
 $affi .=  "<table id='sousmenu1' style='display: table' class='ta'><tr>";
-$affi .= "<td style='max-width: 45px'><form action='hub.php' method='post' id='sub$cpt'><input type='text' name='order' value='sutache.idTache' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Num</a></form></td>";
+$affi .= "<td style='max-width: 45px'><form action='hub2.php' method='post' id='sub$cpt'><input type='text' name='order' value='sutache.idTache' hidden><a onclick='valider($cpt)' style='cursor: pointer; '>Num</a></form></td>";
 $cpt += 1;
-$affi .= "<td style='text-align: center; width: 400px'><form action='hub.php' method='post' id='sub$cpt'><input type='text' name='order' value='sutache.nomTache' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Tâches</a></form></td>";
+$affi .= "<td style='text-align: center; width: 400px'><form action='hub2.php' method='post' id='sub$cpt'><input type='text' name='order' value='sutache.nomTache' hidden><a onclick='valider($cpt)' style='cursor: pointer; '>Tâches</a></form></td>";
 $cpt += 1;
-$affi .= "<td style='text-align: center; '><form action='hub.php' method='post' id='sub$cpt'><input type='text' name='order' value='idDemandeur' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Demandeur</a></form></td>";
+$affi .= "<td style='text-align: center; '><form action='hub2.php' method='post' id='sub$cpt'><input type='text' name='order' value='idDemandeur' hidden><a onclick='valider($cpt)' style='cursor: pointer; '>Demandeur</a></form></td>";
 $cpt += 1;
 $affi .= "<td style='text-align: center; width: 80px'>Qui</td>";
 $cpt += 1;
 $affi .= "<td style='width: 80px; text-align: center'>BD</td>";
 $cpt += 1;
-$affi .= "<td style='width: 80px; text-align: center'><form action='hub.php' method='post' id='sub$cpt'><input type='text' name='order' value='sutache.dateCreation' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Début</a></form></td>";
+$affi .= "<td style='width: 80px; text-align: center'><form action='hub2.php' method='post' id='sub$cpt'><input type='text' name='order' value='sutache.dateCreation' hidden><a onclick='valider($cpt)' style='cursor: pointer; '>Début</a></form></td>";
 $cpt += 1;
-$affi .= "<td style='width: 80px; text-align: center'><form action='hub.php' method='post' id='sub$cpt'><input type='text' name='order' value='sutache.deadline' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Deadline</a></form></td>";
+$affi .= "<td style='width: 80px; text-align: center'><form action='hub2.php' method='post' id='sub$cpt'><input type='text' name='order' value='sutache.deadline' hidden><a onclick='valider($cpt)' style='cursor: pointer;'>Deadline</a></form></td>";
 $cpt += 1;
-$affi .= "<td style='width: 80px; text-align: center'><form action='hub.php' method='post' id='sub$cpt'><input type='text' name='order' value='sutache.dateSuppr' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Fin</a></form></td>";
+$affi .= "<td style='width: 80px; text-align: center'><form action='hub2.php' method='post' id='sub$cpt'><input type='text' name='order' value='sutache.dateSuppr' hidden><a onclick='valider($cpt)' style='cursor: pointer;'>Fin</a></form></td>";
 $affi .= "<td style='text-align: center; '>Validation</td>";
 $affi .= "<td style='text-align: center; '>Actions</td>";
 
@@ -213,7 +213,7 @@ if($_SERVER["REQUEST_METHOD"]==="POST") {
 
         $cpt += 1;
 
-        $affi.="</form><form id='sub$cpt' action='hub.php'><a onclick='valider($cpt)' style='cursor: pointer;'><img src='Reset-icon.png'></a></form></tr></table>";
+        $affi.="</form><form id='sub$cpt' action='hub.php'><a onclick='valider($cpt)' style='cursor: pointer;'><img src='img/Reset-icon.png'></a></form></tr></table>";
 
         $cpt +=1;
 
@@ -224,25 +224,25 @@ if($_SERVER["REQUEST_METHOD"]==="POST") {
         $id = $_POST["id"];
 
         $sql = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM sutache,sutuser,suuser where suuser.idUser = '$id' and suuser.idUser = sutuser.idUser and sutuser.idTache = sutache.idTache "."group by sutuser.idTache ORDER by $order, priorite DESC";
-        $sql2 = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM sutache,sutuser,suuser where suuser.idUser <> '$id' and suuser.idUser = sutuser.idUser and sutuser.idTache = sutache.idTache group by sutuser.idTache ORDER by $order, priorite DESC";
+        $sql2 = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM sutache,sutuser,suuser where sutache.idTache = sutuser.idTache and suuser.idUser=sutuser.idUser and suuser.idUser<>$id group by sutuser.idTache ORDER by $order, priorite DESC";
 
         $affi .=  "<table id='sousmenu1' style='display: table' class='ta'><tr>";
 
-        $affi .= "<td style='max-width: 45px'><form action='hub.php' method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.idTache' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Num</a></form></td>";
+        $affi .= "<td style='max-width: 45px'><form action='hub2.php' method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.idTache' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Num</a></form></td>";
         $cpt += 1;
-        $affi .= "<td style='text-align: center; width: 400px'><form action='hub.php' method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.nomTache' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Tâches</a></form></td>";
+        $affi .= "<td style='text-align: center; width: 400px'><form action='hub2.php' method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.nomTache' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Tâches</a></form></td>";
         $cpt += 1;
-        $affi .= "<td style='text-align: center; '><form action='hub.php' method='post' id='sub$cpt'><input type='text' name='orderD' value='idDemandeur' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Demandeur</a></form></td>";
+        $affi .= "<td style='text-align: center; '><form action='hub2.php' method='post' id='sub$cpt'><input type='text' name='orderD' value='idDemandeur' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Demandeur</a></form></td>";
         $cpt += 1;
         $affi .= "<td style='text-align: center; width: 80px'>Qui</td>";
         $cpt += 1;
         $affi .= "<td style='text-align: center; width: 80px'>BD</td>";
         $cpt += 1;
-        $affi .= "<td style='width: 80px; text-align: center'><form action='hub.php' method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.dateCreation' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Début</a></form></td>";
+        $affi .= "<td style='width: 80px; text-align: center'><form action='hub2.php' method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.dateCreation' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Début</a></form></td>";
         $cpt += 1;
-        $affi .= "<td style='width: 80px; text-align: center'><form action='hub.php' method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.deadline' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Deadline</a></form></td>";
+        $affi .= "<td style='width: 80px; text-align: center'><form action='hub2.php' method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.deadline' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Deadline</a></form></td>";
         $cpt += 1;
-        $affi .= "<td style='width: 80px; text-align: center'><form action='hub.php' method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.dateSuppr' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Fin</a></form></td>";
+        $affi .= "<td style='width: 80px; text-align: center'><form action='hub2.php' method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.dateSuppr' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Fin</a></form></td>";
         $affi .= "<td style='text-align: center; '>Validation</td>";
         $affi .= "<td style='text-align: center; '>Actions</td>";
 
@@ -265,9 +265,10 @@ echo "</tr>";
 $cpt += 1;
 
 $result = query($sql);
-
+$memory = array();
 while ($row = mysqli_fetch_assoc($result)){
 
+    $memory[] = $row["idTache"];
     if(($row["suppr"]==="non"&&$row["archive"]==="non") && (strtotime($row["dateFin"]) > time() || strtotime($row["dateFin"])<0 || strtotime($row["dateFin"])===false)) {
 
         if(isset($row["dateSuppr"]) && substr($row["dateSuppr"],0,10)!=="0000-00-00" && $row["adminC"]==1 ) {
@@ -287,7 +288,7 @@ $result = query($sql2);
 
 while ($row = mysqli_fetch_assoc($result)){
 
-    if($row["suppr"]==="non" && $row["archive"]==="non") {
+    if($row["suppr"]==="non" && $row["archive"]==="non" && !in_array($row["idTache"],$memory)) {
 
         if(isset($row["dateSuppr"]) && substr($row["dateSuppr"],0,10)!=="0000-00-00" && $row["adminC"]==1 ) {
 
@@ -317,8 +318,16 @@ echo "<a href=\"archive.php\"><input type='button' value='Archiver' style=\"widt
 
 echo "<div style='float: left'>";
 echo "<form method='post' action='pdf.php' id='sub$cpt'><input type='text' name='order' value='$order' hidden><input type='text' name='orderD' value='$orderD' hidden><a style='float:bottom; cursor: pointer' onclick='valider($cpt)'>Imprimer en PDF<div class='download icon'></div></a></form><br/>";
+echo "<br/>";
+echo "<br/>";
+echo "<br/>";
 echo "</div>";
 ?>
 
+<br/>
+<br/>
+
+<br/>
+<br/>
 </body>
 </html>

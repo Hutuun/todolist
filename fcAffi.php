@@ -42,7 +42,12 @@ function affiTnf($row,&$cpt){
         $date = date("d/m", strtotime($ymd));
         $str .= "<td style='text-align: center'>" . $date . "</td>";
     }else {
-        $str .= "<td></td>";
+        if($row["wait"]==="oui"){
+            $str .= "<td style='text-align: center'>En attente</td>";
+        }else{
+            $str .= "<td></td>";
+        }
+
     }
     if(isset($row["dateSuppr"]) && substr($row["dateSuppr"],0,10)!=="0000-00-00") {
         $date = $row["dateSuppr"];
@@ -67,27 +72,27 @@ function affiTnf($row,&$cpt){
             break;
         }
     }
-
+    if($row["descriptionTache"]!==""){
+        $str.= "<td><table><td style='border: none'><img src=\"img/information-icon2.png\" title=\"".$row["descriptionTache"]."\"></td>";
+    }else{
+        $str.= "<td><table><td style='border: none'><img src=\"img/information-icon.png\" title=\"".$row["descriptionTache"]."\"></td>";
+    }
     if($b||$_SESSION["id"]===$row["idDemandeur"] || $_SESSION["admin"]=="2"){
-        $str.="<td style='text-align: center;'><table><td style='border: none'><form method='post' action='modifTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer'><img src=\"write-paper-ink-icon.png\"></a></form></td>";
+        $str.="<td style='border: none'><form method='post' action='modifTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer'><img src=\"img/write-paper-ink-icon.png\" title='Modification de la tâche'></a></form></td>";
         $cpt+=1;
     }else{
-        $str.="<td><table><td style='border: none'></td>";
+        $str.="<td style='border: none'></td>";
     }
 
     if(($_SESSION["id"]===$row["idDemandeur"] && $_SESSION["admin"]==1) || $_SESSION["admin"]==2) {
-        $str .= "<td style='text-align: center; border: none'><form method='post' action='supprTache.php' id='sub$cpt'><input type='text' value='" . $row["idTache"] . "' name='idtache' hidden><a onclick='valider($cpt)' style='cursor: pointer;'><img alt='' src='delete.png'/></a></form></td>";
+        $str .= "<td style='text-align: center; border: none'><form method='post' action='supprTache.php' id='sub$cpt'><input type='text' value='" . $row["idTache"] . "' name='idtache' hidden><a onclick='valider($cpt)' style='cursor: pointer;'><img alt='' src='img/delete.png'  title='suppression définitif'/></a></form></td></td></table></tr>";
         $cpt += 1;
     }else {
-        if ($_SESSION["admin"] == 1) {
-            $str .= "<td style='border: none'></td></td>";
-        }
+
+        $str .= "<td style='border: none'></td></td></table></tr>";
+
     }
-    if($row["descriptionTache"]!==""){
-        $str.= "<td style='border: none'><img src=\"information-icon2.png\" title=\"".$row["descriptionTache"]."\"></td></td></table></tr>";
-    }else{
-        $str.= "<td style='border: none'><img src=\"information-icon.png\" title=\"".$row["descriptionTache"]."\"></td></td></table></tr>";
-    }
+
     return $str;
 
 }
@@ -133,7 +138,11 @@ function affiTf($row,&$cpt){
         $date = date("d/m", strtotime($ymd));
         $str .= "<td style='text-align: center'>" . $date . "</td>";
     }else {
-        $str .= "<td></td>";
+        if($row["wait"]==="oui"){
+            $str .= "<td style='text-align: center'>En attente</td>";
+        }else{
+            $str .= "<td></td>";
+        }
     }
     if(isset($row["dateSuppr"]) && substr($row["dateSuppr"],0,10)!=="0000-00-00") {
         $date = $row["dateSuppr"];
@@ -160,27 +169,27 @@ function affiTf($row,&$cpt){
     }
 
 
-
+    if($row["descriptionTache"]!==""){
+        $str.= "<td><table><td style='border: none'><img src=\"img/information-icon2.png\" title=\"".$row["descriptionTache"]."\"></td>";
+    }else{
+        $str.= "<td><table><td style='border: none'><img src=\"img/information-icon.png\" title=\"".$row["descriptionTache"]."\"></td>";
+    }
     if($b||$_SESSION["id"]===$row["idDemandeur"] || $_SESSION["admin"]=="2"){
-        $str.="<td style='text-align: center;'><table><td style='border: none'><form method='post' action='modifTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer'><img src=\"write-paper-ink-icon.png\"></a></form></td>";
+        $str.="<td style='border: none'><form method='post' action='modifTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer'><img src=\"img/write-paper-ink-icon.png\" title='Modification de la tâche'></a></form></td>";
         $cpt+=1;
     }else{
-        $str.="<td ><table><td style='border: none'></td>";
+        $str.="<td style='border: none'></td>";
     }
 
     if(($_SESSION["id"]===$row["idDemandeur"] && $_SESSION["admin"]==1) || $_SESSION["admin"]==2) {
-        $str .= "<td style='text-align: center; border: none'><form method='post' action='supprTache.php' id='sub$cpt'><input type='text' value='" . $row["idTache"] . "' name='idtache' hidden><a onclick='valider($cpt)' style='cursor: pointer;'><img alt='' src='delete.png'/></a></form></td>";
+        $str .= "<td style='text-align: center; border: none'><form method='post' action='supprTache.php' id='sub$cpt'><input type='text' value='" . $row["idTache"] . "' name='idtache' hidden><a onclick='valider($cpt)' style='cursor: pointer;'><img alt='' src='img/delete.png'  title='suppression définitif'/></a></form></td></td></table></tr>";
         $cpt += 1;
     }else {
-        if ($_SESSION["admin"] == 1) {
-            $str .= "<td style='border: none'></td></td>";
-        }
+
+        $str .= "<td style='border: none'></td></td></table></tr>";
+
     }
-    if($row["descriptionTache"]!==""){
-        $str.= "<td style='border: none'><img src=\"information-icon2.png\" title=\"".$row["descriptionTache"]."\"></td></td></table></tr>";
-    }else{
-        $str.= "<td style='border: none'><img src=\"information-icon.png\" title=\"".$row["descriptionTache"]."\"></td></td></table></tr>";
-    }
+
     return $str;
 }
 
@@ -208,8 +217,8 @@ function affSuppr($row,&$cpt){
     $str .= "<td style=' text-align: center'><span style='color: $color;' title='$prenom $nom'>" .strtoupper(substr($field["prenom"],0,1)).strtoupper(substr($field["nom"],0,1)). "</span></td>";
 
 
-    $str .= "<td>".person($row["idTache"])."</td>";
-    $str .= "<td>".bd($row["idTache"])."</td>";
+    $str .= "<td style='text-align: center'>".person($row["idTache"])."</td>";
+    $str .= "<td style='text-align: center'>".bd($row["idTache"])."</td>";
     $date = $row["dateCreation"];
     $ymd = substr($date, 0, 10);
     $date = date("d/m", strtotime($ymd));
@@ -220,7 +229,11 @@ function affSuppr($row,&$cpt){
         $date = date("d/m", strtotime($ymd));
         $str .= "<td style='text-align: center'>" . $date . "</td>";
     }else {
-        $str .= "<td></td>";
+        if($row["wait"]==="oui"){
+            $str .= "<td style='text-align: center'>En attente</td>";
+        }else{
+            $str .= "<td></td>";
+        }
     }
     if(isset($row["dateSuppr"]) && substr($row["dateSuppr"],0,10)!=="0000-00-00") {
         $date = $row["dateSuppr"];
@@ -244,27 +257,27 @@ function affSuppr($row,&$cpt){
         }
     }
 
-
+    if($row["descriptionTache"]!==""){
+        $str.= "<td><table><td style='border: none'><img src=\"img/information-icon2.png\" title=\"".$row["descriptionTache"]."\"></td>";
+    }else{
+        $str.= "<td><table><td style='border: none'><img src=\"img/information-icon.png\" title=\"".$row["descriptionTache"]."\"></td>";
+    }
 
     if($b||$_SESSION["id"]===$row["idDemandeur"] || $_SESSION["admin"]=="2"){
-        $str.="<td style='text-align: center;'><table><td style='border: none'><form method='post' action='modifTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer'><img src=\"write-paper-ink-icon.png\"></a></form></td>";
+        $str.="<td style='text-align: center;border: none'><form method='post' action='modifTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer'><img src=\"img/write-paper-ink-icon.png\" title='Modification de la tâche'></a></form></td>";
         $cpt+=1;
     }else{
-        $str.="<td ><table><td style='border: none'></td>";
+        $str.="<td style='border: none'></td>";
     }
     if(($_SESSION["id"]===$row["idDemandeur"] && $_SESSION["admin"]==1) || $_SESSION["admin"]==2) {
-        $str .= "<td style='text-align: center; border: none'><form method='post' action='supprTache.php' id='sub$cpt'><input type='text' value='" . $row["idTache"] . "' name='idtache' hidden><a onclick='valider($cpt)' style='cursor: pointer;'><img alt='' src='delete.png'/></a></form></td>";
+        $str .= "<td style='text-align: center; border: none'><form method='post' action='supprTache.php' id='sub$cpt'><input type='text' value='" . $row["idTache"] . "' name='idtache' hidden><a onclick='valider($cpt)' style='cursor: pointer;'><img alt='' src='img/delete.png' title='suppression définitif'/></a></form></td></td></table></tr>";
         $cpt += 1;
     }else {
-        if ($_SESSION["admin"] == 1) {
-            $str .= "<td style='border: none'></td></td>";
-        }
+
+        $str .= "<td style='border: none'></td></td></table></tr>";
+
     }
-    if($row["descriptionTache"]!==""){
-        $str.= "<td style='border: none'><img src=\"information-icon2.png\" title=\"".$row["descriptionTache"]."\"></td></td></table></tr>";
-    }else{
-        $str.= "<td style='border: none'><img src=\"information-icon.png\" title=\"".$row["descriptionTache"]."\"></td></td></table></tr>";
-    }
+
     return $str;
 }
 

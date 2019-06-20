@@ -99,6 +99,10 @@ $res = query($sql);
                     <td><label>Description : </label></td>
                     <td><textarea style="resize: none; width: 60%" name="desc" maxlength="1500"></textarea></td>
                 </tr>
+                <tr>
+                    <td><label>En attente ? : </label></td>
+                    <td><input type="checkbox"  name="wait" value="oui">En attente</td>
+                </tr>
             </table>
         </fieldset>
         <br/>
@@ -110,7 +114,7 @@ $res = query($sql);
             ?></p>
             <br/><br/>
             <p>
-                <a href="hub.php" style="text-decoration: none"><input type='button' value='Annuler' style="width: 80px"/></a>
+                <a href="hub2.php" style="text-decoration: none"><input type='button' value='Annuler' style="width: 80px"/></a>
                 <input type="submit" value="Nouvelle tâche" name="tache" style="width: 120px"/>
                 <input type="submit" value="Valider" name="valider" style="width: 80px"/>
             </p>

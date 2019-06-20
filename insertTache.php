@@ -7,12 +7,33 @@
  */
 
 include ("database.php");
+include ("fcPDF.php");
+require ("vendor/autoload.php");
 
 session_start();
+
+$pdf = new Mpdf\Mpdf();
+
+$pdf->AddPage();
+
+$affi = "<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=\"UTF-8\">
+    <script src=\"js/function.js\" type=\"text/javascript\"></script>
+    <style>
+        table.ta,td{
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body style=\"font - family: Trebuchet,Trebuchet MS,Arial,Helvetica,Sans - serif;\">";
 
 
 $sql = "SELECT idUser From suuser";
 $res = query($sql);
+
 
 
 while ($row = mysqli_fetch_assoc($res)) {
@@ -31,6 +52,11 @@ if ($_POST["deadline"]!=="") {
 }
 $desc = $_POST["desc"];
 
+$wait = "non";
+if(isset($_POST["wait"])){
+    $wait = "oui";
+}
+
 $sql = "SELECT idTache From sutache order by idTache";
 
 $res = query($sql);
@@ -42,7 +68,9 @@ while ($row = mysqli_fetch_assoc($res)){
 }
 
 
-$sql = "INSERT IGNORE INTO sutache(idTache, nomTache, descriptionTache, idDemandeur, priorite ,deadline, dateCreation, dateSuppr) VALUES (\"$cpt\", \"$nom\",\"$desc\",\"$demandeur\",$prio,\"$dead\",CURRENT_TIME,\"''\");";
+
+
+$sql = "INSERT IGNORE INTO sutache(idTache, nomTache, descriptionTache, idDemandeur, priorite ,deadline, dateCreation, dateSuppr, wait) VALUES (\"$cpt\", \"$nom\",\"$desc\",\"$demandeur\",$prio,\"$dead\",CURRENT_TIME,\"''\",'$wait');";
 
 query($sql);
 
@@ -52,7 +80,6 @@ $res = query($sql);
 
 while ($row = mysqli_fetch_assoc($res)){
     $id = $row["idBD"];
-
 
     if(isset($_POST["$id"])){
         $sql = "INSERT INTO sutbd(idBD,idTache) VALUES (\"$id\", \"$cpt\")";
@@ -76,6 +103,116 @@ while ($row = mysqli_fetch_assoc($res)) {
     }
 }
 
+$sql = "SELECT * FROM sutache,suuser,sutuser WHERE sutache.idTache = '$cpt' and idDemandeur = suuser.idUser and sutuser.idTache = sutache.idTache";
+$res = query($sql);
+$row = mysqli_fetch_assoc($res);
+
+$affi .= "<h2>La T&acirc;che</h2>";
+
+$color = "#".$row["color"];
+
+$affi .= "<p>Num&eacute;ro : ".$row["idTache"]."</p>";
+$affi .= "<p>T&acirc;che : ".$row["nomTache"]."</p>";
+$affi .= "<p>Description : ".$row["descriptionTache"]."</p>";
+
+$date = $row["dateCreation"];
+$ymd = substr($date, 0, 10);
+$date = date("d/m/y", strtotime($ymd));
+$affi .= "<p>Date de d&eacute;but : " . $date . "</p>";
+if(isset($row["deadline"]) && substr($row["deadline"],0,10)!=="0000-00-00") {
+    $date = $row["deadline"];
+    $ymd = substr($date, 0, 10);
+    $date = date("d/m/y", strtotime($ymd));
+    $affi .= "<p>Deadline : " . $date . "</p>";
+}
+if(isset($row["dateSuppr"]) && substr($row["dateSuppr"],0,10)!=="0000-00-00") {
+    $date = $row["dateSuppr"];
+    $ymd = substr($date, 0, 10);
+    $date = date("d/m/y", strtotime($ymd));
+    $affi .= "<p> Date de fin : " . $date . "</p>";
+}
+$affi .= "<p>Priorit&eacute; : ";
+
+$prio = "La t&acirc;che n'est pas prioritaire</p>";
+
+if ($row["priorite"]==1){
+    $prio = "La t&acirc;che est prioritaire</p>";
+}
+if ($row["priorite"]==2){
+    $prio = "La t&acirc;che est tr&egrave;s prioritaire</p>";
+}
+$affi .= $prio;
+
+$affi .= "<p>Demande effectu&eacute;e par : <q style='color: $color'>".$row["prenom"]." ".$row["nom"]."</q> ";
+if($row["adminC"]==true){
+    $affi .= "qui a valid&eacute; la t&acirc;che</p>";
+}else{
+    $affi .= "qui n'a pas valid&eacute; la t&acirc;che</p>";
+}
+
+
+
+$sql = "SELECT * FROM sutache,sutuser,suuser WHERE sutache.idTache = '$cpt'
+        AND sutache.idTache = sutuser.idTache
+        AND sutuser.idUser = suuser.idUser";
+
+$result = query($sql);
+
+
+
+$affi .= "<h2>Les personnes et les Bases de donn&eacute;es affect&eacute;es &agrave; cette t&acirc;che</h2>";
+$affi .= "<p>R&eacute;alis&eacute; par : <ul>";
+while ($row = mysqli_fetch_assoc($result)){
+
+    $color = "#".$row["color"];
+
+    $affi .= "<li style='color: $color'>".$row["prenom"]." ".$row["nom"]."</li> ";
+    if($row["checked"]==true){
+        $affi .= "qui a valid&eacute; sa t&acirc;che</p>";
+    }else{
+        $aff .= "qui n'a pas validé sa tache ";
+        if(strtotime($row["dateFin"]) < time() && strtotime($row["dateFin"])>0){
+            $affi .="et qui ne travaille plus ici</p>";
+        }else{
+            $affi .="</p>";
+        }
+    }
+}
+$affi .="</ul>";
+
+$sql = "SELECT * FROM sutache,sutbd,subd WHERE sutache.idTache = '$cpt'
+        AND sutache.idTache = sutbd.idTache
+        AND sutbd.idBD = subd.idBD";
+
+$result = query($sql);
+
+if($result->num_rows>0) {
+
+    $affi .= "<p>R&eacute;alis&eacute; sur : <ul>";
+
+    while ($row = mysqli_fetch_assoc($result)) {
+
+        $color = "#" . $row["color"];
+
+        $affi .= "<li style='color: $color'>" . $row["nomBD"] . "</li></p>";
+
+    }
+}
+
+$affi .= "</body></html>";
+
+
+$pdf->WriteHTML(utf8_encode($affi));
+
+
+
+$path ="tache/";
+
+
+
+$file_name = "tache$cpt.pdf";
+
+$pdf->Output($path."$file_name",\Mpdf\Output\Destination::FILE);
 
 $sql = "SELECT nom, prenom, mail FROM suuser WHERE suuser.idUser = '".$demandeur."' ";
 
@@ -85,17 +222,45 @@ $res = query($sql);
 $row = mysqli_fetch_assoc($res);
 
 
-$mailFrom = $row["mail"];
+$mailto .= $row["mail"];
+
+$reply =$row["mail"];
 
 
-$header = "From: Automatique <$mailFrom> \n";
-$header .= "MIME-Version: 1.0 \n";
-$header .= "Content-Transfer-Encoding: 8bit \r\n";
-mail($mailto,"Nouvelle tâche","Une nouvelle tâche a été ajoutée.",$header);
+
+$typepiecejointe = filetype($path.$file_name);
+$data = chunk_split( base64_encode(file_get_contents($path.$file_name)) );
+
+
+
+$boundary = md5(uniqid(time()));
+$entete = "From: upc.php.sendauto@gmail.com \r\n";
+$entete .= "Reply-to: $reply \r\n";
+$entete .= "X-Priority: 1 \r\n";
+$entete .= "MIME-Version: 1.0 \r\n";
+$entete .= "Content-Type: multipart/mixed; boundary=\"$boundary\" \r\n";
+$entete .= " \r\n";
+
+
+$message  = "--$boundary \r\n";
+$message .= "Content-Type: text/html; charset=\"UTF8\" \r\n";
+$message .= "Content-Transfer-Encoding:8bit \r\n";
+$message .= "\r\n";
+$message .= "Une nouvelle t&acirc;che a été ajout&eacute;e.";
+$message .= "\r\n";
+$message .= "--$boundary \n";
+$message .= "Content-Type: $typepiecejointe; name=\"$file_name\" \r\n";
+$message .= "Content-Transfer-Encoding: base64 \r\n";
+$message .= "Content-Disposition: attachment; filename=\"$file_name\" \r\n";
+$message .= "\r\n";
+$message .= $data."\r\n";
+$message .= "\r\n";
+$message .= "--".$boundary."--";
+
+mail($mailto,"Nouvelle tâche id n°$cpt",$message,$entete);
 
 if(isset($_POST["tache"])){
     header("Refresh:0; URL=ajouterTache.php");
 }else{
-
-    header("Refresh:0; URL=hub.php");
+    header("Refresh:0; URL=hub2.php");
 }
