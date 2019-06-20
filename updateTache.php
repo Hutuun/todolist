@@ -97,6 +97,6 @@ $mailFrom = $row["mail"];
 $header = "From: Automatique <$mailFrom> \n";
 $header .= "MIME-Version: 1.0 \n";
 $header .= "Content-Transfer-Encoding: 8bit \r\n";
-//mail($mailto,"Une de vos tâches a été modifiée ($idTache)","La tâche $idTache / $nom a été modifiée le".date("d/m/y",time()) .".",$header);
+//mail($mailto,"Une de vos tâches a été modifiée ($idTache)","La tâche $idTache / $nom a été modifiée le .",$header);
 
 header("Refresh:0, URL=hub2.php");

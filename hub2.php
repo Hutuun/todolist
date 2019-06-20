@@ -165,9 +165,9 @@ if(isset($_POST["id"])) {
     $id = $_POST["id"];
 }
 
-$sql = "SELECT * FROM sutache,sutuser,suuser where suuser.idUser = sutuser.idUser and sutuser.idTache = sutache.idTache and suuser.idUser = $id GROUP by sutuser.idTache order by dateSuppr, priorite DESC, dateCreation, deadline, sutache.idTache";
+$sql = "SELECT * FROM sutache,sutuser,suuser where suuser.idUser = sutuser.idUser and sutuser.idTache = sutache.idTache and suuser.idUser = '$id' GROUP by sutuser.idTache order by dateSuppr, priorite DESC, dateCreation, deadline, sutache.idTache";
 
-$sql2 = "SELECT * FROM sutache,sutuser,suuser where sutache.idTache = sutuser.idTache and suuser.idUser=sutuser.idUser and suuser.idUser<>$id GROUP by sutuser.idTache order by dateSuppr, priorite DESC, dateCreation, deadline, sutache.idTache";
+$sql2 = "SELECT * FROM sutache,sutuser,suuser where sutache.idTache = sutuser.idTache and suuser.idUser=sutuser.idUser and suuser.idUser <> '$id' GROUP by sutuser.idTache order by dateSuppr, priorite DESC, dateCreation, deadline, sutache.idTache";
 
 $affi .=  "<table id='sousmenu1' style='display: table' class='ta'><tr>";
 $affi .= "<td style='max-width: 45px'><form action='hub2.php' method='post' id='sub$cpt'><input type='text' name='order' value='sutache.idTache' hidden><a onclick='valider($cpt)' style='cursor: pointer; '>Num</a></form></td>";
@@ -207,7 +207,7 @@ if($_SERVER["REQUEST_METHOD"]==="POST") {
             if ((strtotime($row["dateFin"]) > time() || strtotime($row["dateFin"])<0 || strtotime($row["dateFin"])===false)) {
                 $color = $row["color"];
                 $id = $row["idUser"];
-                $affi .= "<span style='color: #$color;padding-right: 12px'><input type='checkbox' name='id' value='$id' onclick='valider($cpt)'>" . $row["prenom"] . " " . $row["nom"] . "</span>";
+                $affi .= "<span style='color: #$color;padding-right: 12px'><input type='checkbox' name='id' value='$id' onclick='valider($cpt)'>" . $row["prenom"] .  "</span>";
             }
         }
 
@@ -223,8 +223,8 @@ if($_SERVER["REQUEST_METHOD"]==="POST") {
 
         $id = $_POST["id"];
 
-        $sql = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM sutache,sutuser,suuser where suuser.idUser = '$id' and suuser.idUser = sutuser.idUser and sutuser.idTache = sutache.idTache "."group by sutuser.idTache ORDER by $order, priorite DESC";
-        $sql2 = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM sutache,sutuser,suuser where sutache.idTache = sutuser.idTache and suuser.idUser=sutuser.idUser and suuser.idUser<>$id group by sutuser.idTache ORDER by $order, priorite DESC";
+        $sql = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM sutache,sutuser,suuser where suuser.idUser = '$id' and suuser.idUser = sutuser.idUser and sutuser.idTache = sutache.idTache GROUP by sutuser.idTache ORDER by $order, priorite DESC";
+        $sql2 = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM sutache,sutuser,suuser where sutache.idTache = sutuser.idTache and suuser.idUser=sutuser.idUser and suuser.idUser <> '$id' GROUP by sutuser.idTache ORDER by $order, priorite DESC";
 
         $affi .=  "<table id='sousmenu1' style='display: table' class='ta'><tr>";
 
@@ -313,7 +313,7 @@ echo "<br/>";
 echo "<br/>";
 echo "<br/>";
 echo "<form action='tacheSuppr.php'><input type='submit' name='' value='Voir les tâches archivées' style='float: right'></form>";
-echo "<a href=\"archive.php\"><input type='button' value='Archiver' style=\"width: 80px;float: right\"/></a>";
+echo "<a href=\"archive.php\" style='float: right'><img src='img/Folder-Archive-icon.png' alt='' title='Archiver'/>Archiver</a>";
 
 
 echo "<div style='float: left'>";

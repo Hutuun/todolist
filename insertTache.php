@@ -222,7 +222,7 @@ $res = query($sql);
 $row = mysqli_fetch_assoc($res);
 
 
-//$mailto .= $row["mail"];
+$mailto .= $row["mail"];
 
 $reply =$row["mail"];
 

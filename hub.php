@@ -277,8 +277,8 @@ echo "<br/>";
 echo "<br/>";
 echo "<br/>";
 
-echo "<a href=\"archive.php\"><input type='button' value='Archiver' style=\"width: 80px;float: right\"/></a>";
-echo "<form action='tacheSuppr.php'><input type='submit' name='' value='Voir les tâches archivées' style='float: right; padding-right: 5px'></form>";
+echo "<form action='tacheSuppr.php'><input type='submit' name='' value='Voir les tâches archivées' style='float: right'></form>";
+echo "<a href=\"archive.php\" style='float: right'><img src='img/Folder-Archive-icon.png' alt='' title='Archiver'/>Archiver</a>";
 
 
 echo "<div style='float: left'>";
