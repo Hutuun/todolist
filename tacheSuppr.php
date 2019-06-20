@@ -177,14 +177,14 @@ echo "</table>";
 echo "</div>";
 ?>
 <br/>
-
-<a href="hub2.php" style="text-decoration: none"><input type='button' value='Retour' style="width: 80px; float: right"/></a>
-
+<div style="float: right">
+<a href="hub2.php" "><img src="img/arrow-back-icon.png" alt=""/>Retour</a>
+</div>
 <br/>
 <br/>
 
 <div style='float: left'><?php
-   echo "<form method='post' action='pdfarchi.php' id='sub$cpt'><input type='text' name='order' value='$order' hidden><input type='text' name='orderD' value='$orderD' hidden><a style='float:bottom; cursor: pointer' onclick='valider($cpt)'>Imprimer en PDF<div class='download icon'></div></a></form><br/>";
+   echo "<form method='post' action='pdfarchi.php' id='sub$cpt'><input type='text' name='order' value='$order' hidden><input type='text' name='orderD' value='$orderD' hidden><a style='float:bottom; cursor: pointer' onclick='valider($cpt)'>Imprimer en PDF les tâches archivées<div class='download icon'></div></a></form><br/>";
 ?></div>
 
 <br/>

@@ -312,13 +312,12 @@ echo "<br/>";
 echo "<br/>";
 echo "<br/>";
 echo "<br/>";
-echo "<form action='tacheSuppr.php'><input type='submit' name='' value='Voir les tâches archivées' style='float: right'></form>";
-echo "<a href=\"archive.php\" style='float: right'><img src='img/Folder-Archive-icon.png' alt='' title='Archiver'/>Archiver</a>";
+echo "<div style='width: 350px;margin-left: 700px'>";
+echo "<a href=\"archive.php\"><img src='img/Folder-Archive-icon.png' alt='' title='Archiver'/>Archiver</a>&emsp;&emsp;<a style='cursor: pointer' href='tacheSuppr.php'><img src=\"img/Programming-Show-Property-icon.png\" alt='Submit' title='Voir les tâches archivées'/>Voir les tâches archivées</a>";
+echo "</div>";
 
-
-echo "<div style='float: left'>";
+echo "<div style='margin-right: 600px'>";
 echo "<form method='post' action='pdf.php' id='sub$cpt'><input type='text' name='order' value='$order' hidden><input type='text' name='orderD' value='$orderD' hidden><a style='float:bottom; cursor: pointer' onclick='valider($cpt)'>Imprimer en PDF<div class='download icon'></div></a></form><br/>";
-echo "<br/>";
 echo "<br/>";
 echo "<br/>";
 echo "</div>";

@@ -202,7 +202,7 @@ if($result->num_rows>0) {
 $affi .= "</body></html>";
 
 
-$pdf->WriteHTML(utf8_encode($affi));
+$pdf->WriteHTML($affi);
 
 
 

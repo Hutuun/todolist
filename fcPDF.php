@@ -29,8 +29,8 @@ function affiTnfPDF($row){
     $str .= "<td style='color: $color; text-align: center'>" .strtoupper(substr($field["prenom"],0,1)).strtoupper(substr($field["nom"],0,1)). "</td>";
 
 
-    $str .= "<td>".personPDF($row["idTache"])."</td>";
-    $str .= "<td>".bdPDF($row["idTache"])."</td>";
+    $str .= "<td style='text-align: center'>".personPDF($row["idTache"])."</td>";
+    $str .= "<td style='text-align: center'>".bdPDF($row["idTache"])."</td>";
     $date = $row["dateCreation"];
     $ymd = substr($date, 0, 10);
     $date = date("d/m", strtotime($ymd));
@@ -41,7 +41,11 @@ function affiTnfPDF($row){
         $date = date("d/m", strtotime($ymd));
         $str .= "<td style='text-align: center'>" . $date . "</td>";
     }else {
-        $str .= "<td></td>";
+        if($row["wait"]==="oui"){
+            $str .= "<td style='text-align: center'>En attente</td>";
+        }else{
+            $str .= "<td></td>";
+        }
     }
     if(isset($row["dateSuppr"]) && substr($row["dateSuppr"],0,10)!=="0000-00-00") {
         $date = $row["dateSuppr"];
@@ -82,8 +86,8 @@ function affiTfPDF($row){
     $str .= "<td style='color: $color; text-align: center'>" .strtoupper(substr($field["prenom"],0,1)).strtoupper(substr($field["nom"],0,1)). "</td>";
 
 
-    $str .= "<td>".personPDF($row["idTache"])."</td>";
-    $str .= "<td>".bdPDF($row["idTache"])."</td>";
+    $str .= "<td style='text-align: center'>".personPDF($row["idTache"])."</td>";
+    $str .= "<td style='text-align: center'>".bdPDF($row["idTache"])."</td>";
     $date = $row["dateCreation"];
     $ymd = substr($date, 0, 10);
     $date = date("d/m", strtotime($ymd));
@@ -95,7 +99,11 @@ function affiTfPDF($row){
         $date = date("d/m", strtotime($ymd));
         $str .= "<td style='text-align: center'>" . $date . "</td>";
     }else {
-        $str .= "<td></td>";
+        if($row["wait"]==="oui"){
+            $str .= "<td style='text-align: center'>En attente</td>";
+        }else{
+            $str .= "<td></td>";
+        }
     }
     if(isset($row["dateSuppr"]) && substr($row["dateSuppr"],0,10)!=="0000-00-00") {
         $date = $row["dateSuppr"];
@@ -117,7 +125,7 @@ function affiTfPDF($row){
 
 function personPDF($res){
 
-    $str ="<ul>\n";
+    $str ="";
 
     $sql = "SELECT nom, prenom, color, checked FROM suuser,sutuser where sutuser.idTache='$res' and suuser.idUser=sutuser.idUser";
 
@@ -127,27 +135,27 @@ function personPDF($res){
     while($row = mysqli_fetch_assoc($r)){
 
         $color = "#" . $row["color"];
-        $str .= "<li style='color: $color;'>" . substr($row["prenom"], 0, 1) . substr($row["nom"], 0, 1) . "</li>";
+        $str .= "<span style='color: $color;'>" . substr($row["prenom"], 0, 1) . substr($row["nom"], 0, 1) . "</span>";
 
 
     }
-    $str .="</ul>";
+
 
     return $str;
 }
 
 function bdPDF($res){
 
-    $str ="<ul style='page-break-inside: avoid'>";
+    $str ="";
     $sql ="SELECT diminutif,color FROM subd,sutbd WHERE sutbd.idTache='$res' and sutbd.idBD=subd.idBD";
     $r = query($sql);
     while ($row = mysqli_fetch_assoc($r)){
 
         $color = "#".$row["color"];
-        $str .= "<li style='color: $color'>".$row["diminutif"]."</li>";
+        $str .= "<span style='color: $color'>".$row["diminutif"]."</span>";
     }
 
-    $str .="</ul>";
+    $str .="";
 
     return $str;
 }
@@ -156,71 +164,118 @@ function bdPDF($res){
 function validPDF($res,$idD){
 
 
-    $str ="<ul>\n";
+    $str = "<span>";
 
     $sql = "SELECT nom, prenom, color, adminC FROM suuser,sutuser where suuser.idUser = '$idD' and idTache='$res'";
 
     $r = query($sql);
 
     $row = mysqli_fetch_assoc($r);
-    if($row["adminC"]==1 ) {
+
+    $id = $_SESSION["id"];
+
+    $sql = "SELECT * FROM suuser where idUser=$id";
+
+    $resultat = query($sql);
+
+    $r = mysqli_fetch_assoc($resultat);
+
+    $stri = "";
+
+    if ($_SESSION["id"] === $idD || $r["admin"] == 2) {
         $color = "#" . $row["color"];
 
+        $sql = "SELECT * FROM suuser,sutuser,sutache where idDemandeur=suuser.idUser and sutache.idTache=sutuser.idTache and sutache.idTache=$res";
 
-        $str .= "<li style='color: $color;padding: 2px; border: none'>
-            
-            <div class='check icon2' style='color: $color'>
-            </div>
-           
-            </li>
-            ";
+        $resultat = query($sql);
 
+        while ($row = mysqli_fetch_assoc($resultat)) {
+            if ($r["admin"] != 2) {
+                if ($row["adminC"] == 1) {
+                    $str .= "<span style='padding: 2px; border: none; color: red'>OK</span>";
+
+                    break;
+                } else {
+                    if ($row["checked"] == 0) {
+                        $stri = "<span style='color: $color;padding: 2px; border: none; color: red'>KO</span>";
+
+
+                        break;
+                    }
+                    $stri = "<span style='padding: 2px; border: none; color: red'>OK</span>";
+
+
+                }
+            } else {
+
+                if ($row["adminC"] == 1) {
+                    $str .= "<span style='padding: 2px; border: none; color: red'>OK</span>";
+
+                    break;
+                } else {
+                    if ($row["checked"] == 0) {
+                        $stri = "<span style='padding: 2px; border: none; color: red '>KO</span>";
+
+
+
+
+                        break;
+                    }
+                    $stri = "<span style='padding: 2px; border: none; color: red'>KO</span>";
+
+                }
+            }
+        }
+
+        $str .= $stri;
 
         $sql = "SELECT suuser.idUser,nom, prenom, color, checked, adminC FROM suuser,sutuser where sutuser.idTache='$res' and suuser.idUser=sutuser.idUser";
 
         $r = query($sql);
 
-        while($row = mysqli_fetch_assoc($r)){
-            if($_SESSION["id"]===$row["idUser"] ) {
+        while ($row = mysqli_fetch_assoc($r)) {
 
+
+            if ($_SESSION["id"] === $row["idUser"]) {
 
                 if ($row["checked"] == 0 && $row["adminC"] == 0) {
 
                     $color = "#" . $row["color"];
-                    $str .= "<li style='color: $color; padding: 3px ; border: none'>
-                 
-                    <div class='check icon2' style='color: $color'>
-                    </div>
-                   
-                    </li>";
-
+                    $str .= "<span style=' padding: 3px ; border: none; color: $color'></span>";
 
 
                 } else {
                     if ($row["checked"] == 1 && $row["adminC"] == 1) {
                         $color = "#" . $row["color"];
-                        $str .= "<li style='color: $color; padding: 3px ; border: none'>
-        
-                        <div class='check icon' style='color: $color'>
-                        </div>
-                     
-                        </li>";
-                    }
+                        $str .= "<span style=' padding: 3px ; border: none; color: green'>OK</span>";
 
+                    } else {
+                        $color = "#" . $row["color"];
+                        $str .= "<span style=' padding: 3px ; border: none; color: $color'></span>";
+
+                    }
                 }
-            }else{
+            } else {
                 if ($row["checked"] == 1) {
-                    $color = "#" . $row["color"];
-                    $str .= "<li style='color: $color; padding: 3px ; border: none'><div class='check icon' style='color: $color'></li>";
+
+                    $str .= "<span style='padding: 3px ; border: none; color: green'>OK</span>";
                 }
             }
 
 
         }
-    }else {
+
+    }
+
+    ///Pas Admin mais un simple utilisateur
+
+
+    else {
         $sql = "SELECT suuser.idUser,nom, prenom, color, checked, adminC FROM suuser,sutuser where sutuser.idTache='$res' and suuser.idUser=sutuser.idUser";
 
         $r = query($sql);
+
+        $b=true;
 
         while ($row = mysqli_fetch_assoc($r)) {
             if ($_SESSION["id"] === $row["idUser"]) {
@@ -228,22 +283,34 @@ function validPDF($res,$idD){
 
                 if ($row["checked"] == 0 && $row["adminC"] == 0) {
 
+                    $color = "#" . $row["color"];
+                    $str .= "<span style=' padding: 3px ; border: none; color: $color'></span>";
+
 
                 } else {
+                    if ($b && $row["adminC"] == 1){
+                        $b = false;
+
+                        $str .= "<span style='padding: 3px ; border: none; color: red'>OK</span>";
+                    }
                     if ($row["checked"] == 1) {
                         $color = "#" . $row["color"];
-                        $str .= "<li style='color: $color; padding: 3px ; border: none'>
+                        $str .= "<span style=' padding: 3px ; border: none; color: green'>OK</span>";
+                        $cpt += 1;
+                    } else {
+                        $color = "#" . $row["color"];
+                        $str .= "<span style=' padding: 3px ; border: none;  color: $color'></span>";
 
-                    <div class='check icon' style='color: $color'>
-                    </div>
-
-                    </li>";
                     }
                 }
             } else {
+                if ($b && $row["adminC"] == 1){
+                    $b = false;
+
+                    $str .= "<span style='padding: 3px ; border: none; color: red'>OK</span>";
+                }
                 if ($row["checked"] == 1) {
-                    $color = "#" . $row["color"];
-                    $str .= "<li style='color: $color; padding: 3px ; border: none'><div class='check icon' style='color: $color'></li>";
+                    $str .= "<span style='padding: 3px ; border: none; color: green'>OK</span>";
                 }
 
             }
@@ -252,7 +319,7 @@ function validPDF($res,$idD){
         }
     }
 
-    $str .="</ul>";
+    $str .= "</span>";
 
     return $str;
 }
