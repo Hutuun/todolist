@@ -17,6 +17,7 @@ while ($row = mysqli_fetch_assoc($res)) {
 }
 $idTache = $_POST["idtache"];
 $nom = $_POST["nom"];
+$nom = str_ireplace("\"","'",$nom);
 $prio = $_POST["prio"];
 $sql = "SELECT * FROM sutache where idTache=$idTache";
 
@@ -30,6 +31,7 @@ if ($_POST["deadline"]!=="") {
     $dead = $_POST["deadline"];
 }
 $desc = $_POST["desc"];
+$desc = str_ireplace("\"","'",$desc);
 if ($_POST["dd"]!=="") {
     $dd= $_POST["dd"];
 }

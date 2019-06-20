@@ -221,7 +221,7 @@ if($_SERVER["REQUEST_METHOD"]==="POST") {
 
         $cpt +=1;
 
-        $id = $_POST["id"];
+        $id = $_SESSION["id"];
 
         $sql = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM sutache,sutuser,suuser where suuser.idUser = '$id' and suuser.idUser = sutuser.idUser and sutuser.idTache = sutache.idTache GROUP by sutuser.idTache ORDER by $order, priorite DESC";
         $sql2 = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM sutache,sutuser,suuser where sutache.idTache = sutuser.idTache and suuser.idUser=sutuser.idUser and suuser.idUser <> '$id' GROUP by sutuser.idTache ORDER by $order, priorite DESC";
@@ -251,8 +251,8 @@ if($_SERVER["REQUEST_METHOD"]==="POST") {
         if (isset($_POST["orderD"])) {
             $orderD = $_POST["orderD"];
 
-            $sql = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM sutache,sutuser,suuser where suuser.idUser = sutuser.idUser and sutuser.idTache = sutache.idTache and suuser.idUser = $id group by sutuser.idTache ORDER by $orderD DESC, priorite DESC";
-            $sql2 = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM sutache,sutuser,suuser where suuser.idUser = sutuser.idUser and sutuser.idTache = sutache.idTache and suuser.idUser <> $id group by sutuser.idTache ORDER by $orderD DESC, priorite DESC";
+            $sql = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM sutache,sutuser,suuser where suuser.idUser = sutuser.idUser and sutuser.idTache = sutache.idTache and suuser.idUser = '$id' group by sutuser.idTache ORDER by $orderD DESC, priorite DESC";
+            $sql2 = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM sutache,sutuser,suuser where suuser.idUser = sutuser.idUser and sutuser.idTache = sutache.idTache and suuser.idUser <> '$id' group by sutuser.idTache ORDER by $orderD DESC, priorite DESC";
 
         }
     }

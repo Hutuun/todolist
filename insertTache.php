@@ -45,12 +45,15 @@ while ($row = mysqli_fetch_assoc($res)) {
 
 
 $nom = $_POST["nom"];
+$nom = str_ireplace("\"","'",$nom);
 $prio = $_POST["prio"];
 $dead = "";
 if ($_POST["deadline"]!=="") {
     $dead = $_POST["deadline"];
 }
 $desc = $_POST["desc"];
+
+$desc = str_ireplace("\"","'",$desc);
 
 $wait = "non";
 if(isset($_POST["wait"])){

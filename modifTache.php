@@ -24,13 +24,27 @@ $r = mysqli_fetch_assoc($resultat);
 <head>
     <title>TODO</title>
     <meta charset="utf-8">
+    <script >
+        function f() {
+            var a = document.getElementsByClassName("per")
+            var b = false;
+
+            for (var i=0; i<a.length;i++){
+
+                if(a[i].checked){
+                    b = true;
+                }
+            }
+            return b;
+        }
+    </script>
 </head>
 <body>
 <h1>Modification d'une tâche</h1>
 <br/>
 <br/>
 <div class="contenu_page">
-    <form id="tache" method="post" action="updateTache.php">
+    <form id="tache" method="post" onsubmit="return f();" action="updateTache.php">
         <fieldset>
             <legend>&nbsp;Veuillez sélectionner les informations</legend>
             <table>
@@ -76,10 +90,9 @@ $r = mysqli_fetch_assoc($resultat);
                             $resultat = query($sql);
                             while ($f = mysqli_fetch_assoc($resultat)) {
 
-                                $stri = '<td style="color: #'.$row["color"].'"><input type="checkbox"  value="' . $row['idUser'] . '" name="' . $row['idUser'] . '">' . substr_replace($row['nom'],strtoupper(substr($row['nom'],0,1)),0,1) . ' ' . substr_replace($row['prenom'],strtoupper(substr($row['prenom'],0,1)),0,1) . '</td>';
-
+                                $stri = '<td style="color: #'.$row["color"].'"><input type="checkbox" class="per" value="' . $row['idUser'] . '" name="' . $row['idUser'] . '">' . substr_replace($row['nom'],strtoupper(substr($row['nom'],0,1)),0,1) . ' ' . substr_replace($row['prenom'],strtoupper(substr($row['prenom'],0,1)),0,1) . '</td>';
                                 if($f["idUser"]===$row["idUser"]) {
-                                    $stri = '<td style="color: #'.$row["color"].'"><input type="checkbox" checked  value="' . $row['idUser'] . '" name="' . $row['idUser'] . '">' . substr_replace($row['nom'],strtoupper(substr($row['nom'],0,1)),0,1) . ' ' . substr_replace($row['prenom'],strtoupper(substr($row['prenom'],0,1)),0,1) . '</td>';
+                                    $stri = '<td style="color: #'.$row["color"].'"><input type="checkbox" checked class="per" value="' . $row['idUser'] . '" name="' . $row['idUser'] . '">' . substr_replace($row['nom'],strtoupper(substr($row['nom'],0,1)),0,1) . ' ' . substr_replace($row['prenom'],strtoupper(substr($row['prenom'],0,1)),0,1) . '</td>';
                                     break;
                                 }
                             }
@@ -106,6 +119,7 @@ $r = mysqli_fetch_assoc($resultat);
                         $sql = "SELECT * FROM subd,sutbd where sutbd.idTache=$id  and sutbd.idBD=subd.idBD;";
 
                         $resultat = query($sql);
+                        $stri = '<td style="color: #' . $row["color"] . '"><input type="checkbox" value="' . $row['idBD'] . '" name="' . $row['idBD'] . '">' . substr_replace($row['nomBD'], strtoupper(substr($row["nomBD"], 0, 1)), 0, 1) . '</td>';
                         while ($f = mysqli_fetch_assoc($resultat)) {
 
                             $stri = '<td style="color: #' . $row["color"] . '"><input type="checkbox"  value="' . $row['idBD'] . '" name="' . $row['idBD'] . '">' . substr_replace($row['nomBD'], strtoupper(substr($row["nomBD"], 0, 1)), 0, 1) . '</td>';
@@ -166,6 +180,7 @@ $r = mysqli_fetch_assoc($resultat);
                         echo $r["dateSuppr"];
                         ?>" name="df" style="width:60%" ></td>
                 </tr>
+
                 <tr>
                     <td><label>Description : </label></td>
                     <td><textarea style="resize: none; width: 60%"  name="desc" maxlength="1500"><?php echo $r["descriptionTache"];?></textarea></td>
@@ -184,7 +199,7 @@ $r = mysqli_fetch_assoc($resultat);
             <br/><br/>
             <p>
                 <input type="text" value="<?php echo $id;?>" name="idtache" hidden>
-                <a href="hub.php"><input type='button' value='Annuler' style="width: 80px"/></a>
+                <a href="hub2.php"><input type='button' value='Annuler' style="width: 80px"/></a>
                 <input type="submit" value="Valider" name="valider" style="width: 80px"/>
             </p>
         </fieldset>

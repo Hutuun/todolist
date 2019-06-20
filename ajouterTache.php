@@ -22,13 +22,28 @@ $res = query($sql);
         <head>
             <title>TODO</title>
             <meta charset="utf-8">
+            <script >
+                function f() {
+                    var a = document.getElementsByClassName("per")
+                    var b = false;
+
+                    for (var i=0; i<a.length;i++){
+
+                        if(a[i].checked){
+                            b = true;
+                        }
+                    }
+
+                    return b;
+                }
+            </script>
         </head>
         <body>
             <h1>Insertion d'une tâche</h1>
             <br/>
 <br/>
 <div class="contenu_page">
-    <form id="tache" method="post" action="insertTache.php">
+    <form id="tache" method="post" onsubmit="return f();" action="insertTache.php">
         <fieldset>
             <legend>&nbsp;Veuillez sélectionner les informations</legend>
             <table>
@@ -60,7 +75,7 @@ $res = query($sql);
                     echo "<td><table>";
                         while ($row = mysqli_fetch_assoc($res)) {
                             if (strtotime($row["dateFin"]) > time() || strtotime($row["dateFin"])<0 || strtotime($row["dateFin"])==false) {
-                                echo '<td style="color: #'.$row["color"].'"><input type="checkbox"  value="' . $row['idUser'] . '" name="' . $row['idUser'] . '">' . substr_replace($row['nom'],strtoupper(substr($row['nom'],0,1)),0,1) . ' ' . substr_replace($row['prenom'],strtoupper(substr($row['prenom'],0,1)),0,1) . '</td>';
+                                echo '<td style="color: #'.$row["color"].'"><input type="checkbox" class="per"  value="' . $row['idUser'] . '" name="' . $row['idUser'] . '">' . substr_replace($row['nom'],strtoupper(substr($row['nom'],0,1)),0,1) . ' ' . substr_replace($row['prenom'],strtoupper(substr($row['prenom'],0,1)),0,1) . '</td>';
                             }
                         }
                     echo "</table></td>";
@@ -115,8 +130,8 @@ $res = query($sql);
             <br/><br/>
             <p>
                 <a href="hub2.php" style="text-decoration: none"><input type='button' value='Annuler' style="width: 80px"/></a>
-                <input type="submit" value="Nouvelle tâche" name="tache" style="width: 120px"/>
-                <input type="submit" value="Valider" name="valider" style="width: 80px"/>
+                <input type="submit"  value="Nouvelle tâche" name="tache" style="width: 120px"/>
+                <input type="submit"  value="Valider" name="valider" style="width: 80px"/>
             </p>
         </fieldset>
     </form>
