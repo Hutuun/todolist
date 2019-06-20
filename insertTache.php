@@ -222,7 +222,7 @@ $res = query($sql);
 $row = mysqli_fetch_assoc($res);
 
 
-$mailto .= $row["mail"];
+//$mailto .= $row["mail"];
 
 $reply =$row["mail"];
 
@@ -248,6 +248,94 @@ $message .= "Content-Transfer-Encoding:8bit \r\n";
 $message .= "\r\n";
 $message .= "Une nouvelle t&acirc;che a été ajout&eacute;e.";
 $message .= "\r\n";
+$message .= "--$boundary \n";
+$message .= "Content-Type: $typepiecejointe; name=\"$file_name\" \r\n";
+$message .= "Content-Transfer-Encoding: base64 \r\n";
+$message .= "Content-Disposition: attachment; filename=\"$file_name\" \r\n";
+$message .= "\r\n";
+$message .= $data."\r\n";
+$message .= "\r\n";
+
+
+$pdf = new \Mpdf\Mpdf();
+
+$pdf->AddPage();
+
+$sql = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM sutache,sutuser,suuser where suuser.idUser = sutuser.idUser and sutuser.idTache = sutache.idTache GROUP by sutuser.idTache order by dateSuppr, priorite DESC, dateCreation";
+
+$affi = "<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=\"UTF-8\">
+    <script src=\"js/function.js\" type=\"text/javascript\"></script>
+    <style>
+        table.ta,td{
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body style=\"font-family: Trebuchet,Trebuchet MS,Arial,Helvetica,Sans-serif;\">";
+
+$affi .=  "<h2>Liste des tâches</h2>";
+$affi .=  "<table style='display: table;' class='ta'>";
+$affi .= "<tr><td style='max-width: 45px'>Num</td>";
+$affi .= "<td style='text-align: center; width: 300px'>Tâches</td>";
+$affi .= "<td>Demandeur</td>";
+$affi .= "<td style='text-align: center; width: 80px'>Qui</td>";
+$affi .= "<td style='text-align: center; width: 80px'>BD</td>";
+$affi .= "<td style='width: 80px; text-align: center'>Début</td>";
+$affi .= "<td style='width: 80px; text-align: center'>Deadline</td>";
+$affi .= "<td style='width: 80px; text-align: center'>Fin</td>";
+$affi .= "<td>Validé</td>";
+
+$affi.="</tr>";
+
+
+$result = query($sql);
+
+
+while ($row = mysqli_fetch_assoc($result)) {
+
+    if (($row["suppr"] === "non" && $row["archive"]==="non")) {
+
+        if (isset($row["dateSuppr"]) && substr($row["dateSuppr"], 0, 10) !== "0000-00-00" && $row["adminC"] == 1) {
+
+            $affi .= affiTfPDF($row);
+
+
+        } else {
+
+            $affi .= affiTnfPDF($row);
+
+        }
+
+    }
+
+}
+
+
+
+$affi .= "</table>";
+
+
+$affi .= "</div>";
+
+
+$affi .= "</body>";
+$affi .= "</html>";
+
+$pdf->WriteHTML($affi);
+
+$path ="tache/";
+
+$file_name = "listTache.pdf";
+
+$pdf->Output($path."$file_name",\Mpdf\Output\Destination::FILE);
+
+$typepiecejointe = filetype($path.$file_name);
+$data = chunk_split( base64_encode(file_get_contents($path.$file_name)) );
+
 $message .= "--$boundary \n";
 $message .= "Content-Type: $typepiecejointe; name=\"$file_name\" \r\n";
 $message .= "Content-Transfer-Encoding: base64 \r\n";
