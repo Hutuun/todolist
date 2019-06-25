@@ -187,7 +187,13 @@ $r = mysqli_fetch_assoc($resultat);
                 </tr>
                 <tr>
                     <td><label>En attente ? : </label></td>
-                    <td><input type="checkbox"  name="wait" value="oui">En attente</td>
+                    <td><?php
+                        if($r["wait"]==="non") {
+                            echo "<input type=\"checkbox\"  name=\"wait\" value=\"oui\">En attente</td>";
+                        }else{
+                            echo "<input type=\"checkbox\" checked name=\"wait\" value=\"oui\">En attente</td>";
+                        }
+                    ?>
                 </tr>
             </table>
         </fieldset>
@@ -199,7 +205,7 @@ $r = mysqli_fetch_assoc($resultat);
             <br/><br/>
             <p>
                 <input type="text" value="<?php echo $id;?>" name="idtache" hidden>
-                <a href="hub2.php"><input type='button' value='Annuler' style="width: 80px"/></a>
+                <a href="hub2.php" style="text-decoration: none"><input type='button' value='Annuler' style="width: 80px"/></a>
                 <input type="submit" value="Valider" name="valider" style="width: 80px"/>
             </p>
         </fieldset>

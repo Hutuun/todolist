@@ -71,7 +71,9 @@ while ($row = mysqli_fetch_assoc($res)){
 }
 
 
+$sql = "LOCK TABLE sutache write, sutuser write ,sutbd write, subd read, suuser read";
 
+query($sql);
 
 $sql = "INSERT IGNORE INTO sutache(idTache, nomTache, descriptionTache, idDemandeur, priorite ,deadline, dateCreation, dateSuppr, wait) VALUES (\"$cpt\", \"$nom\",\"$desc\",\"$demandeur\",$prio,\"$dead\",CURRENT_TIME,\"''\",'$wait');";
 
@@ -105,6 +107,10 @@ while ($row = mysqli_fetch_assoc($res)) {
         $mailto.=$row["mail"].",";
     }
 }
+
+$sql = "UNLOCK TABLE";
+
+query($sql);
 
 $sql = "SELECT * FROM sutache,suuser,sutuser WHERE sutache.idTache = '$cpt' and idDemandeur = suuser.idUser and sutuser.idTache = sutache.idTache";
 $res = query($sql);

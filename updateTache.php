@@ -7,8 +7,12 @@
  */
 include ("database.php");
 session_start();
+
+
 $sql = "SELECT idUser From suuser";
+
 $res = query($sql);
+
 while ($row = mysqli_fetch_assoc($res)) {
     $id = $row["idUser"];
     if(isset($_POST["d$id"])) {
@@ -16,10 +20,14 @@ while ($row = mysqli_fetch_assoc($res)) {
     }
 }
 $idTache = $_POST["idtache"];
-$nom = $_POST["nom"];
-$nom = str_ireplace("\"","'",$nom);
+
+$nom = str_ireplace("\"","'",$_POST["nom"]);
+if($nom===""){
+    $nom = $_POST["nom"];
+}
+
 $prio = $_POST["prio"];
-$sql = "SELECT * FROM sutache where idTache=$idTache";
+$sql = "SELECT * FROM sutache where idTache='$idTache'";
 
 $res=query($sql);
 $row=mysqli_fetch_assoc($res);
@@ -30,8 +38,12 @@ $df = $row["dateSuppr"];
 if ($_POST["deadline"]!=="") {
     $dead = $_POST["deadline"];
 }
-$desc = $_POST["desc"];
-$desc = str_ireplace("\"","'",$desc);
+
+$desc = str_ireplace("\"","'",$_POST["desc"]);
+if($desc===""){
+    $desc = $_POST["desc"];
+}
+
 if ($_POST["dd"]!=="") {
     $dd= $_POST["dd"];
 }
@@ -43,9 +55,9 @@ if(isset($_POST["wait"])){
     $wait = "oui";
 }
 
-$sql = "UPDATE `sutache` SET `nomTache`=\"$nom\",`descriptionTache`=\"$desc\",`idDemandeur`=$demandeur,`priorite`=$prio,`deadline`=\"$dead\",`dateCreation`=\"$dd\",`dateSuppr`=\"$df\", `wait`='$wait'
+$sql = "UPDATE `sutache` SET `nomTache`=\"$nom\",`descriptionTache`=\"$desc\",`idDemandeur`='$demandeur',`priorite`='$prio',`deadline`=\"$dead\",`dateCreation`=\"$dd\",`dateSuppr`=\"$df\", `wait`='$wait'
 WHERE `idTache`='$idTache'";
-
+echo $sql;
 query($sql);
 $sql = "SELECT idBD FROM subd";
 $res = query($sql);
@@ -99,6 +111,6 @@ $mailFrom = $row["mail"];
 $header = "From: Automatique <$mailFrom> \n";
 $header .= "MIME-Version: 1.0 \n";
 $header .= "Content-Transfer-Encoding: 8bit \r\n";
-//mail($mailto,"Une de vos tâches a été modifiée ($idTache)","La tâche $idTache / $nom a été modifiée le .",$header);
+mail($mailto,"Une de vos tâches a été modifiée ($idTache)","La tâche $idTache / $nom a été modifiée le .",$header);
 
 header("Refresh:0, URL=hub2.php");
