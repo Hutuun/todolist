@@ -16,7 +16,7 @@ $file = fopen("backup/backupTODO$da.sql","w+");
 
 fwrite($file,"\n\n");
 
-$sql = "SELECT * FROM sutache";
+$sql = "SELECT * FROM `sutache`";
 
 $res = query($sql);
 

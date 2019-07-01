@@ -11,18 +11,23 @@ include ("database.php");
     $id = $_POST["login"];
     $pwd = $_POST["pwd"];
 
-    $sql = "SELECT * FROM suuser WHERE password='".$pwd."' and login='".$id."'";
+    $sql = "SELECT * FROM suuser ";
     $res = query($sql);
 
-if(mysqli_num_rows($res)==0)
-{
-    header("Refresh:0; URL=login.php");
-}
-else {
+
+    $b = false;
+    while($row = mysqli_fetch_assoc($res)){
+        if($row["login"]==="$id" && $row["password"])
+            $b = true;
+            break;
+    }
+    if(!$b) {
+        header("Refresh:0; URL=login.php");
+    }else {
 
     session_start();
 
-    $row = mysqli_fetch_assoc($res);
+
 
      if(strtotime($row["dateFin"]) > time() || strtotime($row["dateFin"])===false || strtotime($row["dateFin"])<0) {
         if ($row["password"] == "Default" || $row["password"] == "" ) {

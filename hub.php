@@ -9,38 +9,6 @@
             border: 1px solid black;
             border-collapse: collapse;
         }
-        .download.icon {
-            color: #000;
-            position: absolute;
-            margin-left: 3px;
-            margin-top: 12px;
-            width: 13px;
-            height: 4px;
-            border-radius: 2px;
-            border: solid 2px currentColor;
-            border-top: none;
-        }
-        .download.icon:before {
-            content: '';
-            position: absolute;
-            left: 6px;
-            top: -9px;
-            width: 1px;
-            height: 10px;
-            background-color: currentColor;
-        }
-        .download.icon:after {
-            content: '';
-            position: absolute;
-            left: 4px;
-            top: -4px;
-            width: 4px;
-            height: 4px;
-            border-top: solid 2px currentColor;
-            border-right: solid 2px currentColor;
-            -webkit-transform: rotate(135deg);
-            transform: rotate(135deg);
-        }
         .check.icon {
             color: #000;
             position: relative;
@@ -274,14 +242,12 @@ echo "</table>";
 echo "</div>";
 echo "<br/>";
 echo "<br/>";
-echo "<br/>";
-echo "<br/>";
-echo "<div style='width: 350px;margin-left: 700px'>";
+echo "<div style='width: 350px;margin-left: 640px'>";
 echo "<a href=\"archive.php\"><img src='img/Folder-Archive-icon.png' alt='' title='Archiver'/>Archiver</a>&emsp;&emsp;<a style='cursor: pointer' href='tacheSuppr.php'><img src=\"img/Programming-Show-Property-icon.png\" alt='Submit' title='Voir les tâches archivées'/>Voir les tâches archivées</a>";
 echo "</div>";
 
 echo "<div style='margin-right: 600px'>";
-echo "<form method='post' action='pdf.php' id='sub$cpt'><input type='text' name='order' value='$order' hidden><input type='text' name='orderD' value='$orderD' hidden><a style='float:bottom; cursor: pointer' onclick='valider($cpt)'>Imprimer en PDF<div class='download icon'></div></a></form><br/>";
+echo "<form method='post' action='pdf.php' id='sub$cpt'><input type='text' name='order' value='$order' hidden><input type='text' name='orderD' value='$orderD' hidden><a style='float:bottom; cursor: pointer' onclick='valider($cpt)'><img src='img/Download-icon.png' alt='Submit'>Imprimer en PDF</a></form><br/>";
 echo "<br/>";
 echo "<br/>";
 echo "</div>";
