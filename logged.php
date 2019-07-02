@@ -17,9 +17,10 @@ include ("database.php");
 
     $b = false;
     while($row = mysqli_fetch_assoc($res)){
-        if($row["login"]==="$id" && $row["password"])
+        if($row["login"]==="$id" && $row["password"]===$pwd) {
             $b = true;
             break;
+        }
     }
     if(!$b) {
         header("Refresh:0; URL=login.php");

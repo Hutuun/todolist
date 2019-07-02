@@ -48,7 +48,7 @@ $res = query($sql);
             <legend>&nbsp;Veuillez sélectionner les informations</legend>
             <table>
                 <tr>
-                    <td><label>Demandé par : </label></td>
+                    <td><label style="color: #e60000">Demandé par : </label></td>
                     <?php
                     echo "<td><table>";
                     while ($row = mysqli_fetch_assoc($res)) {
@@ -65,7 +65,7 @@ $res = query($sql);
                     ?>
                 </tr>
                 <tr>
-                    <td><label>Utilisateur : </label></td>
+                    <td><label style="color: #e60000">Utilisateur : </label></td>
                     <?php
                     $sql = "SELECT * FROM suuser order by nom,prenom";
 
@@ -81,8 +81,8 @@ $res = query($sql);
                     echo "</table></td>";
                    ?></tr>
                 <tr>
-                    <td><label>Nom de la tâche : </label></td>
-                    <td><input type="text" name="nom" style="width: 60%" maxlength="100" required></td></tr>
+                    <td><label style="color: #e60000">Nom de la tâche : </label></td>
+                    <td><input type="text" name="nom" style="width: 60%" maxlength="200" required></td></tr>
                 <tr>
                     <td><label>Base de données : </label></td>
                     <?php
@@ -107,7 +107,7 @@ $res = query($sql);
                     </td>
                 </tr>
                 <tr>
-                    <td><label>Deadline(opt) : </label></td>
+                    <td><label>Deadline : </label></td>
                     <td><input type="date" name="deadline" style="width:60%" ></td>
                 </tr>
                 <tr>
@@ -122,11 +122,13 @@ $res = query($sql);
         </fieldset>
         <br/>
         <fieldset style="border: 0px">
+            <i style="font-size: 12px; color:#e60000;">Les sections en rouge sont obligatoires</i>
             <p><?php
                 if($_SESSION["admin"]>=1){
                     echo "<label style=\"float: right\">La personne ne se trouve pas dans la liste ? cliquez <a href=\"ajouterUser.php\">ici</a> &nbsp;</label>";
                 }
             ?></p>
+            
             <br/><br/>
             <p>
                 <a href="hub2.php" style="text-decoration: none"><input type='button' value='Annuler' style="width: 80px"/></a>

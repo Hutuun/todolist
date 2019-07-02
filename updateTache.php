@@ -57,7 +57,7 @@ if(isset($_POST["wait"])){
 
 $sql = "UPDATE `sutache` SET `nomTache`=\"$nom\",`descriptionTache`=\"$desc\",`idDemandeur`='$demandeur',`priorite`='$prio',`deadline`=\"$dead\",`dateCreation`=\"$dd\",`dateSuppr`=\"$df\", `wait`='$wait'
 WHERE `idTache`='$idTache'";
-echo $sql;
+
 query($sql);
 $sql = "SELECT idBD FROM subd";
 $res = query($sql);
@@ -80,7 +80,7 @@ while ($row = mysqli_fetch_assoc($res)) {
     $id = $row["idUser"];
     if(isset($_POST["$id"])) {
         $sql = "INSERT INTO sutuser(idUser, idTache, checked) VALUES (\"$id\",\"$idTache\",0);";
-        $r=query($sql,false);
+        $r = query($sql,false);
 
         if($r!==false) {
             $mailto .= $row["mail"] . ",";
@@ -105,12 +105,26 @@ $res = query($sql);
 $row = mysqli_fetch_assoc($res);
 
 
-$mailFrom = $row["mail"];
+$mailto .= $row["mail"];
 
+$reply = $row["mail"];
 
-$header = "From: Automatique <$mailFrom> \n";
-$header .= "MIME-Version: 1.0 \n";
-$header .= "Content-Transfer-Encoding: 8bit \r\n";
-mail($mailto,"Une de vos tâches a été modifiée ($idTache)","La tâche $idTache / $nom a été modifiée le .",$header);
+$boundary = md5(uniqid(time()));
+$entete = "From: upc.php.sendauto@gmail.com \r\n";
+$entete .= "Reply-to: $reply \r\n";
+$entete .= "X-Priority: 1 \r\n";
+$entete .= "MIME-Version: 1.0 \r\n";
+$entete .= "Content-Type: multipart/mixed; boundary=\"$boundary\" \r\n";
+$entete .= " \r\n";
+
+$message  = "--$boundary \r\n";
+$message .= "Content-Type: text/html; charset=\"UTF8\" \r\n";
+$message .= "Content-Transfer-Encoding:8bit \r\n";
+$message .= "\r\n";
+$message .= "Une nouvelle a été modifiée.";
+$message .= "\r\n";
+$message .= "--$boundary-- \n";
+
+mail($mailto,"Une de vos tâches a été modifiée",$message,$entete);
 
 header("Refresh:0, URL=hub2.php");
