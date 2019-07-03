@@ -179,7 +179,7 @@ while ($row = mysqli_fetch_assoc($result)){
     if($row["checked"]==true){
         $affi .= "qui a valid&eacute; sa t&acirc;che</p>";
     }else{
-        $aff .= "qui n'a pas validé sa tache ";
+        $aff .= "qui n'a pas valid&eacute; sa t&acirc;che</p>";
         if(strtotime($row["dateFin"]) < time() && strtotime($row["dateFin"])>0){
             $affi .="et qui ne travaille plus ici</p>";
         }else{

@@ -17,15 +17,27 @@ $pdf = new \Mpdf\Mpdf();
 
 $pdf->AddPage();
 
-$sql = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM sutache,sutuser,suuser where suuser.idUser = sutuser.idUser and sutuser.idTache = sutache.idTache GROUP by sutuser.idTache order by dateSuppr, priorite DESC, dateCreation";
+$id = $_SESSION["id"];
+
+if(isset($_POST["id"])) {
+    $id = $_POST["id"];
+}
+
+$sql = "SELECT * FROM sutache,sutuser,suuser where suuser.idUser = sutuser.idUser and sutuser.idTache = sutache.idTache and suuser.idUser = '$id' GROUP by sutuser.idTache order by dateSuppr, priorite DESC, dateCreation DESC, deadline, sutache.idTache";
+
+$sql2 = "SELECT * FROM sutache,sutuser,suuser where sutache.idTache = sutuser.idTache and suuser.idUser=sutuser.idUser and suuser.idUser <> '$id' GROUP by sutuser.idTache order by dateSuppr, priorite DESC, dateCreation, deadline, sutache.idTache";
 
 if (isset($_POST["order"]) && $_POST["order"]!=="") {
     $order = $_POST["order"];
-    $sql = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM sutache,sutuser,suuser where suuser.idUser = sutuser.idUser and sutuser.idTache = sutache.idTache group by sutuser.idTache ORDER by $order, priorite DESC";
+    $id = $_SESSION["id"];
+
+    $sql = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM sutache,sutuser,suuser where suuser.idUser = '$id' and suuser.idUser = sutuser.idUser and sutuser.idTache = sutache.idTache GROUP by sutuser.idTache ORDER by $order, priorite DESC";
+    $sql2 = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM sutache,sutuser,suuser where sutache.idTache = sutuser.idTache and suuser.idUser=sutuser.idUser and suuser.idUser <> '$id' GROUP by sutuser.idTache ORDER by $order, priorite DESC";
 }else {
     if (isset($_POST["orderD"]) && $_POST["orderD"]!=="") {
         $orderD = $_POST["orderD"];
-        $sql = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM sutache,sutuser,suuser where suuser.idUser = sutuser.idUser and sutuser.idTache = sutache.idTache group by sutuser.idTache ORDER by $orderD DESC";
+        $sql = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM sutache,sutuser,suuser where suuser.idUser = sutuser.idUser and sutuser.idTache = sutache.idTache and suuser.idUser = '$id' group by sutuser.idTache ORDER by $orderD DESC, priorite DESC";
+        $sql2 = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM sutache,sutuser,suuser where suuser.idUser = sutuser.idUser and sutuser.idTache = sutache.idTache and suuser.idUser <> '$id' group by sutuser.idTache ORDER by $orderD DESC, priorite DESC";
 
     }
 }
@@ -116,22 +128,38 @@ $affi .= "<td style='width: 80px; text-align: center'>Fin</td>";
 $affi .= "<td>Validé</td>";
 
 $affi.="</tr>";
+$memory = array();
+while ($row = mysqli_fetch_assoc($result)){
 
-while ($row = mysqli_fetch_assoc($result)) {
+    $memory[] = $row["idTache"];
+    if(($row["suppr"]==="non"&&$row["archive"]==="non") && (strtotime($row["dateFin"]) > time() || strtotime($row["dateFin"])<0 || strtotime($row["dateFin"])===false)) {
 
-    if (($row["suppr"] === "non" && $row["archive"]==="non")) {
-
-        if (isset($row["dateSuppr"]) && substr($row["dateSuppr"], 0, 10) !== "0000-00-00" && $row["adminC"] == 1) {
+        if(isset($row["dateSuppr"]) && substr($row["dateSuppr"],0,10)!=="0000-00-00" && $row["adminC"]==1 ) {
 
             $affi .= affiTfPDF($row);
-
-
-        } else {
+        }
+        else{
 
             $affi .= affiTnfPDF($row);
-
         }
+    }
 
+}
+
+$result = query($sql2);
+
+while ($row = mysqli_fetch_assoc($result)){
+
+    if($row["suppr"]==="non" && $row["archive"]==="non" && !in_array($row["idTache"],$memory)) {
+
+        if(isset($row["dateSuppr"]) && substr($row["dateSuppr"],0,10)!=="0000-00-00" && $row["adminC"]==1 ) {
+
+            $affi .= affiTfPDF($row);
+        }
+        else{
+
+            $affi .= affiTnfPDF($row);
+        }
     }
 
 }

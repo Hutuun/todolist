@@ -143,7 +143,7 @@ $affi .= "<td style='width: 80px; text-align: center'>BD</td>";
 $cpt += 1;
 $affi .= "<td style='width: 80px; text-align: center'><form method='post' id='sub$cpt'><input type='text' name='order' value='sutache.dateCreation' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Début</a></form></td>";
 $cpt += 1;
-$affi .= "<td style='width: 80px; text-align: center'><form method='post' id='sub$cpt'><input type='text' name='order' value='sutache.deadline' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Deadline</a></form></td>";
+$affi .= "<td style='width: 80px; text-align: center'><form method='post' id='sub$cpt'><input type='text' name='order' value='sutache.deadline' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Statut</a></form></td>";
 $cpt += 1;
 $affi .= "<td style='width: 80px; text-align: center'><form method='post' id='sub$cpt'><input type='text' name='order' value='sutache.dateSuppr' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Fin</a></form></td>";
 $affi .= "<td style='text-align: center; '>Validation</td>";
@@ -197,7 +197,7 @@ if($_SERVER["REQUEST_METHOD"]==="POST") {
         $cpt += 1;
         $affi .= "<td style='width: 80px; text-align: center'><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.dateCreation' hidden><a onclick='valider($cpt)' style='cursor: pointer; '>Début</a></form></td>";
         $cpt += 1;
-        $affi .= "<td style='width: 80px; text-align: center'><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.deadline' hidden><a onclick='valider($cpt)' style='cursor: pointer; '>Deadline</a></form></td>";
+        $affi .= "<td style='width: 80px; text-align: center'><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.deadline' hidden><a onclick='valider($cpt)' style='cursor: pointer; '>Statut</a></form></td>";
         $cpt += 1;
         $affi .= "<td style='width: 80px; text-align: center'><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.dateSuppr' hidden><a onclick='valider($cpt)' style='cursor: pointer; '>Fin</a></form></td>";
         $affi .= "<td style='text-align: center; '>Validation</td>";

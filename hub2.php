@@ -150,7 +150,7 @@ $affi .= "<td style='width: 80px; text-align: center'>BD</td>";
 $cpt += 1;
 $affi .= "<td style='width: 80px; text-align: center'><form action='hub2.php' method='post' id='sub$cpt'><input type='text' name='order' value='sutache.dateCreation' hidden><a onclick='valider($cpt)' style='cursor: pointer; '>Début</a></form></td>";
 $cpt += 1;
-$affi .= "<td style='width: 80px; text-align: center'><form action='hub2.php' method='post' id='sub$cpt'><input type='text' name='order' value='sutache.deadline' hidden><a onclick='valider($cpt)' style='cursor: pointer;'>Deadline</a></form></td>";
+$affi .= "<td style='width: 80px; text-align: center'><form action='hub2.php' method='post' id='sub$cpt'><input type='text' name='order' value='sutache.deadline' hidden><a onclick='valider($cpt)' style='cursor: pointer;'>Statut</a></form></td>";
 $cpt += 1;
 $affi .= "<td style='width: 80px; text-align: center'><form action='hub2.php' method='post' id='sub$cpt'><input type='text' name='order' value='sutache.dateSuppr' hidden><a onclick='valider($cpt)' style='cursor: pointer;'>Fin</a></form></td>";
 $affi .= "<td style='text-align: center; '>Validation</td>";
@@ -208,7 +208,7 @@ if($_SERVER["REQUEST_METHOD"]==="POST") {
         $cpt += 1;
         $affi .= "<td style='width: 80px; text-align: center'><form action='hub2.php' method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.dateCreation' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Début</a></form></td>";
         $cpt += 1;
-        $affi .= "<td style='width: 80px; text-align: center'><form action='hub2.php' method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.deadline' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Deadline</a></form></td>";
+        $affi .= "<td style='width: 80px; text-align: center'><form action='hub2.php' method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.deadline' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Statut</a></form></td>";
         $cpt += 1;
         $affi .= "<td style='width: 80px; text-align: center'><form action='hub2.php' method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.dateSuppr' hidden><a onclick='valider($cpt)' style='cursor: pointer; cursor: hand'>Fin</a></form></td>";
         $affi .= "<td style='text-align: center; '>Validation</td>";
@@ -277,16 +277,14 @@ echo "</table>";
 echo "</div>";
 
 echo "<br/>";
-echo "<br/>";
-echo "<div style='width: 350px;margin-left: 640px'>";
+echo "<span style='width: 350px;margin-left: 640px'>";
 echo "<a href=\"archive.php\"><img src='img/Folder-Archive-icon.png' alt='' title='Archiver'/>Archiver</a>&emsp;&emsp;<a style='cursor: pointer' href='tacheSuppr.php'><img src=\"img/Programming-Show-Property-icon.png\" alt='Submit' title='Voir les tâches archivées'/>Voir les tâches archivées</a>";
-echo "</div>";
+echo "</span>";
 
-echo "<div style='margin-left: 27px'>";
-echo "<form method='post' action='pdf.php' id='sub$cpt'><input type='text' name='order' value='$order' hidden><input type='text' name='orderD' value='$orderD' hidden><a style='float:bottom; cursor: pointer' onclick='valider($cpt)'><img src='img/Download-icon.png' alt='Submit' title='Imprimer en PDF'>Imprimer en PDF</a></form><br/>";
+echo "<span style='margin-left: 27px;'>";
+echo "<form method='post' action='pdf.php' id='sub$cpt'><input type='text' name='order' value='$order' hidden><input type='text' name='orderD' value='$orderD' hidden><a style='float:bottom; cursor: pointer' onclick='valider($cpt)'><img src='img/Download-icon.png' alt='Submit' title='Imprimer en PDF'>Imprimer en PDF</a></form>";
 echo "<br/>";
-echo "<br/>";
-echo "</div>";
+echo "</span>";
 ?>
 
 
