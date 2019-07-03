@@ -30,10 +30,10 @@ session_start();
         <fieldset>
             <legend>&nbsp;Changement de mot de passe&nbsp;</legend>
             <table><tr>
-                    <td>Password : </td><td><input type='password' name='pwd1' id="pwd1" required></td>
+                    <td>Password : </td><td><input type='password' name='pwd1' id="pwd1" maxlength="8" required></td>
                 </tr>
                 <tr>
-                    <td>Confirmation password : </td><td><input type='password' name='pwd2' id="pwd2" required></td>
+                    <td>Confirmation password : </td><td><input type='password' name='pwd2' id="pwd2" maxlength="8" required></td>
                 </tr>
             </table>
             <input type='submit' value="Confirmer"  id="button"><br>

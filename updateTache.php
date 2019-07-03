@@ -81,10 +81,8 @@ while ($row = mysqli_fetch_assoc($res)) {
     if(isset($_POST["$id"])) {
         $sql = "INSERT INTO sutuser(idUser, idTache, checked) VALUES (\"$id\",\"$idTache\",0);";
         $r = query($sql,false);
+        $mailto .= $row["mail"] . ",";
 
-        if($r!==false) {
-            $mailto .= $row["mail"] . ",";
-        }
     }
     else{
         $sql = "select * from sutuser WHERE `idUser`='$id' and `idTache`='$idTache'";
@@ -97,7 +95,7 @@ while ($row = mysqli_fetch_assoc($res)) {
     }
 }
 
-$sql = "SELECT nom, prenom, mail FROM suuser WHERE suuser.idUser = '".$demandeur."' ";
+$sql = "SELECT mail FROM suuser WHERE suuser.idUser = '".$demandeur."' ";
 
 
 $res = query($sql);
@@ -107,11 +105,9 @@ $row = mysqli_fetch_assoc($res);
 
 $mailto .= $row["mail"];
 
-$reply = $row["mail"];
-
 $boundary = md5(uniqid(time()));
-$entete = "From: upc.php.sendauto@gmail.com \r\n";
-$entete .= "Reply-to: $reply \r\n";
+$entete = "From: application@todo.be\r\n";
+$entete .= "Reply-to: Maxime.Vanhoren@ulb.ac.be \r\n";
 $entete .= "X-Priority: 1 \r\n";
 $entete .= "MIME-Version: 1.0 \r\n";
 $entete .= "Content-Type: multipart/mixed; boundary=\"$boundary\" \r\n";
@@ -125,6 +121,6 @@ $message .= "Une nouvelle a été modifiée.";
 $message .= "\r\n";
 $message .= "--$boundary-- \n";
 
-mail($mailto,"Une de vos tâches a été modifiée",$message,$entete);
+mail($mailto,"Une de vos tâches, la numéro $idTache, a été modifiée",$message,$entete);
 
 header("Refresh:0, URL=hub2.php");

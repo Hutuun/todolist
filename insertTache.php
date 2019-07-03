@@ -233,8 +233,6 @@ $row = mysqli_fetch_assoc($res);
 
 $mailto .= $row["mail"];
 
-$reply =$row["mail"];
-
 
 
 $typepiecejointe = filetype($path.$file_name);
@@ -243,8 +241,8 @@ $data = chunk_split( base64_encode(file_get_contents($path.$file_name)) );
 
 
 $boundary = md5(uniqid(time()));
-$entete = "From: upc.php.sendauto@gmail.com \r\n";
-$entete .= "Reply-to: $reply \r\n";
+$entete = "From: application@todo.be\r\n";
+$entete .= "Reply-to: Maxime.Vanhoren@ulb.ac.be \r\n";
 $entete .= "X-Priority: 1 \r\n";
 $entete .= "MIME-Version: 1.0 \r\n";
 $entete .= "Content-Type: multipart/mixed; boundary=\"$boundary\" \r\n";

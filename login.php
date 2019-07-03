@@ -20,10 +20,10 @@ include ("database.php");
         <fieldset>
             <legend style="font-size: 21px; font-family: Arial; font-weight: bold">&nbsp;Formulaire de connexion à la TODO list&nbsp;</legend>
             <table><tr>
-                    <td>Login : </td><td><input type='text' name='login'></td>
+                    <td>Login : </td><td><input type='text' name='login' maxlength="8"></td>
                 </tr>
                 <tr>
-                    <td>Password : </td><td><input type='password' name='pwd'></td>
+                    <td>Password : </td><td><input type='password' name='pwd' maxlength="8"></td>
                 </tr>
             </table>
             <input type='submit' value="Connexion"><br>

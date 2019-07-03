@@ -7,7 +7,7 @@
  */
 
 
-$liaison = mysqli_connect("localhost","root","","todolist","3306");
+$liaison = mysqli_connect("localhost","projetsdr","7Bs3H4b6","projetsdr");
 mysqli_set_charset($liaison,'UTF8');
 
 
