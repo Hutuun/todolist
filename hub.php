@@ -243,7 +243,7 @@ echo "</div>";
 echo "<br/>";
 echo "<br/>";
 echo "<div style='width: 350px;margin-left: 640px'>";
-echo "<a href=\"archive.php\"><img src='img/Folder-Archive-icon.png' alt='' title='Archiver'/>Archiver</a>&emsp;&emsp;<a style='cursor: pointer' href='tacheSuppr.php'><img src=\"img/Programming-Show-Property-icon.png\" alt='Submit' title='Voir les tâches archivées'/>Voir les tâches archivées</a>";
+echo "<a href=\"archive.php\"><img src='img/Folder-Archive-icon.png' alt='' title='Archiver'/>Archiver</a>&emsp;&emsp;<a style='cursor: pointer' href='tacheArchi.php'><img src=\"img/Programming-Show-Property-icon.png\" alt='Submit' title='Voir les tâches archivées'/>Voir les tâches archivées</a>";
 echo "</div>";
 echo "<div style='margin-left: 27px'>";
 echo "<form method='post' action='pdf.php' id='sub$cpt'><input type='text' name='order' value='$order' hidden><input type='text' name='orderD' value='$orderD' hidden><a style='float:bottom; cursor: pointer' onclick='valider($cpt)'><img src='img/Download-icon.png' alt='Submit'>Imprimer en PDF</a></form><br/>";
