@@ -4,6 +4,8 @@
  * User: Sullivan Honnet
  * Date: 31/05/2019
  * Time: 14:47
+ *
+ * Création du PDF contenant toutes les tâches archivées
  */
 
 include ("database.php");

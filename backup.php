@@ -4,6 +4,8 @@
  * User: Sullivan Honnet
  * Date: 4/06/2019
  * Time: 15:59
+ *
+ *Fait un backup sur le serveur
  */
 
 include ("database.php");

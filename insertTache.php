@@ -4,6 +4,8 @@
  * User: Sullivan honnet
  * Date: 27/05/2019
  * Time: 14:46
+ *
+ *Crée une nouvelle tâche et envoie un mail aux personne concerné avec le de tâche et le pdf du récapitulatif des tâches
  */
 
 include ("database.php");
@@ -207,6 +209,8 @@ if($result->num_rows>0) {
 
     }
 }
+
+//Parti envoie du mail
 
 $affi .= "</body></html>";
 

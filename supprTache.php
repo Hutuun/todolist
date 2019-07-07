@@ -4,6 +4,8 @@
  * User: Sullivan Honnet
  * Date: 29/05/2019
  * Time: 16:22
+ *
+ * Supprime une tâche ou la réactive
  */
 
 include ("database.php");

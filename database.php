@@ -4,6 +4,8 @@
  * User: Sullivan Honnet
  * Date: 24/05/2019
  * Time: 13:00
+ *
+ * Création de la connexion avec la base de données
  */
 
 

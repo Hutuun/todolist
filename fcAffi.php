@@ -4,8 +4,14 @@
  * User: Sullivan
  * Date: 28/05/2019
  * Time: 08:04
+ *
+ *Contient les fonctions d'affichage
  */
 
+
+/**
+* Fonction d'affichage des tâches non finies
+*/
 function affiTnf($row,&$cpt){
     $color = "#000000";
     if($row["priorite"]==1){
@@ -97,7 +103,9 @@ function affiTnf($row,&$cpt){
 
 }
 
-
+/**
+*Foncion d'affichage des tâches finies
+*/
 function affiTf($row,&$cpt){
 
     $color = '#000000';
@@ -193,6 +201,10 @@ function affiTf($row,&$cpt){
     return $str;
 }
 
+
+/**
+*Fonction d'affichage des tâches archivées ou supprimées
+*/
 function affSuppr($row,&$cpt){
     $color = "#000000";
     if($row["priorite"]==1){
@@ -281,7 +293,9 @@ function affSuppr($row,&$cpt){
     return $str;
 }
 
-
+/*
+*Fonction qui affiche les initiales des personnes qui sont affectées à une tâche
+*/
 function person($res){
 
     $str ="<div>\n";
@@ -304,6 +318,10 @@ function person($res){
     return $str;
 }
 
+
+/*
+*Fonction d'affichage des base de données d'une tâche
+*/
 function bd($res){
 
     $str ="<div>\n";
@@ -325,6 +343,12 @@ function bd($res){
     return $str;
 }
 
+
+/**
+*Fonction d'affichage des symboles de validation
+*Si l'utilisateur loggé est affecter à la tâche il voit sa couleur pour son symbole et la couleur verte pour le symbole des autres personnes qui sont affectées à une tâche et en rouge pour le symbole du demandeur
+*Si l'utilisateur est aussi le demandeur de la tâche, il voit aussi sa couleur pour son symbole de validation finale de la tâche
+*/
 function valid($res,$idD,&$cpt)
 {
 
@@ -346,7 +370,8 @@ function valid($res,$idD,&$cpt)
     $r = mysqli_fetch_assoc($resultat);
 
     $stri = "";
-
+	
+	//Si l'utilisateur est le demandeur de la tâche ou un responsable de rang supérieur
     if ($_SESSION["id"] === $idD || $r["admin"] == 2) {
         $color = "#" . $row["color"];
 
@@ -356,6 +381,7 @@ function valid($res,$idD,&$cpt)
 
         while ($row = mysqli_fetch_assoc($resultat)) {
             if ($r["admin"] != 2) {
+				//si la tâche est validé par le responsable
                 if ($row["adminC"] == 1) {
                     $str .= "<td style='padding: 2px; border: none'>
             <form method='post' action='checked.php' id='sub$cpt'>
@@ -373,6 +399,7 @@ function valid($res,$idD,&$cpt)
                     $cpt += 1;
                     break;
                 } else {
+					//Si la tâche n'a pas été validée par les personnes qui doivent réaliser la tâche
                     if ($row["checked"] == 0) {
                         $stri = "<td style='color: $color;padding: 2px; border: none'>
             <div class='close icon' style='color: $color'>
@@ -380,9 +407,10 @@ function valid($res,$idD,&$cpt)
             </td>
             ";
 
-
+						//on break pour éviter d'afficher plusieur fois la croix
                         break;
                     }
+					//la tâche a été validée par toutes les personnes qui doivent la faire
                     $stri = "<td style='padding: 2px; border: none'>
                 <form method='post' action='checked.php' id='sub$cpt'>
                 <a onclick='valider($cpt)' style='cursor: pointer'>
@@ -399,7 +427,7 @@ function valid($res,$idD,&$cpt)
 
                 }
             } else {
-
+				//si la tâche est validé par le responsable
                 if ($row["adminC"] == 1) {
                     $str .= "<td style='padding: 2px; border: none'>
             <form method='post' action='checked.php' id='sub$cpt'>
@@ -417,6 +445,7 @@ function valid($res,$idD,&$cpt)
                     $cpt += 1;
                     break;
                 } else {
+					//Si la tâche n'a pas été validée par les personnes qui doivent réaliser la tâche
                     if ($row["checked"] == 0) {
                         $stri = "<td style='padding: 2px; border: none; '>
             <form method='post' action='checked.php' id='sub$cpt'>
@@ -436,6 +465,7 @@ function valid($res,$idD,&$cpt)
 
                         break;
                     }
+					//la tâche a été validée par toutes les personnes qui doivent la faire
                     $stri = "<td style='padding: 2px; border: none'>
                 <form method='post' action='checked.php' id='sub$cpt'>
                 <a onclick='valider($cpt)' style='cursor: pointer'>
@@ -459,11 +489,13 @@ function valid($res,$idD,&$cpt)
 
             $r = query($sql);
 
+			//On affiche les symboles pour les personnes qui sont sur la tâche
+
             while ($row = mysqli_fetch_assoc($r)) {
 
-
+				//Si l'utilisateur est le demandeur ET qu'il travail sur la tâche
                 if ($_SESSION["id"] === $row["idUser"]) {
-
+					//Si l'utilisateur n'a pas validé
                     if ($row["checked"] == 0 && $row["adminC"] == 0) {
 
                         $color = "#" . $row["color"];
@@ -481,6 +513,7 @@ function valid($res,$idD,&$cpt)
 
                         $cpt += 1;
                     } else {
+						//Si la tâche est validé
                         if ($row["checked"] == 1 && $row["adminC"] == 1) {
                             $color = "#" . $row["color"];
                             $str .= "<td style=' padding: 3px ; border: none'>
@@ -510,7 +543,9 @@ function valid($res,$idD,&$cpt)
                             $cpt += 1;
                         }
                     }
+					//Si l'utilisateur est le demandeur ET qu'il NE TRAVAIL PAS sur la tâche
                 } else {
+					//Si la tâche a été validé 
                     if ($row["checked"] == 1) {
 
                         $str .= "<td style='padding: 3px ; border: none'><div class='check icon2' style='color: green'></td>";
@@ -533,9 +568,10 @@ function valid($res,$idD,&$cpt)
             $b=true;
 
             while ($row = mysqli_fetch_assoc($r)) {
+				//Si l'utilisateur travaille bien sur la tâche
                 if ($_SESSION["id"] === $row["idUser"]) {
 
-
+					//Si l'utilisateur n'a pas validé et le demandeur non plus
                     if ($row["checked"] == 0 && $row["adminC"] == 0) {
 
                         $color = "#" . $row["color"];
@@ -553,11 +589,13 @@ function valid($res,$idD,&$cpt)
 
                         $cpt += 1;
                     } else {
+						//Si le demandeur de la tâche a validée
                         if ($b && $row["adminC"] == 1){
                             $b = false;
 
                             $str .= "<td style='padding: 3px ; border: none'><div class='check icon2' style='color: red'></td>";
                         }
+						//Si L'utilisateur a validé
                         if ($row["checked"] == 1) {
                             $color = "#" . $row["color"];
                             $str .= "<td style=' padding: 3px ; border: none'>
@@ -572,6 +610,7 @@ function valid($res,$idD,&$cpt)
                     </td>";
                             $cpt += 1;
                         } else {
+							//Si l'utilisateur n'a pas validé
                             $color = "#" . $row["color"];
                             $str .= "<td style=' padding: 3px ; border: none'>
                     <form method='post' action='checked.php' id='sub$cpt'>
@@ -586,12 +625,15 @@ function valid($res,$idD,&$cpt)
                             $cpt += 1;
                         }
                     }
+					//Si l'utilisateur n'est pas sur la tâche
                 } else {
+					//Si la tâche est validée par le demandeur
                     if ($b && $row["adminC"] == 1){
                         $b = false;
 
                         $str .= "<td style='padding: 3px ; border: none'><div class='check icon2' style='color: red'></td>";
                     }
+					//Si la tâche est validée par la personne affectée
                     if ($row["checked"] == 1) {
                         $str .= "<td style='padding: 3px ; border: none'><div class='check icon2' style='color: green'></td>";
                     }

@@ -4,6 +4,8 @@
  * User: Sullivan Honnet
  * Date: 27/05/2019
  * Time: 08:12
+ *
+ *Permet de changer le mot de passe
  */
 
 include ("database.php");

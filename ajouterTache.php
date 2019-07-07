@@ -4,6 +4,8 @@
  * User: Sullivan Honnet
  * Date: 27/05/2019
  * Time: 14:41
+ *
+ * Permet de choisir les informations contenues dans la tâche
  */
 
 include ("database.php");
@@ -114,6 +116,7 @@ $res = query($sql);
                     <td><label>Description : </label></td>
                     <td><textarea style="resize: none; width: 60%" name="desc" maxlength="1500"></textarea></td>
                 </tr>
+				<!-- todo Ajouter des statut différent -->
                 <tr>
                     <td><label>En attente ? : </label></td>
                     <td><input type="checkbox"  name="wait" value="oui">En attente</td>

@@ -70,6 +70,8 @@
  * User: Sullivan Honnet
  * Date: 24/05/2019
  * Time: 14:47
+ *
+ *Il s'agit du hub principal avec par defaut un trie selon l'utilisateur connecté
  */
 
 include ("database.php");

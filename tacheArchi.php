@@ -4,6 +4,8 @@
  * User: Sullivan Honnet
  * Date: 5/06/2019
  * Time: 15:56
+ *
+ * Un hub contenant les tâches archivées
  */
 
 include ("database.php");

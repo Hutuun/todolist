@@ -10,6 +10,8 @@
  * User: Sulliavn Honnet
  * Date: 24/05/2019
  * Time: 13:00
+ *
+ * Page de log in
  */
 
 include ("database.php");

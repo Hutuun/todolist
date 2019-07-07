@@ -4,6 +4,8 @@
  * User: Sullivan Honnet
  * Date: 17/06/2019
  * Time: 16:17
+ *
+ * Vérifie si la tâche a été validée depuis au moins 7 jours si oui l'archive
  */
 
 

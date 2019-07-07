@@ -4,6 +4,8 @@
  * User: Sullivan Honnet
  * Date: 24/05/2019
  * Time: 15:27
+ *
+ * Vérification du login et du mot de passe
  */
 
 include ("database.php");

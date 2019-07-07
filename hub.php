@@ -70,6 +70,8 @@
  * User: Sullivan Honnet
  * Date: 24/05/2019
  * Time: 14:47
+ *
+ *Il s'git du hub récapitulatif des tâches sans ordonnance par utilisateur
  */
 
 include ("database.php");
@@ -150,6 +152,7 @@ $affi .= "<td style='text-align: center; '>Validation</td>";
 $affi .= "<td style='text-align: center; '>Actions</td>";
 
 
+//Si on souhaite ordonner la liste selon une des colonnes 
 if($_SERVER["REQUEST_METHOD"]==="POST") {
     if (isset($_POST["order"])) {
         $order = $_POST["order"];

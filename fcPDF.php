@@ -4,11 +4,15 @@
  * User: Sullivan Honnet
  * Date: 4/06/2019
  * Time: 10:53
+ *
+ *Fonctions d'affichage des tâches pour les pdf
  */
 
 
 
-
+/**
+* Fonction d'affichage des tâches non finies
+*/
 function affiTnfPDF($row){
     $color = "#000000";
     if($row["priorite"]==1){
@@ -64,6 +68,9 @@ function affiTnfPDF($row){
 
 }
 
+/**
+*Foncion d'affichage des tâches finies
+*/
 function affiTfPDF($row){
 
     $color = '#000000';
@@ -121,8 +128,9 @@ function affiTfPDF($row){
 }
 
 
-
-
+/*
+*Fonction qui affiche les initiales des personnes qui sont affectées à une tâche
+*/
 function personPDF($res){
 
     $str ="";
@@ -144,6 +152,10 @@ function personPDF($res){
     return $str;
 }
 
+
+/*
+*Fonction d'affichage des base de données d'une tâche
+*/
 function bdPDF($res){
 
     $str ="";
@@ -160,7 +172,11 @@ function bdPDF($res){
     return $str;
 }
 
-
+/**
+*Fonction d'affichage des symboles de validation
+* Ici le symbole est juste des "OK" de couleur
+* Pour des explications il s'agit de la même fonction valid que dans fcAffi.php
+*/
 function validPDF($res,$idD){
 
 

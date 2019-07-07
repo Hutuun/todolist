@@ -4,6 +4,8 @@
  * User: Sullivan Honnet
  * Date: 28/05/2019
  * Time: 09:41
+ *
+ * Valide ou dévalide un tâche et met à jour la base de données
  */
 
 include ("database.php");
@@ -24,6 +26,8 @@ $re = query($sql);
 
 $fields = mysqli_fetch_assoc($re);
 
+
+//si la tâche est déjà validée par l'utilisateur et que l'utilisateur est le demandeur
 if($row["adminC"]==1 && ($row["idDemandeur"] === $id || $fields["admin"]==2) && isset($_POST["admin"]) && $_POST["admin"] === "ok") {
 
 
@@ -40,6 +44,8 @@ if($row["adminC"]==1 && ($row["idDemandeur"] === $id || $fields["admin"]==2) && 
     query($sql);
 }
 else{
+	
+	//si la tâche n'est pas déjà validée par l'utilisateur et que l'utilisateur est le demandeur
     if($row["adminC"]==0 && ($row["idDemandeur"] === $id || $fields["admin"]==2) && isset($_POST["admin"]) && $_POST["admin"] === "ok"){
 
 
@@ -57,7 +63,7 @@ else{
         $r = query($sql);
 
         $row = mysqli_fetch_assoc($r);
-
+		//Si l'utilisateur a déjà validé la tâche on dévalide
         if ($row["checked"]==1 && !isset($_POST["admin"])) {
 
             $sql = "UPDATE sutuser SET checked = 0 WHERE idUser='" . $id . "' and idTache = '" . $_POST["idtache"] . "'";
@@ -65,7 +71,7 @@ else{
             query($sql);
 
         } else {
-
+			//On valide la tâche
 
             $sql = "UPDATE sutuser SET checked = 1 WHERE idUser='" . $id . "' and idTache = '" . $_POST["idtache"] . "'";
 

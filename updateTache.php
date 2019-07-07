@@ -4,7 +4,11 @@
  * User: Sullivan Honnet
  * Date: 12/06/2019
  * Time: 16:10
+ *
+ * Met à jours la tâche dans la base de données et envoie un mail au personne concerné par la tâche
  */
+ 
+ 
 include ("database.php");
 include ("fcPDF.php");
 require ("vendor/autoload.php");
@@ -320,6 +324,8 @@ $message .= "\r\n";
 $message .= $data."\r\n";
 $message .= "\r\n";
 $message .= "--$boundary-- \r\n";
+
+//Ici si on envoie plusieur mail le système ne supporte pas
 
 /*
 $boundary = md5(uniqid(time()));

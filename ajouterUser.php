@@ -4,6 +4,8 @@
  * User: Sullivan Honnet
  * Date: 28/05/2019
  * Time: 10:03
+ *
+ *Permet de choisir les informations d'un nouvel utilisateur
  */
 
 ?>

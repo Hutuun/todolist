@@ -4,6 +4,8 @@
  * User: Sullivan Honnet
  * Date: 28/05/2019
  * Time: 10:23
+ *
+ * Crée dans la base de données le nouvel utilisateur
  */
 
 include ("database.php");
