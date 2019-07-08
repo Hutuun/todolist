@@ -24,7 +24,7 @@ $res = query($sql);
         <head>
             <title>TODO</title>
             <meta charset="utf-8">
-            <script >
+            <script>
                 function f() {
                     var a = document.getElementsByClassName("per")
                     var b = false;
@@ -39,6 +39,7 @@ $res = query($sql);
                     return b;
                 }
             </script>
+            <script src="js/function.js"></script>
         </head>
         <body>
             <h1>Insertion d'une tâche</h1>
@@ -106,6 +107,8 @@ $res = query($sql);
                             <option value="0">Pas prioritaire</option>
                             <option value="1"> Prioritaire</option>
                             <option value="2">Très prioritaire</option>
+                            <option value="3">Très prioritaire2</option>
+
                     </td>
                 </tr>
                 <tr>
@@ -116,10 +119,17 @@ $res = query($sql);
                     <td><label>Description : </label></td>
                     <td><textarea style="resize: none; width: 60%" name="desc" maxlength="1500"></textarea></td>
                 </tr>
+            </table>
 				<!-- todo Ajouter des statut différent -->
+            <table>
                 <tr>
-                    <td><label>En attente ? : </label></td>
-                    <td><input type="checkbox"  name="wait" value="oui">En attente</td>
+                    <td style="padding-right: 70px"><label>Statut : </label></td>
+                    <td style="padding-left: 4px"><input type="checkbox" class="inf" name="wait" value="oui" onclick='CocheTout(this.name)'>En attente</td>
+                    <td style="padding-left: 4px"><input type="checkbox" class="inf" name="cours" value="En cours" onclick='CocheTout(this.name)'>En cours</td>
+                    <td style="padding-left: 4px"><input type="checkbox" class="inf" name="test" value="A tester" onclick='CocheTout(this.name)'>A tester</td>
+                    <td style="padding-left: 4px"><input type="checkbox" class="inf" name="prod" value="A mettre en prod" onclick='CocheTout(this.name)'>A mettre en prod</td>
+                    <td style="padding-left: 4px"><input type="checkbox" class="inf" name="abandon" value="Abandon" onclick='CocheTout(this.name)'>Abandon</td>
+                    <td style="padding-left: 4px"><input type="text" class="inf" name="autre" maxlength="20" onkeypress="CocheTout(this.name)">Autres</td>
                 </tr>
             </table>
         </fieldset>

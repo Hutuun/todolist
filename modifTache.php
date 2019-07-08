@@ -10,8 +10,6 @@
 
 include ("database.php");
 
-
-
 $id = $_POST["idtache"];
 
 $sql = "SELECT * FROM sutache WHERE idTache =$id";
@@ -26,6 +24,7 @@ $r = mysqli_fetch_assoc($resultat);
 <head>
     <title>TODO</title>
     <meta charset="utf-8">
+    <script src="js/function.js"></script>
     <script >
         function f() {
             var a = document.getElementsByClassName("per")
@@ -152,10 +151,18 @@ $r = mysqli_fetch_assoc($resultat);
                                 if($r["priorite"]==1) {
                                     echo "<option value='1' selected> Prioritaire</option>";
                                     echo "<option value='2' >Très prioritaire</option>";
+                                    echo "<option value='3' >Très prioritaire2</option>";
                                 }
                                 else{
                                     echo "<option value='1'> Prioritaire</option>";
-                                    echo "<option value='2' selected>Très prioritaire</option>";
+                                    if($r["priorite"]==2) {
+                                        echo "<option value='2' selected>Très prioritaire</option>";
+                                        echo "<option value='3' >Très prioritaire2</option>";
+                                    }
+                                    else{
+                                        echo "<option value='2'>Très prioritaire</option>";
+                                        echo "<option value='3' selected>Très prioritaire2</option>";
+                                    }
                                 }
                             }
 
@@ -187,15 +194,55 @@ $r = mysqli_fetch_assoc($resultat);
                     <td><label>Description : </label></td>
                     <td><textarea style="resize: none; width: 60%"  name="desc" maxlength="1500"><?php echo $r["descriptionTache"];?></textarea></td>
                 </tr>
+            </table>
+            <table>
                 <tr>
-                    <td><label>En attente ? : </label></td>
-                    <td><?php
-                        if($r["wait"]==="non") {
-                            echo "<input type=\"checkbox\"  name=\"wait\" value=\"oui\">En attente</td>";
+                    <td><label style="padding-right: 70px">Statut : </label></td>
+                    <td style="padding-left: 4px"><?php
+                        $b = false;
+                        if($r["wait"]!=="oui") {
+                            echo "<input type=\"checkbox\"  name=\"wait\" value=\"oui\" onclick='CocheTout(this.name)'>En attente</td>";
                         }else{
-                            echo "<input type=\"checkbox\" checked name=\"wait\" value=\"oui\">En attente</td>";
+                            echo "<input type=\"checkbox\" checked name=\"wait\" value=\"oui\" onclick='CocheTout(this.name)'>En attente</td>";
+                            $b = true;
                         }
+                        if ($r["wait"] === "En cours") {
+                            echo "<td style=\"padding-left: 4px\"><input type=\"checkbox\" class=\"inf\" checked name=\"cours\" value=\"En cours\" onclick='CocheTout(this.name)'>En cours</td>";
+                            $b = true;
+                        }
+                        else {
+                            echo "<td style=\"padding-left: 4px\"><input type=\"checkbox\" class=\"inf\" name=\"cours\" value=\"En cours\" onclick='CocheTout(this.name)'>En cours</td>";
+                        }
+                        if ($r["wait"] === "A tester") {
+                            echo "<td style=\"padding-left: 4px\"><input type=\"checkbox\" class=\"inf\" checked name=\"test\" value=\"A tester\" onclick='CocheTout(this.name)'>A tester</td>";
+                            $b = true;
+                        }
+                        else{
+                            echo "<td style=\"padding-left: 4px\"><input type=\"checkbox\" class=\"inf\" name=\"test\" value=\"A tester\" onclick='CocheTout(this.name)'>A tester</td>";
+                        }
+                        if ($r["wait"] === "A mettre en prod") {
+                            echo "<td style=\"padding-left: 4px\"><input type=\"checkbox\" class=\"inf\" checked name=\"prod\" value=\"A mettre en prod\" onclick='CocheTout(this.name)'>A mettre en prod</td>";
+                            $b = true;
+                        }
+                        else{
+                            echo "<td style=\"padding-left: 4px\"><input type=\"checkbox\" class=\"inf\" name=\"prod\" value=\"A mettre en prod\" onclick='CocheTout(this.name)'>A mettre en prod</td>";
+                        }
+                        if ($r["wait"] === "Abandon") {
+                            echo "<td style=\"padding-left: 4px\"><input type=\"checkbox\" class=\"inf\" checked name=\"abandon\" value=\"Abandon\" onclick='CocheTout(this.name)'>Abandon</td>";
+                            $b = true;
+                        }
+                        else{
+                            echo "<td style=\"padding-left: 4px\"><input type=\"checkbox\" class=\"inf\" name=\"abandon\" value=\"Abandon\" onclick='CocheTout(this.name)'>Abandon</td>";
+                        }
+                        if($b){
+                            echo "<td style=\"padding-left: 4px\"><input type=\"text\" class=\"inf\" name=\"autre\" maxlength=\"20\" onkeypress=\"CocheTout(this.name)\">Autres</td>";
+                        }else{
+                            echo "<td style=\"padding-left: 4px\"><input type=\"text\" class=\"inf\" name=\"autre\" maxlength=\"20\" value='$r[wait]' onkeypress=\"CocheTout(this.name)\">Autres</td>";
+                        }
+
+
                     ?>
+                </tr>
                 </tr>
             </table>
         </fieldset>

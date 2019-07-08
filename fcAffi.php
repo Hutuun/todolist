@@ -42,18 +42,32 @@ function affiTnf($row,&$cpt){
     $ymd = substr($date, 0, 10);
     $date = date("d/m", strtotime($ymd));
     $str .= "<td style='text-align: center'>" . $date . "</td>";
+    $str .= "<td style='text-align: center'>";
     if(isset($row["deadline"]) && substr($row["deadline"],0,10)!=="0000-00-00") {
         $date = $row["deadline"];
         $ymd = substr($date, 0, 10);
         $date = date("d/m", strtotime($ymd));
-        $str .= "<td style='text-align: center'>" . $date . "</td>";
+        $str .= "<span style='text-align: center'>" . $date . "</span>";
     }else {
-        if($row["wait"]==="oui"){
-            $str .= "<td style='text-align: center'>En attente</td>";
-        }else{
-            $str .= "<td></td>";
+        if($row["wait"]!=="non") {
+            if ($row["wait"] === "oui") {
+                $str .= "<span style='text-align: center'>En attente</span>";
+            }elseif ($row["wait"] === "En cours") {
+                $str .= "<span style='text-align: center'>En cours</span>";
+            }
+            elseif ($row["wait"] === "A Tester") {
+                $str .= "<span style='text-align: center'>A tester</span>";
+            }
+            elseif ($row["wait"] === "A Mettre en prod") {
+                $str .= "<span style='text-align: center'>A mettre en prod</span>";
+            }
+            elseif ($row["wait"] === "Abandon") {
+                $str .= "<span style='text-align: center'>Abandon</span>";
+            }
+            else{
+                $str .= "<span style='text-align: center'>".$row["wait"]."</span>";
+            }
         }
-
     }
     if(isset($row["dateSuppr"]) && substr($row["dateSuppr"],0,10)!=="0000-00-00") {
         $date = $row["dateSuppr"];

@@ -61,7 +61,21 @@ $wait = "non";
 if(isset($_POST["wait"])){
     $wait = "oui";
 }
-
+if(isset($_POST["cours"])){
+    $wait = $_POST["cours"];
+}
+if(isset($_POST["test"])){
+    $wait = $_POST["test"];
+}
+if(isset($_POST["prod"])){
+    $wait = $_POST["prod"];
+}
+if(isset($_POST["abandon"])){
+    $wait = $_POST["abandon"];
+}
+if(isset($_POST["autre"])){
+    $wait = $_POST["autre"];
+}
 $sql = "SELECT idTache From sutache order by idTache";
 
 $res = query($sql);

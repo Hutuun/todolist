@@ -17,5 +17,16 @@ function valider(cpt) {
 
 }
 
+function CocheTout(name) {
+	var elements = document.getElementsByClassName('inf');
 
+	for (var i = 0; i < elements.length; i++) {
+		if (elements[i].type == 'checkbox' && elements[i].name != name) {
+			elements[i].checked = false;
+		}
+		if(elements[i].type == 'text' && elements[i].name != name){
+			elements[i].value = "";
+		}
+	}
+}
 
