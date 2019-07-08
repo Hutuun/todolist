@@ -201,9 +201,11 @@ $r = mysqli_fetch_assoc($resultat);
         </fieldset>
         <br/>
         <fieldset style="border: 0px">
-            <p>
-                <label style="float: right">La personne ne se trouve pas dans la liste ? cliquez <a href="ajouterUser.php">ici</a> &nbsp;</label>
-            </p>
+            <p><?php
+                if($_SESSION["admin"]>=1){
+                    echo "<label style=\"float: right\">La personne ne se trouve pas dans la liste ? cliquez <a href=\"ajouterUser.php\">ici</a> &nbsp;</label>";
+                }
+                ?></p>
             <br/><br/>
             <p>
                 <input type="text" value="<?php echo $id;?>" name="idtache" hidden>

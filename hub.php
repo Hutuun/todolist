@@ -71,7 +71,7 @@
  * Date: 24/05/2019
  * Time: 14:47
  *
- *Il s'git du hub récapitulatif des tâches sans ordonnance par utilisateur
+ *Il s'agit du hub récapitulatif des tâches sans ordonnance par utilisateur
  */
 
 include ("database.php");
@@ -92,6 +92,7 @@ if($_SESSION["admin"]>="1") {
 
     echo "<br/><a style='float:right' href='ajouterUser.php'><img src=\"img/add.png\">Ajouter un utilisateur</a>";
     echo "<a style='float: bottom' href='backup.php'><img src=\"img/Data-Database-Backup-icon.png\">Backup</a>";
+    echo "<br><a style='float:right' href='utilisateur.php'><img src=\"img/add.png\">Voir les utilisateurs</a>";
 }
 
 $cpt = 0;
@@ -244,15 +245,16 @@ echo "</table>";
 
 echo "</div>";
 echo "<br/>";
-echo "<br/>";
-echo "<div style='width: 350px;margin-left: 640px'>";
-echo "<a href=\"archive.php\"><img src='img/Folder-Archive-icon.png' alt='' title='Archiver'/>Archiver</a>&emsp;&emsp;<a style='cursor: pointer' href='tacheArchi.php'><img src=\"img/Programming-Show-Property-icon.png\" alt='Submit' title='Voir les tâches archivées'/>Voir les tâches archivées</a>";
+echo "<div>";
+echo "<table class='ta' style='border: none'>";
+echo "<td style='border: none'><form method='post' action='pdf.php' id='sub$cpt'><input type='text' name='order' value='$order' hidden><input type='text' name='orderD' value='$orderD' hidden><a style=' cursor: pointer' onclick='valider($cpt)'><img src='img/Download-icon.png' alt='Submit'>Imprimer en PDF</a></form></td><td style='border: none'>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td><td style='border: none'><a href=\"archive.php\"><img src='img/Folder-Archive-icon.png' alt='' title='Archiver'/>Archiver</a>&emsp;&emsp;<a style='cursor: pointer' href='tacheArchi.php'><img src=\"img/Programming-Show-Property-icon.png\" alt='Submit' title='Voir les tâches archivées'/>Voir les tâches archivées</a></td>";
+echo "</table>";
 echo "</div>";
-echo "<div style='margin-left: 27px'>";
-echo "<form method='post' action='pdf.php' id='sub$cpt'><input type='text' name='order' value='$order' hidden><input type='text' name='orderD' value='$orderD' hidden><a style='float:bottom; cursor: pointer' onclick='valider($cpt)'><img src='img/Download-icon.png' alt='Submit'>Imprimer en PDF</a></form><br/>";
+
 echo "<br/>";
 echo "<br/>";
-echo "</div>";
+
+
 ?>
 
 
