@@ -46,64 +46,6 @@ if(empty($_SESSION["login"])){
             border: 1px solid black;
             border-collapse: collapse;
         }
-        .download.icon {
-            color: #000;
-            position: relative;
-            margin-left: 3px;
-            margin-top: 12px;
-            width: 13px;
-            height: 4px;
-            border-radius: 1px;
-            border: solid 1px currentColor;
-            border-top: none;
-        }
-
-        .download.icon:before {
-            content: '';
-            position: relative;
-            left: 6px;
-            top: -9px;
-            width: 1px;
-            height: 10px;
-            background-color: currentColor;
-        }
-
-        .download.icon:after {
-            content: '';
-            position: relative;
-            left: 4px;
-            top: -4px;
-            width: 4px;
-            height: 4px;
-            border-top: solid 1px currentColor;
-            border-right: solid 1px currentColor;
-            -webkit-transform: rotate(135deg);
-            transform: rotate(135deg);
-        }
-        .check.icon {
-            color: #000;
-            position: relative;
-            margin-left: 2px;
-            margin-top: 2px;
-            width: 10px;
-            height: 5px;
-            border-bottom: solid 1px currentColor;
-            border-left: solid 1px currentColor;
-            -webkit-transform: rotate(-45deg);
-            transform: rotate(-45deg);
-        }
-        .check.icon2 {
-            color: #000;
-            position: relative;
-            margin-left: 2px;
-            margin-top: 2px;
-            width: 10px;
-            height: 5px;
-            border-bottom: solid 1px currentColor;
-            border-left: solid 1px currentColor;
-            -webkit-transform: rotate(-45deg);
-            transform: rotate(-45deg);
-        }
     </style>
 </head>
 <body style=\"font-family: Trebuchet,Trebuchet MS,Arial,Helvetica,Sans-serif;\">";

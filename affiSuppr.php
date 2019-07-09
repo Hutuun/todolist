@@ -141,10 +141,10 @@ if(empty($_SESSION["login"])){
 <table class='ta' style='border: none'>
 
     <td style='border: none'><a href="hub2.php" "><img src="img/arrow-back-icon.png" alt=""/>Retour</a></td>
-    <td style='border: none'>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>
+    <td style='border: none'>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>
     <td style='border: none'>
         <?php
-        echo "<form method='post' action='pdfarchi.php' id='sub$cpt'><input type='text' name='order' value='$order' hidden><input type='text' name='orderD' value='$orderD' hidden><a style='cursor: pointer'><img src='img/Download-icon.png' alt='Submit'>Version PDF les tâches supprimées</a></form><br/>";
+        echo "<form method='post' action='pdfsuppr.php' id='sub$cpt'><input type='text' name='order' value='$order' hidden><input type='text' name='orderD' value='$orderD' hidden><a style='cursor: pointer' onclick='valider($cpt)'><img src='img/Download-icon.png' alt='Submit'>Version PDF les tâches supprimées</a></form><br/>";
         }
 ?></td>
 
