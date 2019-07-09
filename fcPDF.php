@@ -19,6 +19,12 @@ function affiTnfPDF($row){
         $color = "#cca300";
     }
     if ($row["priorite"]==2){
+        $color ='#880000';
+    }
+    if ($row["priorite"]==3){
+        $color ="#cc0000";
+    }
+    if ($row["priorite"]==4){
         $color ="#ff0000";
     }
     $str = "<tr><td style='text-align: center'>".$row["idTache"]."</td>";
@@ -39,18 +45,36 @@ function affiTnfPDF($row){
     $ymd = substr($date, 0, 10);
     $date = date("d/m", strtotime($ymd));
     $str .= "<td style='text-align: center'>" . $date . "</td>";
+    $str .= "<td style='text-align: center'>";
     if(isset($row["deadline"]) && substr($row["deadline"],0,10)!=="0000-00-00") {
         $date = $row["deadline"];
         $ymd = substr($date, 0, 10);
         $date = date("d/m", strtotime($ymd));
-        $str .= "<td style='text-align: center'>" . $date . "</td>";
+        $str .= "<span style='text-align: center'>" . $date . "</span>";
     }else {
-        if($row["wait"]==="oui"){
-            $str .= "<td style='text-align: center'>En attente</td>";
-        }else{
-            $str .= "<td></td>";
+        if($row["wait"]!=="non") {
+            if ($row["wait"] === "oui") {
+                $str .= "<span style='text-align: center'>En attente</span>";
+            }elseif ($row["wait"] === "En cours") {
+                $str .= "<span style='text-align: center'>En cours</span>";
+            }
+            elseif ($row["wait"] === "A Tester") {
+                $str .= "<span style='text-align: center'>A tester</span>";
+            }
+            elseif ($row["wait"] === "A Mettre en prod") {
+                $str .= "<span style='text-align: center'>A mettre en prod</span>";
+            }
+            elseif ($row["wait"] === "Abandon") {
+                $str .= "<span style='text-align: center'>Abandon</span>";
+            }
+            elseif($row["wait"]==="Validé"){
+                $str .= "<span style='text-align: center'>".$row["wait"]."</span>";
+            }else{
+                $str .= "<span style='text-align: center'>".$row["wait"]."</span>";
+            }
         }
     }
+    $str .= "</td>";
     if(isset($row["dateSuppr"]) && substr($row["dateSuppr"],0,10)!=="0000-00-00") {
         $date = $row["dateSuppr"];
         $ymd = substr($date, 0, 10);
@@ -78,7 +102,13 @@ function affiTfPDF($row){
         $color = '#cca300';
     }
     if ($row["priorite"]==2){
-        $color ='#ff0000';
+        $color ='#880000';
+    }
+    if ($row["priorite"]==3){
+        $color ="#cc0000";
+    }
+    if ($row["priorite"]==4){
+        $color ="#ff0000";
     }
     $str = "<tr style='background-color: lightgray'><td style='text-align: center'>".$row["idTache"]."</td>";
     $str .= "<td style='color: $color; padding-left: 4px; padding-right: 4px'>".$row["nomTache"]."</td>";
@@ -99,19 +129,36 @@ function affiTfPDF($row){
     $ymd = substr($date, 0, 10);
     $date = date("d/m", strtotime($ymd));
     $str .= "<td style='text-align: center'>" . $date . "</td>";
+    $str .= "<td style='text-align: center'>";
     if(isset($row["deadline"]) && substr($row["deadline"],0,10)!=="0000-00-00") {
-
         $date = $row["deadline"];
         $ymd = substr($date, 0, 10);
         $date = date("d/m", strtotime($ymd));
-        $str .= "<td style='text-align: center'>" . $date . "</td>";
+        $str .= "<span style='text-align: center'>" . $date . "</span>";
     }else {
-        if($row["wait"]==="oui"){
-            $str .= "<td style='text-align: center'>En attente</td>";
-        }else{
-            $str .= "<td></td>";
+        if($row["wait"]!=="non") {
+            if ($row["wait"] === "oui") {
+                $str .= "<span style='text-align: center'>En attente</span>";
+            }elseif ($row["wait"] === "En cours") {
+                $str .= "<span style='text-align: center'>En cours</span>";
+            }
+            elseif ($row["wait"] === "A Tester") {
+                $str .= "<span style='text-align: center'>A tester</span>";
+            }
+            elseif ($row["wait"] === "A Mettre en prod") {
+                $str .= "<span style='text-align: center'>A mettre en prod</span>";
+            }
+            elseif ($row["wait"] === "Abandon") {
+                $str .= "<span style='text-align: center'>Abandon</span>";
+            }
+            elseif($row["wait"]==="Validé"){
+                $str .= "<span style='text-align: center'>".$row["wait"]."</span>";
+            }else{
+                $str .= "<span style='text-align: center'>".$row["wait"]."</span>";
+            }
         }
     }
+    $str .= "</td>";
     if(isset($row["dateSuppr"]) && substr($row["dateSuppr"],0,10)!=="0000-00-00") {
         $date = $row["dateSuppr"];
         $ymd = substr($date, 0, 10);

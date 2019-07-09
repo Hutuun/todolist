@@ -50,7 +50,7 @@ $r = mysqli_fetch_assoc($resultat);
             <legend>&nbsp;Veuillez sélectionner les informations</legend>
             <table>
                 <tr>
-                    <td><label>Demandé par : </label></td>
+                    <td><label style="color:#e60000;">Demandé par : </label></td>
                     <?php
 
                     $sql = "SELECT * FROM suuser order by nom,prenom";
@@ -76,7 +76,7 @@ $r = mysqli_fetch_assoc($resultat);
                     ?>
                 </tr>
                 <tr>
-                    <td><label>Utilisateur : </label></td>
+                    <td><label style="color:#e60000;">Utilisateur : </label></td>
                     <?php
                     $sql = "SELECT * FROM suuser order by nom,prenom";
 
@@ -104,7 +104,7 @@ $r = mysqli_fetch_assoc($resultat);
                     echo "</table></td>";
                     ?></tr>
                 <tr>
-                    <td><label>Nom de la tâche : </label></td>
+                    <td><label style="color:#e60000;">Nom de la tâche : </label></td>
                     <td><input type="text" name="nom" value="<?php echo $r["nomTache"];?>" style="width: 60%" maxlength="100" required></td></tr>
                 <tr>
                     <td><label>Base de données : </label></td>
@@ -144,24 +144,34 @@ $r = mysqli_fetch_assoc($resultat);
                             <?php
                             if($r["priorite"]==0) {
                                 echo "<option value='0' selected>Pas prioritaire</option>";
-                                echo "<option value='1' > Prioritaire</option>";
-                                echo "<option value='2' >Très prioritaire</option>";
+                                echo "<option value='1'>Prioritaire</option>";
+                                echo "<option value='2'>Très prioritaire de niveau 1</option>";
+                                echo "<option value='3'>Très prioritaire de niveau 2</option>";
+                                echo "<option value='4'>Très prioritaire de niveau 3</option>";
                             }else {
                                 echo "<option value='0'>Pas prioritaire</option>";
                                 if($r["priorite"]==1) {
-                                    echo "<option value='1' selected> Prioritaire</option>";
-                                    echo "<option value='2' >Très prioritaire</option>";
-                                    echo "<option value='3' >Très prioritaire2</option>";
+                                    echo "<option value='1' selected>Prioritaire</option>";
+                                    echo "<option value='2'>Très prioritaire de niveau 1</option>";
+                                    echo "<option value='3'>Très prioritaire de niveau 2</option>";
+                                    echo "<option value='4'>Très prioritaire de niveau 3</option>";
                                 }
                                 else{
-                                    echo "<option value='1'> Prioritaire</option>";
+                                    echo "<option value='1'>Prioritaire</option>";
                                     if($r["priorite"]==2) {
-                                        echo "<option value='2' selected>Très prioritaire</option>";
-                                        echo "<option value='3' >Très prioritaire2</option>";
+                                        echo "<option value='2' selected>Très prioritaire de niveau 1</option>";
+                                        echo "<option value='3'>Très prioritaire de niveau 2</option>";
+                                        echo "<option value='4'>Très prioritaire de niveau 3</option>";
                                     }
                                     else{
-                                        echo "<option value='2'>Très prioritaire</option>";
-                                        echo "<option value='3' selected>Très prioritaire2</option>";
+                                        echo "<option value='2'>Très prioritaire de niveau 1</option>";
+                                        if($r["priorite"]==3) {
+                                            echo "<option value='3' selected>Très prioritaire de niveau 2</option>";
+                                            echo "<option value='4'>Très prioritaire de niveau 3</option>";
+                                        }else{
+                                            echo "<option value='3' selected>Très prioritaire de niveau 2</option>";
+                                            echo "<option value='4'>Très prioritaire de niveau 3</option>";
+                                        }
                                     }
                                 }
                             }
@@ -201,7 +211,11 @@ $r = mysqli_fetch_assoc($resultat);
                     <td style="padding-left: 4px"><?php
                         $b = false;
                         if($r["wait"]!=="oui") {
+                            if($r["wait"]==="non") {
+                                $b = true;
+                            }
                             echo "<input type=\"checkbox\"  name=\"wait\" value=\"oui\" onclick='CocheTout(this.name)'>En attente</td>";
+
                         }else{
                             echo "<input type=\"checkbox\" checked name=\"wait\" value=\"oui\" onclick='CocheTout(this.name)'>En attente</td>";
                             $b = true;
@@ -248,6 +262,7 @@ $r = mysqli_fetch_assoc($resultat);
         </fieldset>
         <br/>
         <fieldset style="border: 0px">
+            <i style="font-size: 12px; color:#e60000;">Les sections en rouge sont obligatoires</i>
             <p><?php
                 if($_SESSION["admin"]>=1){
                     echo "<label style=\"float: right\">La personne ne se trouve pas dans la liste ? cliquez <a href=\"ajouterUser.php\">ici</a> &nbsp;</label>";

@@ -18,10 +18,41 @@ $file = fopen("backup/backupTODO$da.sql","w+");
 
 fwrite($file,"\n\n");
 
-$sql = "SELECT * FROM `sutache`";
+fwrite($file,"DROP TABLE IF EXISTS `sutbd`;
+CREATE TABLE `sutbd` (
+  `idBD` varchar(6) NOT NULL,
+  `idTache` int(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;\n");
+
+$sql = "SELECT * FROM sutbd";
 
 $res = query($sql);
 
+while($row = mysqli_fetch_assoc($res)) {
+    $id = $row["idBD"];
+    $id2 = $row["idTache"];
+    fwrite($file,"INSERT IGNORE INTO `sutbd` (`idBD`, `idTache`) VALUES('$id', '$id2'); \n");
+}
+
+fwrite($file,"DROP TABLE IF EXISTS `sutuser`;
+CREATE TABLE `sutuser` (
+  `idUser` int(6) NOT NULL,
+  `idTache` int(6) NOT NULL,
+  `checked` tinyint(1) NOT NULL DEFAULT '0',
+  `adminC` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;\n");
+
+$sql = "SELECT * FROM sutuser";
+
+$res = query($sql);
+
+while($row = mysqli_fetch_assoc($res)) {
+    $id = $row["idUser"];
+    $id2 = $row["idTache"];
+    $checked = $row["checked"];
+    $adminC = $row["adminC"];
+    fwrite($file,"INSERT IGNORE INTO `sutuser` (`idUser`, `idTache`, `checked`, `adminC`) VALUES('$id', '$id2', $checked, $adminC); \n");
+}
 
 fwrite($file,"DROP TABLE IF EXISTS `sutache`;
 CREATE TABLE `sutache` (
@@ -35,11 +66,13 @@ CREATE TABLE `sutache` (
   `dateSuppr` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `suppr` varchar(3) NOT NULL DEFAULT 'non',
   `archive` varchar(3) NOT NULL DEFAULT 'non',
-  `wait` varchar(3) NOT NULL DEFAULT 'non'
+  `wait` varchar(20) NOT NULL DEFAULT 'non'
   
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;\n");
 
+$sql = "SELECT * FROM `sutache`";
 
+$res = query($sql);
 
 while($row = mysqli_fetch_assoc($res)){
     $id = $row["idTache"];
@@ -77,42 +110,6 @@ while($row = mysqli_fetch_assoc($res)) {
     $color = $row["color"];
     fwrite($file,"INSERT IGNORE INTO `subd` (`idBD`, `nomBD`, `diminutif`, `color`) VALUES('$id', \"$nom\", \"$diminutif\", '$color'); \n");
 
-}
-
-fwrite($file,"DROP TABLE IF EXISTS `sutbd`;
-CREATE TABLE `sutbd` (
-  `idBD` varchar(6) NOT NULL,
-  `idTache` int(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;\n");
-
-$sql = "SELECT * FROM sutbd";
-
-$res = query($sql);
-
-while($row = mysqli_fetch_assoc($res)) {
-    $id = $row["idBD"];
-    $id2 = $row["idTache"];
-    fwrite($file,"INSERT IGNORE INTO `sutbd` (`idBD`, `idTache`) VALUES('$id', '$id2'); \n");
-}
-
-fwrite($file,"DROP TABLE IF EXISTS `sutuser`;
-CREATE TABLE `sutuser` (
-  `idUser` int(6) NOT NULL,
-  `idTache` int(6) NOT NULL,
-  `checked` tinyint(1) NOT NULL DEFAULT '0',
-  `adminC` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;\n");
-
-$sql = "SELECT * FROM sutuser";
-
-$res = query($sql);
-
-while($row = mysqli_fetch_assoc($res)) {
-    $id = $row["idUser"];
-    $id2 = $row["idTache"];
-    $checked = $row["checked"];
-    $adminC = $row["adminC"];
-    fwrite($file,"INSERT IGNORE INTO `sutuser` (`idUser`, `idTache`, `checked`, `adminC`) VALUES('$id', '$id2', $checked, $adminC); \n");
 }
 
 fwrite($file,"DROP TABLE IF EXISTS `suuser`;

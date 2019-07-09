@@ -39,7 +39,7 @@ if($row["adminC"]==1 && ($row["idDemandeur"] === $id || $fields["admin"]==2) && 
 
     query($sql);
 
-    $sql = "UPDATE sutache SET dateSuppr = '0000-00-00' where idTache ='" . $_POST["idtache"] . "'";
+    $sql = "UPDATE sutache SET dateSuppr = '0000-00-00', wait = 'non' where idTache ='" . $_POST["idtache"] . "'";
 
     query($sql);
 }
@@ -53,7 +53,7 @@ else{
 
         query($sql);
 
-        $sql = "UPDATE sutache SET dateSuppr = CURRENT_TIMESTAMP where idTache ='" . $_POST["idtache"] . "'";
+        $sql = "UPDATE sutache SET dateSuppr = CURRENT_TIMESTAMP, wait = 'Validé' where idTache ='" . $_POST["idtache"] . "'";
 
         query($sql);
     }else {
