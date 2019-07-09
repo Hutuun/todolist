@@ -271,22 +271,28 @@ if(empty($_SESSION["login"])){
         }
 
     }
-
-
-    echo "</table>";
-
-    echo "</div>";
-
-    echo "<br/>";
-    echo "<div>";
-    echo "<table class='ta' style='border: none'>";
-    echo "<td style='border: none'><form method='post' action='pdf.php' id='sub$cpt'><input type='text' name='order' value='$order' hidden><input type='text' name='orderD' value='$orderD' hidden><a style=' cursor: pointer' onclick='valider($cpt)'><img src='img/Download-icon.png' alt='Submit'>Version PDF</a></form></td>";
-    echo "<td style='border: none'>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>";
-    echo "<td style='border: none'><a href=\"archive.php\"><img src='img/Folder-Archive-icon.png' alt='' title='Archiver'/>Archiver</a>&emsp;&emsp;<a style='cursor: pointer' href='tacheArchi.php'><img src=\"img/Programming-Show-Property-icon.png\" alt='Submit' title='Voir les tâches archivées'/>Voir les tâches archivées</a></td>";
-    echo "</table>";
-    echo "</div>";
 }
 ?>
+    </table>
+
+    </div>
+
+    <br/>
+    <div>
+    <table class='ta' style='border: none'>
+        <tr>
+            <td style='border: none'><form method='post' action='pdf.php' id='sub$cpt'><input type='text' name='order' value='$order' hidden><input type='text' name='orderD' value='$orderD' hidden><a style=' cursor: pointer'><img src='img/Download-icon.png' alt='Submit'>Version PDF</a></form></td>
+            <td style='border: none'>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>
+            <td style='border: none'><a href="archive.php"><img src='img/Folder-Archive-icon.png' alt='' title='Archiver'/>Archiver</a>&emsp;&emsp;<a style='cursor: pointer' href='tacheArchi.php'><img src="img/Programming-Show-Property-icon.png" alt='Submit' title='Voir les tâches archivées'/>Voir les tâches archivées</a></td>
+        </tr>
+        <tr>
+            <td style='border: none'></td>
+            <td style='border: none'></td>
+            <td style='border: none'><a href="affiSuppr.php"><img src="img/zoom-search-2-icon.png" alt="" title="Voir les tâches supprimées">Voir les tâches supprimées</a></td>
+        </tr>
+    </table>
+    </div>
+
 
 
 <br/>

@@ -88,6 +88,8 @@ if($_SESSION["admin"]>="1") {
 
     echo "<br/><a style='float:right' href='ajouterUser.php'><img src=\"img/add.png\">Ajouter un utilisateur</a>";
     echo "<a style='float: bottom' href='backup.php'><img src=\"img/Data-Database-Backup-icon.png\">Backup</a>";
+    echo "<br><a style='float:right' href='utilisateur.php'><img src=\"img/Programming-Show-Property-icon.png\">Gestion des utilisateurs</a>";
+
 }
 
 $cpt = 0;
@@ -179,17 +181,16 @@ echo "</table>";
 echo "</div>";
 ?>
 <br/>
-<div style="float: right">
-<a href="hub2.php" "><img src="img/arrow-back-icon.png" alt=""/>Retour</a>
-</div>
-<br/>
-<br/>
+<table class='ta' style='border: none'>
 
-<div style='float: left'><?php
-   echo "<form method='post' action='pdfarchi.php' id='sub$cpt'><input type='text' name='order' value='$order' hidden><input type='text' name='orderD' value='$orderD' hidden><a style='float:bottom; cursor: pointer' onclick='valider($cpt)'>Imprimer en PDF les tâches archivées<div class='download icon'></div></a></form><br/>";
-?></div>
+    <td style='border: none'><a href="hub2.php" "><img src="img/arrow-back-icon.png" alt=""/>Retour</a></td>
+    <td style='border: none'>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>
+    <td style='border: none'>
+<?php
+   echo "<form method='post' action='pdfarchi.php' id='sub$cpt'><input type='text' name='order' value='$order' hidden><input type='text' name='orderD' value='$orderD' hidden><a style='cursor: pointer'><img src='img/Download-icon.png' alt='Submit'>Version PDF les tâches archivées</a></form><br/>";
+?></td>
 
-<br/>
+</table>
 <br/>
 
 </body>
