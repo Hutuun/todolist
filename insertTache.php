@@ -174,7 +174,13 @@ if ($row["priorite"]==1){
     $prio = "La t&acirc;che est prioritaire</p>";
 }
 if ($row["priorite"]==2){
-    $prio = "La t&acirc;che est tr&egrave;s prioritaire</p>";
+    $prio = "La t&acirc;che est tr&egrave;s prioritaire de niveau 1</p>";
+}
+if ($row["priorite"]==3){
+    $prio = "La t&acirc;che est tr&egrave;s prioritaire de niveau 2</p>";
+}
+if ($row["priorite"]==4){
+    $prio = "La t&acirc;che est tr&egrave;s prioritaire de niveau 3</p>";
 }
 $affi .= $prio;
 
