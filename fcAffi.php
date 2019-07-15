@@ -14,20 +14,24 @@
 */
 function affiTnf($row,&$cpt){
     $color = "#000000";
+    $ajout = "";
     if($row["priorite"]==1){
         $color = "#ffa900";
     }
     if ($row["priorite"]==2){
-        $color ="#880000";
+        $ajout = "*";
+        $color ='#ff0000';
     }
     if ($row["priorite"]==3){
-        $color ="#cc0000";
+        $ajout = "**";
+        $color ="#ff0000";
     }
     if ($row["priorite"]==4){
+        $ajout = "***";
         $color ="#ff0000";
     }
     $str = "<tr><td style='text-align: center'>".$row["idTache"]."</td>";
-    $str .= "<td style='color: $color; padding-left: 4px; padding-right: 4px'><form method='post' action='afficheTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer' title=\"".$row["descriptionTache"]."\">".$row["nomTache"]."</a></form></td>";
+    $str .= "<td style='color: $color; padding-left: 4px; padding-right: 4px'><form method='post' action='afficheTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer' title=\"".$row["descriptionTache"]."\">".$ajout.$row["nomTache"].$ajout."</a></form></td>";
     $cpt+=1;
     $sql = "SELECT nom, prenom, idUser,color From suuser, sutache where idDemandeur ='" . $row["idDemandeur"] . "' and suuser.idUser=sutache.idDemandeur";
     $res = query($sql);
@@ -64,8 +68,8 @@ function affiTnf($row,&$cpt){
             elseif ($row["wait"] === "A Tester") {
                 $str .= "<span style='text-align: center'>A tester</span>";
             }
-            elseif ($row["wait"] === "A Mettre en prod") {
-                $str .= "<span style='text-align: center'>A mettre en prod</span>";
+            elseif ($row["wait"] === "Mettre en prod") {
+                $str .= "<span style='text-align: center'>Mettre en prod</span>";
             }
             elseif ($row["wait"] === "Abandon") {
                 $str .= "<span style='text-align: center'>Abandon</span>";
@@ -131,21 +135,25 @@ function affiTnf($row,&$cpt){
 */
 function affiTf($row,&$cpt){
 
-    $color = '#000000';
+    $color = "#000000";
+    $ajout = "";
     if($row["priorite"]==1){
-        $color = '#ffa900';
+        $color = "#ffa900";
     }
     if ($row["priorite"]==2){
-        $color ='#880000';
+        $ajout = "*";
+        $color ='#ff0000';
     }
     if ($row["priorite"]==3){
-        $color ="#cc0000";
+        $ajout = "**";
+        $color ="#ff0000";
     }
     if ($row["priorite"]==4){
+        $ajout = "***";
         $color ="#ff0000";
     }
     $str = "<tr style='background-color: lightgray'><td style='text-align: center'>".$row["idTache"]."</td>";
-    $str .= "<td style='color: $color; padding-left: 4px; padding-right: 4px'><form method='post' action='afficheTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer' title=\"".$row["descriptionTache"]."\"> ".$row["nomTache"]."</a></form></td>";
+    $str .= "<td style='color: $color; padding-left: 4px; padding-right: 4px'><form method='post' action='afficheTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer' title=\"".$row["descriptionTache"]."\"> ".$ajout.$row["nomTache"].$ajout."</a></form></td>";
     $cpt += 1;
 
     $sql = "SELECT nom, prenom, idUser,color From suuser, sutache where idDemandeur ='" . $row["idDemandeur"] . "' and suuser.idUser=sutache.idDemandeur";
@@ -185,8 +193,8 @@ function affiTf($row,&$cpt){
             elseif ($row["wait"] === "A Tester") {
                 $str .= "<span style='text-align: center'>A tester</span>";
             }
-            elseif ($row["wait"] === "A Mettre en prod") {
-                $str .= "<span style='text-align: center'>A mettre en prod</span>";
+            elseif ($row["wait"] === "Mettre en prod") {
+                $str .= "<span style='text-align: center'>Mettre en prod</span>";
             }
             elseif ($row["wait"] === "Abandon") {
                 $str .= "<span style='text-align: center'>Abandon</span>";
@@ -254,20 +262,24 @@ function affiTf($row,&$cpt){
 */
 function affSuppr($row,&$cpt){
     $color = "#000000";
+    $ajout = "";
     if($row["priorite"]==1){
         $color = "#ffa900";
     }
     if ($row["priorite"]==2){
-        $color ='#880000';
+        $ajout = "*";
+        $color ='#ff0000';
     }
     if ($row["priorite"]==3){
-        $color ="#cc0000";
+        $ajout = "**";
+        $color ="#ff0000";
     }
     if ($row["priorite"]==4){
+        $ajout = "***";
         $color ="#ff0000";
     }
     $str = "<tr><td style='text-align: center'>".$row["idTache"]."</td>";
-    $str .= "<td style='color: $color; padding-left: 4px; padding-right: 4px'><form method='post' action='afficheTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer' title=\"".$row["descriptionTache"]."\">".$row["nomTache"]."</a></form></td>";
+    $str .= "<td style='color: $color; padding-left: 4px; padding-right: 4px'><form method='post' action='afficheTache.php' id='sub$cpt'><input name='idtache' type='text' value='".$row["idTache"]."' hidden><a onclick='valider($cpt)' style='cursor: pointer' title=\"".$row["descriptionTache"]."\">".$ajout.$row["nomTache"].$ajout."</a></form></td>";
     $cpt+=1;
     $sql = "SELECT nom, prenom, idUser,color From suuser, sutache where idDemandeur ='" . $row["idDemandeur"] . "' and suuser.idUser=sutache.idDemandeur";
     $res = query($sql);
@@ -304,8 +316,8 @@ function affSuppr($row,&$cpt){
             elseif ($row["wait"] === "A Tester") {
                 $str .= "<span style='text-align: center'>A tester</span>";
             }
-            elseif ($row["wait"] === "A Mettre en prod") {
-                $str .= "<span style='text-align: center'>A mettre en prod</span>";
+            elseif ($row["wait"] === "Mettre en prod") {
+                $str .= "<span style='text-align: center'>Mettre en prod</span>";
             }
             elseif ($row["wait"] === "Abandon") {
                 $str .= "<span style='text-align: center'>Abandon</span>";

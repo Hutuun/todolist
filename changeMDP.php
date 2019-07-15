@@ -17,7 +17,6 @@ if(empty($_SESSION["login"])){
 }else {
     include("database.php");
 
-
     ?>
 
     <!DOCTYPE html>

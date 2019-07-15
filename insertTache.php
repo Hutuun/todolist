@@ -98,14 +98,22 @@ query($sql);
 $sql = "SELECT idBD FROM subd";
 
 $res = query($sql);
-
+$noBD = true;
 while ($row = mysqli_fetch_assoc($res)){
     $id = $row["idBD"];
 
     if(isset($_POST["$id"])){
         $sql = "INSERT INTO sutbd(idBD,idTache) VALUES (\"$id\", \"$cpt\")";
         query($sql);
+        $noBD = false;
     }
+
+
+}
+
+if ($noBD){
+    $sql = "INSERT INTO sutbd(idBD,idTache) VALUES (\"bd0\", \"$cpt\")";
+    query($sql);
 }
 
 $sql = "SELECT * From suuser";
@@ -251,7 +259,7 @@ $row = mysqli_fetch_assoc($res);
 
 $mailto .= $row["mail"];
 
-
+$url = "http://projetsdr.ulb.be/todo/login.php";
 
 $typepiecejointe = filetype($path.$file_name);
 $data = chunk_split( base64_encode(file_get_contents($path.$file_name)) );
@@ -271,8 +279,10 @@ $message  = "--$boundary \r\n";
 $message .= "Content-Type: text/html; charset=\"UTF8\" \r\n";
 $message .= "Content-Transfer-Encoding:8bit \r\n";
 $message .= "\r\n";
-$message .= "Une nouvelle t&acirc;che a été ajout&eacute;e.";
-$message .= "\r\n";
+$message .= "Une nouvelle t&acirc;che a été ajout&eacute;e.<br/>";
+$message .= "<br/>\r\n";
+$message .= "Lien vers l'application :".$url."<br/>";
+$message .= "<br/>\r\n";
 $message .= "--$boundary \n";
 $message .= "Content-Type: $typepiecejointe; name=\"$file_name\" \r\n";
 $message .= "Content-Transfer-Encoding: base64 \r\n";

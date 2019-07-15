@@ -14,10 +14,20 @@ $sql = "SELECT idUser FROM suuser order by idUser";
 
 $nom = $_POST["nom"];
 $prenom = $_POST["prenom"];
-$dateDebut = date("d-m-y",time());
-$dateDebut = $_POST["dated"];
+
+$dateDebut = date("Y-m-d",time());
+if(isset($_POST["dated"]) && $_POST["dated"]!="") {
+    $dateDebut = $_POST["dated"];
+}
 $dateFin = "0000-00-00 00:00:00";
-$dateFin = $_POST["datef"];
+
+echo $_POST["datef"];
+
+if(isset($_POST["datef"]) && $_POST["datef"]!="") {
+    $dateFin = $_POST["datef"];
+}
+
+
 $mail = $_POST["mail"];
 $login = strtolower(substr($_POST["prenom"],0,1).substr($_POST["nom"],0,1));
 $color = substr($_POST["color"],1);

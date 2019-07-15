@@ -52,7 +52,7 @@ if(empty($_SESSION["login"])){
 
     $affi .= "<h2>Liste des tâches archivées</h2>";
     $affi .= "<table style='display: table;' class='ta'>";
-    $affi .= "<tr><td style='max-width: 45px'>Num</td>";
+    $affi .= "<tr style='background-color: lightgray'><td style='max-width: 45px'>Num</td>";
     $affi .= "<td style='text-align: center; width: 300px'>Tâches</td>";
     $affi .= "<td>Demandeur</td>";
     $affi .= "<td style='text-align: center; width: 80px'>Qui</td>";

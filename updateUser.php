@@ -16,7 +16,7 @@ $res = query($sql);
 
 while ($row = mysqli_fetch_assoc($res)){
     $id = $row["idUser"];
-    if(!isset($_POST["$id"])){
+    if(!isset($_POST["$id"]) && $row["admin"]<=1){
         if ($row["dateFin"]==="0000-00-00 00:00:00"){
 
             $sql = "UPDATE suuser SET dateFin=CURRENT_TIME() WHERE idUser='$id'";

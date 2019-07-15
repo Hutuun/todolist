@@ -8,6 +8,12 @@
  * Page de modifiction des informations dans une tâche
  */
 
+session_start();
+
+if(empty($_SESSION["login"])){
+    header("Refresh:0;URL=login.php");
+}else{
+
 include ("database.php");
 
 $id = $_POST["idtache"];
@@ -214,10 +220,10 @@ $r = mysqli_fetch_assoc($resultat);
                             if($r["wait"]==="non") {
                                 $b = true;
                             }
-                            echo "<input type=\"checkbox\"  name=\"wait\" value=\"oui\" onclick='CocheTout(this.name)'>En attente</td>";
+                            echo "<input type=\"checkbox\"  name=\"wait\" class='inf' value=\"oui\" onclick='CocheTout(this.name)'>En attente</td>";
 
                         }else{
-                            echo "<input type=\"checkbox\" checked name=\"wait\" value=\"oui\" onclick='CocheTout(this.name)'>En attente</td>";
+                            echo "<input type=\"checkbox\" checked name=\"wait\" class='inf' value=\"oui\" onclick='CocheTout(this.name)'>En attente</td>";
                             $b = true;
                         }
                         if ($r["wait"] === "En cours") {
@@ -234,12 +240,12 @@ $r = mysqli_fetch_assoc($resultat);
                         else{
                             echo "<td style=\"padding-left: 4px\"><input type=\"checkbox\" class=\"inf\" name=\"test\" value=\"A tester\" onclick='CocheTout(this.name)'>A tester</td>";
                         }
-                        if ($r["wait"] === "A mettre en prod") {
-                            echo "<td style=\"padding-left: 4px\"><input type=\"checkbox\" class=\"inf\" checked name=\"prod\" value=\"A mettre en prod\" onclick='CocheTout(this.name)'>A mettre en prod</td>";
+                        if ($r["wait"] === "Mettre en prod") {
+                            echo "<td style=\"padding-left: 4px\"><input type=\"checkbox\" class=\"inf\" checked name=\"prod\" value=\"Mettre en prod\" onclick='CocheTout(this.name)'>A mettre en prod</td>";
                             $b = true;
                         }
                         else{
-                            echo "<td style=\"padding-left: 4px\"><input type=\"checkbox\" class=\"inf\" name=\"prod\" value=\"A mettre en prod\" onclick='CocheTout(this.name)'>A mettre en prod</td>";
+                            echo "<td style=\"padding-left: 4px\"><input type=\"checkbox\" class=\"inf\" name=\"prod\" value=\"Mettre en prod\" onclick='CocheTout(this.name)'>A mettre en prod</td>";
                         }
                         if ($r["wait"] === "Abandon") {
                             echo "<td style=\"padding-left: 4px\"><input type=\"checkbox\" class=\"inf\" checked name=\"abandon\" value=\"Abandon\" onclick='CocheTout(this.name)'>Abandon</td>";
@@ -265,12 +271,12 @@ $r = mysqli_fetch_assoc($resultat);
             <i style="font-size: 12px; color:#e60000;">Les sections en rouge sont obligatoires</i>
             <p><?php
                 if($_SESSION["admin"]>=1){
-                    echo "<label style=\"float: right\">La personne ne se trouve pas dans la liste ? cliquez <a href=\"ajouterUser.php\">ici</a> &nbsp;</label>";
+                    echo "<label style=\"float: right\">La personne ne se trouve pas dans la liste ? cliquez <a href=\"utilisateur.php\">ici</a> &nbsp;</label>";
                 }
                 ?></p>
             <br/><br/>
             <p>
-                <input type="text" value="<?php echo $id;?>" name="idtache" hidden>
+                <input type="text" value="<?php echo $id;}?>" name="idtache" hidden>
                 <a href="hub2.php" style="text-decoration: none"><input type='button' value='Annuler' style="width: 80px"/></a>
                 <input type="submit" value="Valider" name="valider" style="width: 80px"/>
             </p>

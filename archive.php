@@ -12,7 +12,7 @@
 include ("database.php");
 
 
-$sql = "SELECT idTache,dateSuppr FROM sutache";
+$sql = "SELECT idTache,dateSuppr,suppr FROM sutache";
 
 $res = query($sql);
 
@@ -21,9 +21,9 @@ while ($row = mysqli_fetch_assoc($res)){
     $str = $row["dateSuppr"];
     $id = $row["idTache"];
 
-    if($str!=="0000-00-00 00:00:00"){
+    if($str!=="0000-00-00 00:00:00" && $row["suppr"]!=="oui"){
 
-       if(strtotime($str)<strtotime(date("d-M-Y H:i:s")." -7 day")){
+       if(strtotime($str)<strtotime(date("d-M-Y H:i:s")." -5 day")){
            $sql = "UPDATE `sutache` SET `archive`='oui' WHERE `idTache`=$id";
            query($sql);
        }

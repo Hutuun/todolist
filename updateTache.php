@@ -107,9 +107,19 @@ if(empty($_SESSION["login"])){
     }
     if ($wait != $row["wait"]) {
         if ($wait === "non") {
-            $mod .= "La tâche n'est plus en attente. <br/>";
-        } else {
-            $mod .= "La tâche a été mis en attente. <br/>";
+            $mod .= "La tâche n'a plus de statut.<br/>";
+        } else if($wait === "oui"){
+            $mod .= "La tâche a été mise en attente. <br/>";
+        }else if($wait === "En cours"){
+            $mod .= "La tâche est en cours. <br/>";
+        }else if($wait === "A tester"){
+            $mod .= "La tâche est à tester. <br/>";
+        }else if($wait === "Mettre en prod"){
+            $mod .= "La tâche est à mettre en production. <br/>";
+        }else if($wait === "Abandon"){
+            $mod .= "La tâche est à l'abandon. <br/>";
+        }else{
+            $mod .= "La tâche à un autre statut : ".$wait."<br/>";
         }
     }
     $sql = "UPDATE `sutache` SET `nomTache`=\"$nom\",`descriptionTache`=\"$desc\",`idDemandeur`='$demandeur',`priorite`='$prio',`deadline`=\"$dead\",`dateCreation`=\"$dd\",`dateSuppr`=\"$df\", `wait`='$wait'
@@ -138,6 +148,11 @@ WHERE `idTache`='$idTache'";
             }
         }
     }
+    if(0>=mysqli_num_rows(query("SELECT * FROM sutbd WHERE idTache = '$idTache'"))){
+        query("INSERT INTO sutbd(idBD, idTache) VALUES (\"bd0\",\"$idTache\")");
+    }
+
+
     $sql = "SELECT prenom,nom,mail,idUser From suuser";
     $res = query($sql);
 
@@ -310,6 +325,7 @@ WHERE `idTache`='$idTache'";
 
     $row = mysqli_fetch_assoc($res);
 
+    $url = "http://projetsdr.ulb.be/todo/login.php";
 
     $mailto .= $row["mail"];
 
@@ -327,8 +343,10 @@ WHERE `idTache`='$idTache'";
     $message .= "<br/>\r\n";
     $message .= "La tâche a été modifiée.<br/>";
     $message .= "<br/>\r\n";
-    $message .= $mod;
-    $message .= "\r\n";
+    $message .= $mod ."<br/>\r\n";
+    $message .= "<br/>\r\n";
+    $message .= "Lien vers l'application :".$url."<br/>";
+    $message .= "<br/>\r\n";
     $message .= "--$boundary \r\n";
     $message .= "Content-Type: $typepiecejointe; name=\"$file_name\" \r\n";
     $message .= "Content-Transfer-Encoding: base64 \r\n";
@@ -354,7 +372,9 @@ WHERE `idTache`='$idTache'";
     $message2 .= "Content-Transfer-Encoding:8bit \r\n";
     $message2 .= "<br/>\r\n";
     $message2 .= "Vous avez été ajouté à la tâche n°$idTache.<br/>";
-    $message2 .= "<br/>\r\n";
+    $message .= "<br/>\r\n";
+    $message .= "Lien vers l'application :".$url."<br/>";
+    $message .= "<br/>\r\n";
     $message2 .= "--$boundary \r\n";
     $message2 .= "Content-Type: $typepiecejointe; name=\"$file_name\" \r\n";
     $message2 .= "Content-Transfer-Encoding: base64 \r\n";
@@ -377,7 +397,9 @@ WHERE `idTache`='$idTache'";
     $message3 .= "Content-Transfer-Encoding:8bit \r\n";
     $message3 .= "<br/>\r\n";
     $message3 .= "Vous avez été retiré de la tâche n°$idTache.<br/>";
-    $message3 .= "<br/>\r\n";
+    $message .= "<br/>\r\n";
+    $message .= "Lien vers l'application :".$url."<br/>";
+    $message .= "<br/>\r\n";
     $message3 .= "--$boundary-- \n";
     */
 

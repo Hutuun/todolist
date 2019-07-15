@@ -15,20 +15,24 @@
 */
 function affiTnfPDF($row){
     $color = "#000000";
+    $ajout = "";
     if($row["priorite"]==1){
-        $color = "#cca300";
+        $color = "#ffa900";
     }
     if ($row["priorite"]==2){
-        $color ='#880000';
+        $ajout = "*";
+        $color ='#ff0000';
     }
     if ($row["priorite"]==3){
-        $color ="#cc0000";
+        $ajout = "**";
+        $color ="#ff0000";
     }
     if ($row["priorite"]==4){
+        $ajout = "***";
         $color ="#ff0000";
     }
     $str = "<tr><td style='text-align: center'>".$row["idTache"]."</td>";
-    $str .= "<td style='color: $color; padding-left: 4px; padding-right: 4px'>".$row["nomTache"]."</td>";
+    $str .= "<td style='color: $color; padding-left: 4px; padding-right: 4px'>".$ajout.$row["nomTache"].$ajout."</td>";
     $sql = "SELECT nom, prenom, idUser,color From suuser, sutache where idDemandeur ='" . $row["idDemandeur"] . "' and suuser.idUser=sutache.idDemandeur";
     $res = query($sql);
 
@@ -61,8 +65,8 @@ function affiTnfPDF($row){
             elseif ($row["wait"] === "A Tester") {
                 $str .= "<span style='text-align: center'>A tester</span>";
             }
-            elseif ($row["wait"] === "A Mettre en prod") {
-                $str .= "<span style='text-align: center'>A mettre en prod</span>";
+            elseif ($row["wait"] === "Mettre en prod") {
+                $str .= "<span style='text-align: center'>Mettre en prod</span>";
             }
             elseif ($row["wait"] === "Abandon") {
                 $str .= "<span style='text-align: center'>Abandon</span>";
@@ -97,21 +101,25 @@ function affiTnfPDF($row){
 */
 function affiTfPDF($row){
 
-    $color = '#000000';
+    $color = "#000000";
+    $ajout = "";
     if($row["priorite"]==1){
-        $color = '#cca300';
+        $color = "#ffa900";
     }
     if ($row["priorite"]==2){
-        $color ='#880000';
+        $ajout = "*";
+        $color ='#ff0000';
     }
     if ($row["priorite"]==3){
-        $color ="#cc0000";
+        $ajout = "**";
+        $color ="#ff0000";
     }
     if ($row["priorite"]==4){
+        $ajout = "***";
         $color ="#ff0000";
     }
     $str = "<tr style='background-color: lightgray'><td style='text-align: center'>".$row["idTache"]."</td>";
-    $str .= "<td style='color: $color; padding-left: 4px; padding-right: 4px'>".$row["nomTache"]."</td>";
+    $str .= "<td style='color: $color; padding-left: 4px; padding-right: 4px'>".$ajout.$row["nomTache"].$ajout."</td>";
 
     $sql = "SELECT nom, prenom, idUser,color From suuser, sutache where idDemandeur ='" . $row["idDemandeur"] . "' and suuser.idUser=sutache.idDemandeur";
     $res = query($sql);
@@ -145,8 +153,8 @@ function affiTfPDF($row){
             elseif ($row["wait"] === "A Tester") {
                 $str .= "<span style='text-align: center'>A tester</span>";
             }
-            elseif ($row["wait"] === "A Mettre en prod") {
-                $str .= "<span style='text-align: center'>A mettre en prod</span>";
+            elseif ($row["wait"] === "Mettre en prod") {
+                $str .= "<span style='text-align: center'>Mettre en prod</span>";
             }
             elseif ($row["wait"] === "Abandon") {
                 $str .= "<span style='text-align: center'>Abandon</span>";

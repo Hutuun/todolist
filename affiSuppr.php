@@ -30,9 +30,9 @@ session_start();
 
 if(empty($_SESSION["login"])){
     header("Refresh:0;URL=login.php");
-}else{
-    include ("database.php");
-    include ("fcAffi.php");
+}else {
+    include("database.php");
+    include("fcAffi.php");
 
     $id = $_SESSION["id"];
 
@@ -44,9 +44,9 @@ if(empty($_SESSION["login"])){
 
     if ($_SESSION["admin"] >= "1") {
 
-        echo "<br/><a style='float:right' href='ajouterUser.php'><img src=\"img/add.png\">Ajouter un utilisateur</a>";
-        echo "<a style='float: bottom' href='backup.php'><img src=\"img/Data-Database-Backup-icon.png\">Backup</a>";
         echo "<br><a style='float:right' href='utilisateur.php'><img src=\"img/Programming-Show-Property-icon.png\">Gestion des utilisateurs</a>";
+        echo "<a style='float: bottom' href='backup.php'><img src=\"img/Data-Database-Backup-icon.png\">Backup</a>";
+
     }
 
     $cpt = 0;
@@ -59,7 +59,7 @@ if(empty($_SESSION["login"])){
     $order = "";
     $orderD = "";
 
-    $affi = "<h2 id='menu1' onclick='afficheMenu(this)'><a style='cursor: pointer; cursor: hand'>Liste des tâches archivées</a></h2>";
+    $affi = "<h2 id='menu1' onclick='afficheMenu(this)'><a style='cursor: pointer; cursor: hand'>Liste des tâches supprimées</a></h2>";
     $affi .= "<table id='sousmenu1' style='display: table' class='ta'><tr>";
     $affi .= "<td style='max-width: 45px'><form method='post' id='sub$cpt'><input type='text' name='order' value='sutache.idTache' hidden><a onclick='valider($cpt)' style='cursor: pointer;'>Num</a></form></td>";
     $cpt += 1;
@@ -83,7 +83,7 @@ if(empty($_SESSION["login"])){
             $order = $_POST["order"];
             $sql = "SELECT sutache.*, sutuser.*, suuser.*, count(sutuser.idTache) as nb FROM sutache,sutuser,suuser where suuser.idUser = sutuser.idUser and sutuser.idTache = sutache.idTache group by sutuser.idTache ORDER by $order, priorite DESC";
 
-            $affi = "<h2 id='menu1' onclick='afficheMenu(this)'><a style='cursor: pointer;'>Liste des tâches archivées</a></h2>";
+            $affi = "<h2 id='menu1' onclick='afficheMenu(this)'><a style='cursor: pointer;'>Liste des tâches supprimées</a></h2>";
             $affi .= "<table id='sousmenu1' style='display: table' class='ta'><tr>";
 
             $affi .= "<td style='max-width: 45px'><form method='post' id='sub$cpt'><input type='text' name='orderD' value='sutache.idTache' hidden><a onclick='valider($cpt)' style='cursor: pointer;'>Num</a></form></td>";
@@ -132,6 +132,7 @@ if(empty($_SESSION["login"])){
     }
 
     $cpt += 1;
+
 ?>
 </table>
 
@@ -142,11 +143,11 @@ if(empty($_SESSION["login"])){
 
     <td style='border: none'><a href="hub2.php" "><img src="img/arrow-back-icon.png" alt=""/>Retour</a></td>
     <td style='border: none'>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>
-    <td style='border: none'>
+
         <?php
-        echo "<form method='post' action='pdfsuppr.php' id='sub$cpt'><input type='text' name='order' value='$order' hidden><input type='text' name='orderD' value='$orderD' hidden><a style='cursor: pointer' onclick='valider($cpt)'><img src='img/Download-icon.png' alt='Submit'>Version PDF les tâches supprimées</a></form><br/>";
+        echo "<td style='border: none'><form method='post' action='pdfsuppr.php' id='sub$cpt'><input type='text' name='order' value='$order' hidden><input type='text' name='orderD' value='$orderD' hidden><a style='cursor: pointer' onclick='valider($cpt)'><img src='img/Download-icon.png' alt='Submit'>Version PDF des tâches supprimées</a></form></td>";
         }
-?></td>
+?>
 
 </table>
 <br/>

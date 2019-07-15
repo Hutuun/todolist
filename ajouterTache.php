@@ -130,24 +130,16 @@ if(empty($_SESSION["login"])){
                 <table>
                     <tr>
                         <td style="padding-right: 70px"><label>Statut : </label></td>
-                        <td style="padding-left: 4px"><input type="checkbox" class="inf" name="wait" value="oui"
-                                                             onclick='CocheTout(this.name)'>En attente
+                        <td style="padding-left: 4px"><input type="checkbox" class="inf" name="wait" value="oui" onclick='CocheTout(this.name)'>En attente
                         </td>
-                        <td style="padding-left: 4px"><input type="checkbox" class="inf" name="cours" value="En cours"
-                                                             onclick='CocheTout(this.name)'>En cours
+                        <td style="padding-left: 4px"><input type="checkbox" class="inf" name="cours" value="En cours" onclick='CocheTout(this.name)'>En cours
                         </td>
-                        <td style="padding-left: 4px"><input type="checkbox" class="inf" name="test" value="A tester"
-                                                             onclick='CocheTout(this.name)'>A tester
+                        <td style="padding-left: 4px"><input type="checkbox" class="inf" name="test" value="A tester" onclick='CocheTout(this.name)'>A tester
                         </td>
-                        <td style="padding-left: 4px"><input type="checkbox" class="inf" name="prod"
-                                                             value="A mettre en prod" onclick='CocheTout(this.name)'>A
-                            mettre en prod
+                        <td style="padding-left: 4px"><input type="checkbox" class="inf" name="prod" value="Mettre en prod" onclick='CocheTout(this.name)'>A mettre en prod</td>
+                        <td style="padding-left: 4px"><input type="checkbox" class="inf" name="abandon" value="Abandon" onclick='CocheTout(this.name)'>Abandon
                         </td>
-                        <td style="padding-left: 4px"><input type="checkbox" class="inf" name="abandon" value="Abandon"
-                                                             onclick='CocheTout(this.name)'>Abandon
-                        </td>
-                        <td style="padding-left: 4px"><input type="text" class="inf" name="autre" maxlength="20"
-                                                             onkeypress="CocheTout(this.name)">Autres
+                        <td style="padding-left: 4px"><input type="text" class="inf" name="autre" maxlength="20" onkeypress="CocheTout(this.name)">Autres
                         </td>
                     </tr>
                 </table>
@@ -157,7 +149,7 @@ if(empty($_SESSION["login"])){
                 <i style="font-size: 12px; color:#e60000;">Les sections en rouge sont obligatoires</i>
                 <p><?php
                     if ($_SESSION["admin"] >= 1) {
-                        echo "<label style=\"float: right\">La personne ne se trouve pas dans la liste ? cliquez <a href=\"ajouterUser.php\">ici</a> &nbsp;</label>";
+                        echo "<label style=\"float: right\">La personne ne se trouve pas dans la liste ? cliquez <a href=\"utilisateur.php\">ici</a> &nbsp;</label>";
                     }
                     ?></p>
 
