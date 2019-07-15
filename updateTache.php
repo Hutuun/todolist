@@ -58,6 +58,8 @@ if(empty($_SESSION["login"])){
     $df = $row["dateSuppr"];
     if ($_POST["deadline"] !== "") {
         $dead = $_POST["deadline"];
+    }else{
+        $dead = '0000-00-00 00:00:00';
     }
     if ($dead !== $row["deadline"]) {
         $mod .= "La deadline de la tâche a été modifiée<br/>";
@@ -72,9 +74,9 @@ if(empty($_SESSION["login"])){
     }
 
     if ($_POST["dd"] !== "") {
-        $dd = $_POST["dd"];
+        $dd = substr($_POST["dd"],0,10);
     }
-    if ($dd !== $row["dateCreation"]) {
+    if ($dd !== substr($row["dateCreation"],0,10)) {
         $mod .= "La date de création de la tâche a été modifiée<br/>";
     }
 
@@ -105,7 +107,7 @@ if(empty($_SESSION["login"])){
     if ($_POST["autre"] !== "") {
         $wait = $_POST["autre"];
     }
-    if ($wait != $row["wait"]) {
+    if ($wait !== $row["wait"]) {
         if ($wait === "non") {
             $mod .= "La tâche n'a plus de statut.<br/>";
         } else if($wait === "oui"){

@@ -66,6 +66,7 @@ if(isset($_POST["cours"])){
 }
 if(isset($_POST["test"])){
     $wait = $_POST["test"];
+    echo $wait.'1';
 }
 if(isset($_POST["prod"])){
     $wait = $_POST["prod"];
@@ -73,9 +74,10 @@ if(isset($_POST["prod"])){
 if(isset($_POST["abandon"])){
     $wait = $_POST["abandon"];
 }
-if(isset($_POST["autre"])){
+if(isset($_POST["autre"]) && $_POST["autre"]!==""){
     $wait = $_POST["autre"];
 }
+
 $sql = "SELECT idTache From sutache order by idTache";
 
 $res = query($sql);
@@ -91,7 +93,7 @@ $sql = "LOCK TABLE sutache write, sutuser write ,sutbd write, subd read, suuser 
 
 query($sql);
 
-$sql = "INSERT IGNORE INTO sutache(idTache, nomTache, descriptionTache, idDemandeur, priorite ,deadline, dateCreation, dateSuppr, wait) VALUES (\"$cpt\", \"$nom\",\"$desc\",\"$demandeur\",$prio,\"$dead\",CURRENT_TIME,\"''\",'$wait');";
+$sql = "INSERT IGNORE INTO sutache(idTache, nomTache, descriptionTache, idDemandeur, priorite ,deadline, dateCreation, dateSuppr, wait) VALUES (\"$cpt\", \"$nom\",\"$desc\",\"$demandeur\",$prio,\"$dead\",CURRENT_TIME,\"''\",\"$wait\");";
 
 query($sql);
 

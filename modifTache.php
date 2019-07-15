@@ -24,6 +24,9 @@ $resultat = query($sql);
 
 $r = mysqli_fetch_assoc($resultat);
 
+
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -58,7 +61,6 @@ $r = mysqli_fetch_assoc($resultat);
                 <tr>
                     <td><label style="color:#e60000;">Demandé par : </label></td>
                     <?php
-
                     $sql = "SELECT * FROM suuser order by nom,prenom";
 
                     $res = query($sql);
@@ -175,8 +177,8 @@ $r = mysqli_fetch_assoc($resultat);
                                             echo "<option value='3' selected>Très prioritaire de niveau 2</option>";
                                             echo "<option value='4'>Très prioritaire de niveau 3</option>";
                                         }else{
-                                            echo "<option value='3' selected>Très prioritaire de niveau 2</option>";
-                                            echo "<option value='4'>Très prioritaire de niveau 3</option>";
+                                            echo "<option value='3'>Très prioritaire de niveau 2</option>";
+                                            echo "<option value='4' selected>Très prioritaire de niveau 3</option>";
                                         }
                                     }
                                 }
@@ -188,13 +190,13 @@ $r = mysqli_fetch_assoc($resultat);
                 <tr>
                     <td><label>Date de début : </label></td>
                     <td><input type="date" value="<?php
-                        echo $r["dateCreation"];
+                        echo date("Y-m-d",strtotime(substr($r["dateCreation"],0,10)));
                         ?>" name="dd" style="width:60%" ></td>
                 </tr>
                 <tr>
                     <td><label>Deadline(opt) : </label></td>
                     <td><input type="date"  value="<?php if($r["deadline"]!=="0000-00-00 00:00:00"){
-                            echo $r["deadline"];
+                            echo date("Y-m-d",strtotime(substr($r["deadline"],0,10)));
                     }else{
                         echo "";
                         }?>" name="deadline" style="width:60%" ></td>
@@ -202,7 +204,11 @@ $r = mysqli_fetch_assoc($resultat);
                 <tr>
                     <td><label>Date de fin : </label></td>
                     <td><input type="date" value="<?php
-                        echo $r["dateSuppr"];
+                        if($r["dateSuppr"]!=="0000-00-00 00:00:00") {
+                            echo date("Y-m-d", strtotime(substr($r["dateSuppr"], 0, 10)));
+                        }else{
+                            echo "";
+                        }
                         ?>" name="df" style="width:60%" ></td>
                 </tr>
 
