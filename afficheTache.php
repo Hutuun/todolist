@@ -72,8 +72,15 @@ if ($row["priorite"]==1){
     $prio = "La tâche est prioritaire</p>";
 }
 if ($row["priorite"]==2){
-    $prio = "La tâche est très prioritaire</p>";
+    $prio = "La tâche est très prioritaire de niveau 1</p>";
 }
+if ($row["priorite"]==3){
+    $prio = "La tâche est très prioritaire de niveau 2</p>";
+}
+if ($row["priorite"]==4){
+    $prio = "La tâche est très prioritaire de niveau 3</p>";
+}
+
 $aff .= $prio;
 
 $aff .= "<p>Demande effectuée par : <q style='color: $color'>".$row["prenom"]." ".$row["nom"]."</q> ";
