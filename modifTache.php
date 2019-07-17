@@ -261,9 +261,9 @@ $r = mysqli_fetch_assoc($resultat);
                             echo "<td style=\"padding-left: 4px\"><input type=\"checkbox\" class=\"inf\" name=\"abandon\" value=\"Abandon\" onclick='CocheTout(this.name)'>Abandon</td>";
                         }
                         if($b){
-                            echo "<td style=\"padding-left: 4px\"><input type=\"text\" class=\"inf\" name=\"autre\" maxlength=\"20\" onkeypress=\"CocheTout(this.name)\">Autres</td>";
+                            echo "<td style=\"padding-left: 4px\"><input type=\"text\" class=\"inf\" name=\"autre\" maxlength=\"20\" style='width: 120px' onkeypress=\"CocheTout(this.name)\">Autres</td>";
                         }else{
-                            echo "<td style=\"padding-left: 4px\"><input type=\"text\" class=\"inf\" name=\"autre\" maxlength=\"20\" value='$r[wait]' onkeypress=\"CocheTout(this.name)\">Autres</td>";
+                            echo "<td style=\"padding-left: 4px\"><input type=\"text\" class=\"inf\" name=\"autre\" maxlength=\"20\" style='width: 120px' value='$r[wait]' onkeypress=\"CocheTout(this.name)\">Autres</td>";
                         }
 
 

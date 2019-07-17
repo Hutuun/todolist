@@ -139,7 +139,7 @@ if(empty($_SESSION["login"])){
                         <td style="padding-left: 4px"><input type="checkbox" class="inf" name="prod" value="Mettre en prod" onclick='CocheTout(this.name)'>A mettre en prod</td>
                         <td style="padding-left: 4px"><input type="checkbox" class="inf" name="abandon" value="Abandon" onclick='CocheTout(this.name)'>Abandon
                         </td>
-                        <td style="padding-left: 4px"><input type="text" class="inf" name="autre" maxlength="20" onkeypress="CocheTout(this.name)">Autres
+                        <td style="padding-left: 4px"><input type="text" class="inf" name="autre" maxlength="20" style='width: 120px' onkeypress="CocheTout(this.name)">Autres
                         </td>
                     </tr>
                 </table>
