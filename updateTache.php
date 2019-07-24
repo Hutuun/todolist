@@ -124,7 +124,26 @@ if(empty($_SESSION["login"])){
             $mod .= "La tâche à un autre statut : ".$wait."<br/>";
         }
     }
-    $sql = "UPDATE `sutache` SET `nomTache`=\"$nom\",`descriptionTache`=\"$desc\",`idDemandeur`='$demandeur',`priorite`='$prio',`deadline`=\"$dead\",`dateCreation`=\"$dd\",`dateSuppr`=\"$df\", `wait`='$wait'
+
+    $ou = "";
+    if(isset($_POST["ou"])){
+        $ou = $_POST["ou"];
+    }
+
+    if($ou !== $row["ou"]){
+        $mod .= "La réunion à changer d'endroit <br/>";
+    }
+
+    $heure = "";
+    if(isset($_POST["heure"])){
+        $heure = $_POST["heure"];
+    }
+
+    if($heure !== $row["heure"]){
+        $mod .= "L'heure de la réunion à changer, la nouvelle heure : $heure</br>";
+    }
+
+    $sql = "UPDATE `sutache` SET `heure`='$heure', `nomTache`=\"$nom\",`descriptionTache`=\"$desc\",`idDemandeur`='$demandeur',`priorite`='$prio',`deadline`=\"$dead\",`dateCreation`=\"$dd\",`dateSuppr`=\"$df\", `wait`='$wait', `ou`=\"$ou\"
 WHERE `idTache`='$idTache'";
 
     query($sql);

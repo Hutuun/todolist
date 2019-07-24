@@ -249,8 +249,10 @@ if(empty($_SESSION["login"])){
     echo "<br/>";
     echo "<div>";
     echo "<table class='ta' style='border: none'>";
-    echo "<td style='border: none'><form method='post' action='pdf.php' id='sub$cpt'><input type='text' name='order' value='$order' hidden><input type='text' name='orderD' value='$orderD' hidden><a style=' cursor: pointer' onclick='valider($cpt)'><img src='img/Download-icon.png' alt='Submit'>Version PDF</a></form></td>";
-    echo "<td style='border: none'>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>";
+    echo "<td style='border: none'><form method='post' target='_blank' action='pdf.php' id='sub$cpt'><input type='text' name='order' value='$order' hidden><input type='text' name='orderD' value='$orderD' hidden><a style=' cursor: pointer' onclick='valider($cpt)'><img src='img/Download-icon.png' alt='Submit'>Version PDF</a></form></td>";
+    $cpt++;
+    echo "<td style='border: none'><form method='post' target='_blank' action='reunion.php' id='sub$cpt'><a style=' cursor: pointer' onclick='valider($cpt)'><img src='img/Download-icon.png' alt='Submit'>Réunion</a></form></td>";
+    echo "<td style='border: none'>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>";
     echo "<td style='border: none;'><a href=\"affiSuppr.php\"><img src=\"img/zoom-search-2-icon.png\" alt=\"\" title=\"Voir les tâches supprimées\">Tâches supprimées</a></td>";
     echo "<td style='border: none'>&emsp;&emsp;</td>";
     echo "<td style='border: none'><a href=\"archive.php\"><img src='img/Folder-Archive-icon.png' alt='' title='Archiver'/>Archiver</a>&emsp;&emsp;<a style='cursor: pointer' href='tacheArchi.php'><img src=\"img/Programming-Show-Property-icon.png\" alt='Submit' title='Voir les tâches archivées'/>Tâches archivées</a></td>";

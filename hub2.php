@@ -281,12 +281,17 @@ while ($row = mysqli_fetch_assoc($result)) {
     <table class='ta' style='border: none'>
         <tr>
             <td style='border: none'>
-               <?php echo "<form method='post' action='pdf.php' id='sub$cpt'><input type='text' name='order' value='$order' hidden><input
+               <?php echo "<form method='post' target='_blank' action='pdf.php' id='sub$cpt'><input type='text' name='order' value='$order' hidden><input
                             type='text' name='orderD' value='$orderD' hidden><a style=' cursor: pointer'
                                                                                 onclick='valider($cpt)'><img
                                 src='img/Download-icon.png' alt='Submit'>Version PDF</a></form>
+            </td>";
+               $cpt++;?>
+            <td style='border: none'>&emsp;&emsp;</td>
+            <td style="border: none">
+                <?php echo "<form method='post' target='_blank' action='reunion.php' id='sub$cpt'><a style=' cursor: pointer'onclick='valider($cpt)'><img src='img/Download-icon.png' alt='Submit'>Réunion</a></form>
             </td>";?>
-            <td style='border: none'>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>
+            <td style='border: none'>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>
             <td style='border: none;'><a href="affiSuppr.php"><img src="img/zoom-search-2-icon.png" alt=""
                                                                    title="Voir les tâches supprimées">Tâches
                     supprimées</a></td>

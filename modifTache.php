@@ -47,6 +47,28 @@ $r = mysqli_fetch_assoc($resultat);
             }
             return b;
         }
+
+        function reunion() {
+
+
+            var reunion = document.getElementById('bd10');
+
+            if (reunion.checked) {
+
+                var ajout = document.getElementById('reunionOu');
+
+                ajout.innerHTML = "<td><label>Où :</label></td><td><input type='text' value='<?php echo $r['ou']?>' name='ou' style='width: 60%' maxlength='50'></td>";
+
+                ajout = document.getElementById('reunionHeure');
+
+                ajout.innerHTML = "<td><label>Heure :</label></td><td><input type='text' value='<?php echo $r['heure']?>' name='heure' style='width: 60%' maxlength='8'></td>";
+
+            }else{
+                var ajout = document.getElementById('reunion');
+
+                ajout.innerHTML = "";
+            }
+        }
     </script>
 </head>
 <body>
@@ -128,14 +150,14 @@ $r = mysqli_fetch_assoc($resultat);
                         $sql = "SELECT * FROM subd,sutbd where sutbd.idTache=$id  and sutbd.idBD=subd.idBD;";
 
                         $resultat = query($sql);
-                        $stri = '<td style="color: #' . $row["color"] . '"><input type="checkbox" value="' . $row['idBD'] . '" name="' . $row['idBD'] . '">' . substr_replace($row['nomBD'], strtoupper(substr($row["nomBD"], 0, 1)), 0, 1) . '</td>';
+                        $stri = '<td style="color: #' . $row["color"] . '"><input type="checkbox" onclick="reunion()" id="'.$row['idBD'].'" value="' . $row['idBD'] . '" name="' . $row['idBD'] . '">' . substr_replace($row['nomBD'], strtoupper(substr($row["nomBD"], 0, 1)), 0, 1) . '</td>';
                         while ($f = mysqli_fetch_assoc($resultat)) {
 
-                            $stri = '<td style="color: #' . $row["color"] . '"><input type="checkbox"  value="' . $row['idBD'] . '" name="' . $row['idBD'] . '">' . substr_replace($row['nomBD'], strtoupper(substr($row["nomBD"], 0, 1)), 0, 1) . '</td>';
+                            $stri = '<td style="color: #' . $row["color"] . '"><input type="checkbox" onclick="reunion()" id="'.$row['idBD'].'"  value="' . $row['idBD'] . '" name="' . $row['idBD'] . '">' . substr_replace($row['nomBD'], strtoupper(substr($row["nomBD"], 0, 1)), 0, 1) . '</td>';
 
 
                             if($f["idBD"]===$row["idBD"]) {
-                                $stri = '<td style="color: #' . $row["color"] . '"><input type="checkbox" checked  value="' . $row['idBD'] . '" name="' . $row['idBD'] . '">' . substr_replace($row['nomBD'], strtoupper(substr($row["nomBD"], 0, 1)), 0, 1) . '</td>';
+                                $stri = '<td style="color: #' . $row["color"] . '"><input type="checkbox" onclick="reunion()" id="'.$row['idBD'].'" checked  value="' . $row['idBD'] . '" name="' . $row['idBD'] . '">' . substr_replace($row['nomBD'], strtoupper(substr($row["nomBD"], 0, 1)), 0, 1) . '</td>';
                                 break;
                             }
 
@@ -211,6 +233,8 @@ $r = mysqli_fetch_assoc($resultat);
                         }
                         ?>" name="df" style="width:60%" ></td>
                 </tr>
+                <tr id="reunionOu"></tr>
+                <tr id="reunionHeure"></tr>
 
                 <tr>
                     <td><label>Description : </label></td>

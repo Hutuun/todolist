@@ -42,6 +42,28 @@ if(empty($_SESSION["login"])){
 
                 return b;
             }
+            function reunion() {
+
+
+                var reunion = document.getElementById('bd10');
+
+                if (reunion.checked) {
+
+                    var ajout = document.getElementById('reunionOu');
+
+                    ajout.innerHTML = "<td><label>Où :</label></td><td><input type='text' name='ou' style='width: 60%' maxlength='50'></td>";
+
+                    var ajout = document.getElementById('reunionHeure');
+
+                    ajout.innerHTML = "<td><label>Heure :</label></td><td><input type='text' name='heure' style='width: 60%' maxlength='8' ></td>"
+
+                }else{
+                    var ajout = document.getElementById('reunion');
+
+                    ajout.innerHTML = "";
+                }
+            }
+
         </script>
         <script src="js/function.js"></script>
     </head>
@@ -101,7 +123,7 @@ if(empty($_SESSION["login"])){
                         $res = query($sql);
 
                         while ($row = mysqli_fetch_assoc($res)) {
-                            echo '<td style="color: #' . $row["color"] . '"><input type="checkbox"  value="' . $row['idBD'] . '" name="' . $row['idBD'] . '">' . substr_replace($row['nomBD'], strtoupper(substr($row["nomBD"], 0, 1)), 0, 1) . '</td>';
+                            echo '<td style="color: #' . $row["color"] . '"><input type="checkbox" onclick="reunion()" id="'.$row['idBD'].'"  value="' . $row['idBD'] . '" name="' . $row['idBD'] . '">' . substr_replace($row['nomBD'], strtoupper(substr($row["nomBD"], 0, 1)), 0, 1) . '</td>';
                         }
                         echo "</table></td>";
                         ?>
@@ -114,13 +136,15 @@ if(empty($_SESSION["login"])){
                                 <option value="2">Très prioritaire de niveau 1</option>
                                 <option value="3">Très prioritaire de niveau 2</option>
                                 <option value='4'>Très prioritaire de niveau 3</option>
-
+                            </select>
                         </td>
                     </tr>
                     <tr>
                         <td><label>Deadline : </label></td>
                         <td><input type="date" name="deadline" style="width:60%"></td>
                     </tr>
+                    <tr id="reunionOu"></tr>
+                    <tr id="reunionHeure"></tr>
                     <tr>
                         <td><label>Description : </label></td>
                         <td><textarea style="resize: none; width: 60%" name="desc" maxlength="1500"></textarea></td>

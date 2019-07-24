@@ -14,23 +14,7 @@ require ("vendor/autoload.php");
 
 session_start();
 
-$pdf = new Mpdf\Mpdf();
 
-$pdf->AddPage();
-
-$affi = "<!DOCTYPE html>
-<html>
-<head>
-    <meta charset=\"UTF-8\">
-    <script src=\"js/function.js\" type=\"text/javascript\"></script>
-    <style>
-        table.ta,td{
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
-    </style>
-</head>
-<body style=\"font - family: Trebuchet,Trebuchet MS,Arial,Helvetica,Sans - serif;\">";
 
 
 $sql = "SELECT idUser From suuser";
@@ -55,6 +39,11 @@ if ($_POST["deadline"]!=="") {
 }
 $desc = $_POST["desc"];
 
+$ou = "";
+if(isset($_POST["ou"])){
+    $ou = $_POST["ou"];
+}
+
 $desc = str_ireplace("\"","'",$desc);
 
 $wait = "non";
@@ -78,6 +67,11 @@ if(isset($_POST["autre"]) && $_POST["autre"]!==""){
     $wait = $_POST["autre"];
 }
 
+$heure = "";
+if(isset($_POST["heure"])){
+    $heure = $_POST["heure"];
+}
+
 $sql = "SELECT idTache From sutache order by idTache";
 
 $res = query($sql);
@@ -93,7 +87,7 @@ $sql = "LOCK TABLE sutache write, sutuser write ,sutbd write, subd read, suuser 
 
 query($sql);
 
-$sql = "INSERT IGNORE INTO sutache(idTache, nomTache, descriptionTache, idDemandeur, priorite ,deadline, dateCreation, dateSuppr, wait) VALUES (\"$cpt\", \"$nom\",\"$desc\",\"$demandeur\",$prio,\"$dead\",CURRENT_TIME,\"''\",\"$wait\");";
+$sql = "INSERT IGNORE INTO sutache(idTache, nomTache, descriptionTache, idDemandeur, priorite ,deadline, dateCreation, dateSuppr, wait, ou, heure) VALUES (\"$cpt\", \"$nom\",\"$desc\",\"$demandeur\",$prio,\"$dead\",CURRENT_TIME,\"''\",\"$wait\", \"$ou\", \"$heure\");";
 
 query($sql);
 
@@ -137,6 +131,24 @@ while ($row = mysqli_fetch_assoc($res)) {
 $sql = "UNLOCK TABLE";
 
 query($sql);
+
+$pdf = new Mpdf\Mpdf();
+
+$pdf->AddPage();
+
+$affi = "<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=\"UTF-8\">
+    <script src=\"js/function.js\" type=\"text/javascript\"></script>
+    <style>
+        table.ta,td{
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body style=\"font - family: Trebuchet,Trebuchet MS,Arial,Helvetica,Sans - serif;\">";
 
 $sql = "SELECT * FROM sutache,suuser,sutuser WHERE sutache.idTache = '$cpt' and idDemandeur = suuser.idUser and sutuser.idTache = sutache.idTache";
 $res = query($sql);
@@ -289,7 +301,7 @@ $message .= "Content-Transfer-Encoding:8bit \r\n";
 $message .= "\r\n";
 $message .= "Une nouvelle t&acirc;che a été ajout&eacute;e.<br/>";
 $message .= "<br/>\r\n";
-$message .= "Lien vers l'application :".$url."<br/>";
+$message .= "Lien vers l'application : <a href='$url'>".$url."</a><br/>";
 $message .= "<br/>\r\n";
 $message .= "--$boundary \n";
 $message .= "Content-Type: $typepiecejointe; name=\"$file_name\" \r\n";
