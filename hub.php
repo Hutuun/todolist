@@ -92,10 +92,10 @@ if(empty($_SESSION["login"])){
 
     echo "<a style='float:left' href='login.php'><img src=\"img/inside-logout-icon.png\">logout</a>";
 
-    echo "<a style='float:right' href='ajouterTache.php'><img src=\"img/add.png\">Ajouter une tâche</a><br>";
+    echo "<a style='float:right' href='ajouterTache.php'><img src=\"img/add.png\">Ajouter une tâche</a><br/>";
 
     if ($_SESSION["admin"] >= "1") {
-        echo "<a style='float:right' href='utilisateur.php'><img src=\"img/Programming-Show-Property-icon.png\">Gestion des utilisateurs</a>";
+        echo "<br/><a style='float:right' href='utilisateur.php'><img src=\"img/Programming-Show-Property-icon.png\">Gestion des utilisateurs</a>";
         echo "<a style='float: bottom' href='backup.php'><img src=\"img/Data-Database-Backup-icon.png\">Backup</a>";
     }
 

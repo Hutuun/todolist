@@ -88,7 +88,7 @@ echo "<div style='width: 1002px; text-align: left; height: 100%; z-index: 0; pos
 
 echo "<a style='float:left' href='login.php'><img src=\"img/inside-logout-icon.png\">logout</a>";
 
-echo "<a style='float:right' href='ajouterTache.php'><img src=\"img/add.png\">Ajouter une tâche</a><br>";
+echo "<a style='float:right' href='ajouterTache.php'><img src=\"img/add.png\">Ajouter une tâche</a><br/>";
 
 if ($_SESSION["admin"] >= "1") {
 

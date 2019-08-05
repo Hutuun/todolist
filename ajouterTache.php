@@ -39,7 +39,9 @@ if(empty($_SESSION["login"])){
                         b = true;
                     }
                 }
-
+                if(!b){
+                    document.getElementById('messageErreur').innerHTML = "Vous avez des informations imcomplètes"
+                }
                 return b;
             }
             function reunion() {
@@ -53,12 +55,16 @@ if(empty($_SESSION["login"])){
 
                     ajout.innerHTML = "<td><label>Où :</label></td><td><input type='text' name='ou' style='width: 60%' maxlength='50'></td>";
 
-                    var ajout = document.getElementById('reunionHeure');
+                    ajout = document.getElementById('reunionHeure');
 
                     ajout.innerHTML = "<td><label>Heure :</label></td><td><input type='text' name='heure' style='width: 60%' maxlength='8' ></td>"
 
                 }else{
-                    var ajout = document.getElementById('reunion');
+                    var ajout = document.getElementById('reunionOu');
+
+                    ajout.innerHTML = "";
+
+                    ajout = document.getElementById('reunionHeure');
 
                     ajout.innerHTML = "";
                 }
@@ -70,7 +76,13 @@ if(empty($_SESSION["login"])){
     <body>
     <h1>Insertion d'une tâche</h1>
     <br/>
+
+    <div id="messageErreur">
+
+    </div>
+
     <br/>
+
     <div class="contenu_page">
         <form id="tache" method="post" onsubmit="return f();" action="insertTache.php">
             <fieldset>

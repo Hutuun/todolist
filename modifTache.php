@@ -45,6 +45,10 @@ $r = mysqli_fetch_assoc($resultat);
                     b = true;
                 }
             }
+
+            if(!b){
+                document.getElementById('messageErreur').innerHTML = "Vous avez des informations imcomplètes"
+            }
             return b;
         }
 
@@ -64,7 +68,11 @@ $r = mysqli_fetch_assoc($resultat);
                 ajout.innerHTML = "<td><label>Heure :</label></td><td><input type='text' value='<?php echo $r['heure']?>' name='heure' style='width: 60%' maxlength='8'></td>";
 
             }else{
-                var ajout = document.getElementById('reunion');
+                var ajout = document.getElementById('reunionOu');
+
+                ajout.innerHTML = "";
+
+                ajout = document.getElementById('reunionHeure');
 
                 ajout.innerHTML = "";
             }
@@ -74,7 +82,13 @@ $r = mysqli_fetch_assoc($resultat);
 <body>
 <h1>Modification d'une tâche</h1>
 <br/>
+
+<div id="messageErreur">
+
+</div>
+
 <br/>
+
 <div class="contenu_page">
     <form id="tache" method="post" onsubmit="return f();" action="updateTache.php">
         <fieldset>
